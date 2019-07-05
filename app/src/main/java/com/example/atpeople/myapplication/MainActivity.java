@@ -121,12 +121,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getString(View view) {
-        String test="发给打个{[@haha,99]}梵蒂{[#haha,99]}冈地方{[@ppp,11]}妇{[@水电费水电费放大放大佛挡杀佛,55]}";
+        String test="发给打个{[@haha,99]}梵蒂{[#haha,99]}冈地方{[@ppp,11]}妇{[@ASFFDdfdsfdsf4864864sdfsffsdfsf,55]}asdasdadadasdsda{[@萨达所大所多撒爱仕达大所多啊实打实大啊啊四大阿斯顿撒多,55]}";
         String tt="@haha 发给#tttt @美滋滋 打个@haha 梵蒂冈地方@pppp 个 ";
         //激活点击事件
         show_tv.setMovementMethod(LinkMovementMethod.getInstance());
         // {[@haha,99]}替换为@haha ,并保存id和name
-        String newString=getStr(test);
+        String newString=getStr(ToDBC(test));
         // 匹配@name 或者#name,并记录起始位置
         List<AtBean> atBeanList = AitpeopleUtil.getAtBeanList(newString,aitList);
         // 给集合对象增加点击事件
@@ -173,5 +173,23 @@ public class MainActivity extends AppCompatActivity {
             }
         }
         return text == "" ? content : text;
+    }
+    /**
+     * 半角转换为全角
+     *
+     * @param input
+     * @return
+     */
+    public static String ToDBC(String input) {
+        char[] c = input.toCharArray();
+        for (int i = 0; i < c.length; i++) {
+            if (c[i] == 12288) {
+                c[i] = (char) 32;
+                continue;
+            }
+            if (c[i] > 65280 && c[i] < 65375)
+                c[i] = (char) (c[i] - 65248);
+        }
+        return new String(c);
     }
 }

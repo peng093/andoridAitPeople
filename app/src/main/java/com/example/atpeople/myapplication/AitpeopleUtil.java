@@ -32,7 +32,7 @@ public class AitpeopleUtil {
      * @Date 2019/7/5 8:35
      * @Describe 匹配@name 或者#name 的字符,并返回一个有name,有id,有起始位置,有结束位置的集合对象
      */
-    private static String NAME_RULE = "(@|#)[a-zA-Z_\u4e00-\u9fa5]{1,30} ";
+    private static String NAME_RULE = "(@|#)[a-zA-Z_\u4e00-\u9fa5_0-9]{1,100} ";
     public static List<AtBean> getAtBeanList(String str,List<AtBean>aitList) {
         // 编译正则表达式
         Pattern pattern = Pattern.compile(NAME_RULE);
