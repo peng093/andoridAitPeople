@@ -1,14 +1,14 @@
 package com.example.atpeople.myapplication;
 
 public class AtBean {
-    //文字
+
+    private int id;
     private String name;
-    //开始的位置
     private int startPos;
-    //结束的位置
     private int endPos;
 
-    public AtBean(String name, int startPos, int endPos) {
+    public AtBean(int id, String name, int startPos, int endPos) {
+        this.id = id;
         this.name = name;
         this.startPos = startPos;
         this.endPos = endPos;
@@ -41,5 +41,13 @@ public class AtBean {
     @Override
     public String toString() {
         return "name --> " + name + "  startPos --> " + startPos + "  endPos --> " + endPos;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

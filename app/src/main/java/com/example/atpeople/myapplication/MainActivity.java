@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
     public static MainActivity instance;
 
     private final String mMentionTextFormat = "{[%s, %s]}";
-
+    static List<AtBean> aitList=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -121,16 +121,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void getString(View view) {
-        String test="发给打个{[@haha,99]}梵蒂冈地方{[@ppp,11]}个";
+        String test="发给打个{[@haha,99]}梵蒂{[#haha,99]}冈地方{[@ppp,11]}妇{[@水电费水电费放大放大佛挡杀佛,55]}";
         String tt="@haha 发给#tttt @美滋滋 打个@haha 梵蒂冈地方@pppp 个 ";
-        //pipei(mCopyWeChat.getText().toString());
-
-
-        List<AtBean> atBeanList = getAtBeanList(tt);
-        SpannableString spannableStr = getClickSpannableString(tt, atBeanList);
-        show_tv.setText(spannableStr);
         //激活点击事件
         show_tv.setMovementMethod(LinkMovementMethod.getInstance());
+        // {[@haha,99]}替换为@haha ,并保存id和name
+        String newString=getStr(test);
+        // 匹配@name 或者#name,并记录起始位置
+        List<AtBean> atBeanList = AitpeopleUtil.getAtBeanList(newString,aitList);
+        // 给集合对象增加点击事件
+        SpannableString spannableStr = AitpeopleUtil.getClickSpannableString(newString, atBeanList,this);
+        show_tv.setText(spannableStr);
+
 
     }
 
@@ -145,62 +147,31 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private List<AtBean> getAtBeanList(String str) {
-
-        List<AtBean> atBeanList = new ArrayList<>();
-
-        // 正则表达式
-        //String NAME_RULE = "\\{\\[[^\\}]*\\]\\}";
-        String NAME_RULE = "(@|#)[a-zA-Z_\u4e00-\u9fa5]{1,30} ";
-        // 编译正则表达式
-        Pattern pattern = Pattern.compile(NAME_RULE);
-
-        Matcher m = pattern.matcher(str);
-
-        while (m.find()) {
-            AtBean bean = new AtBean(m.group(), m.start(), m.end());
-            atBeanList.add(bean);
-            Log.i("Find AT String", bean.toString());
+    private static Pattern PATTERN = Pattern.compile("(?<=\\{\\[)(.+?)(?=\\]\\})");
+    /**
+     * @Author Peng
+     * @Date 2019/6/11 17:50
+     * @Describe 将符合格式{[@wawa,99]} 替换为文字@wawa ,并将名字和id存到集合对象中
+     */
+    public static String getStr(String content){
+        aitList.clear();
+        String newStr = content;
+        Matcher matcher = PATTERN.matcher(content);
+        String text = "";
+        while (matcher.find()) {
+            String NEW = "{[" + matcher.group() + "]}";
+            String[] str = matcher.group().split(",");
+            // 拼接出一个@name ,带有空格格式
+            String name =str[0]+" " ;
+            int id =Integer.valueOf(str[1]);
+            AtBean bean = new AtBean(id, name, 0, 0);
+            aitList.add(bean);
+            if (text == "") {
+                text = newStr.replace(NEW, name);
+            } else {
+                text = text.replace(NEW, name);
+            }
         }
-        return atBeanList;
+        return text == "" ? content : text;
     }
-
-    private class Clickable extends ClickableSpan implements View.OnClickListener {
-        private View.OnClickListener mListener;
-        private Context context;
-
-        private Clickable(Context context,View.OnClickListener mListener) {
-            this.context = context;
-            this.mListener = mListener;
-        }
-
-        //设置显示样式
-        @Override
-        public void updateDrawState(TextPaint ds) {
-            super.updateDrawState(ds);
-            ds.setColor(ContextCompat.getColor(context, R.color.colorPrimary));//设置颜色
-            ds.setUnderlineText(false);//设置下划线
-        }
-
-        @Override
-        public void onClick(View v) {
-            mListener.onClick(v);
-        }
-    }
-    private SpannableString getClickSpannableString(String str, List<AtBean> atBeanList) {
-        SpannableString spannableStr = new SpannableString(str);
-        for (final AtBean atBean : atBeanList) {
-            spannableStr.setSpan(new Clickable(MainActivity.this,new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    //每个 @用户名 字符串的点击事件
-                    Toast.makeText(MainActivity.this, "点击了 ————> " + atBean.getName(), Toast.LENGTH_SHORT).show();
-                }
-            }), atBean.getStartPos(), atBean.getEndPos(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            spannableStr.setSpan(new ForegroundColorSpan(atBean.getName().startsWith("@")?Color.BLUE:Color.RED), atBean.getStartPos(), atBean.getEndPos(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        }
-        return spannableStr;
-    }
-
 }
