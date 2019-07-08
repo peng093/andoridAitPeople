@@ -3,11 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <EditText
+    <com.example.atpeople.myapplication.MsgEditText
         android:id="@+id/copy_wechat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

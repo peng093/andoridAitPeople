@@ -35,7 +35,6 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import io.github.luckyandyzhang.mentionedittext.MentionEditText;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
@@ -45,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
      * 然后生成Span,并设置点击事件,返回SpannableString
     * */
 
-    EditText mCopyWeChat;
+    MsgEditText mCopyWeChat;
     Button tv_text;
     TextView show_tv;
     public static MainActivity instance;
@@ -63,17 +62,6 @@ public class MainActivity extends AppCompatActivity {
         initData();
     }
     private void initData() {
-        mCopyWeChat.setMovementMethod(LinkMovementMethod.getInstance());
-//        mCopyWeChat.setOnKeyListener(new View.OnKeyListener() {
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                if (keyCode == KeyEvent.KEYCODE_DEL && event.getAction() == KeyEvent.ACTION_DOWN) {
-//                    return CopyWeChatEditText.KeyDownHelper(mCopyWeChat.getText());
-//                }
-//                return false;
-//            }
-//        });
-
         tv_text.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -84,8 +72,12 @@ public class MainActivity extends AppCompatActivity {
     }
     private void AddText() {
         //注意添加需要自己拼接@ 符号
-        SpannableString sps=MainActivity.getSpan("{[@娃哈哈:99]}");
-        mCopyWeChat.getText().insert(mCopyWeChat.getSelectionEnd(),sps);
+        //SpannableString sps=MainActivity.getSpan("{[@娃哈哈:99]}");
+        //.getText().insert(mCopyWeChat.getSelectionEnd(),sps);
+
+        mCopyWeChat.addAtSpan("@娃哈哈"," ","99");
+        Log.e(TAG, "AddText: "+mCopyWeChat.getUserIdString());
+
     }
 
     public static SpannableString getSpan( String usrStr){
@@ -95,11 +87,12 @@ public class MainActivity extends AppCompatActivity {
         final int id= Integer.valueOf(phone.substring(0,phone.length()-2)) ;
 
         SpannableString spanText = new SpannableString(name);
-
-        TextView textView = new TextView(instance);// 把带有@的字符串,赋值到控件上
+        // 把带有@的字符串,赋值到控件上
+        TextView textView = new TextView(instance);
         textView.setText(name+" ");
         textView.setTextColor(Color.RED);
-        ViewSpan span = new ViewSpan(textView,textView.getMaxWidth());// 再把带有@内容的控件创建一个ViewSpan(就是把文字转成整体图像)
+        // 再把带有@内容的控件创建一个ViewSpan(就是把文字转成整体图像)
+        ViewSpan span = new ViewSpan(textView,textView.getMaxWidth());
         spanText.setSpan(span, 0, spanText.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
         //添加点击事件
         ClickableSpan clickableSpan = new ClickableSpan() {
