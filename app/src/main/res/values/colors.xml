@@ -3,4 +3,11 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+    <!--自定义圆形加载进度-->
+    <color name="white">#FFFFFF</color>
+    <color name="white2">#f5f3f3</color>
+    <color name="colorRed">#d50f09</color>
+    <color name="colorOrange">#FFA500</color>
+    <color name="colorBlack">#000000</color>
+    <color name="colorGrren">#00FF00</color>
 </resources>
