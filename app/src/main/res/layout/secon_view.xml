@@ -7,8 +7,8 @@
     android:orientation="vertical">
 
     <FrameLayout
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_gravity="center"
         >
         <com.example.atpeople.myapplication.customview.CompletedView
@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             tc:circleColor="@color/white"
-            tc:radius="40dip"
+            tc:radius="27dip"
             tc:ringBgColor="@color/white2"
             tc:ringColor="@color/colorGrren"
             tc:strokeWidth="8dip" />
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center"
-            android:layout_marginBottom="15dp"
+            android:layout_marginBottom="10dp"
             android:textColor="@color/colorBlack"
             android:singleLine="true"
             android:textSize="14dp"
@@ -37,7 +37,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="15dp"
+            android:layout_marginTop="10dp"
             android:gravity="center"
             android:textColor="@color/colorOrange"
             android:textSize="16dp"

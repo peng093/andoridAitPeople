@@ -1,4 +1,4 @@
-package com.example.atpeople.myapplication;
+package com.example.atpeople.myapplication.util;
 
 import android.graphics.Canvas;
 import android.graphics.Paint;

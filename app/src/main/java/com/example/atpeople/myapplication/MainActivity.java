@@ -1,36 +1,27 @@
 package com.example.atpeople.myapplication;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.renderscript.Sampler;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.TextPaint;
-import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.ImageSpan;
 import android.util.Log;
-import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.atpeople.myapplication.atpeople.model.AtBean;
+import com.example.atpeople.myapplication.util.AitpeopleUtil;
+import com.example.atpeople.myapplication.util.ViewSpan;
+
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -44,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
      * 然后生成Span,并设置点击事件,返回SpannableString
     * */
 
-    MsgEditText mCopyWeChat;
+    EditText mCopyWeChat;
     Button tv_text;
     TextView show_tv;
     public static MainActivity instance;
@@ -60,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
         tv_text = findViewById(R.id.bt_add);
         show_tv= findViewById(R.id.show_tv);
         initData();
+
     }
     private void initData() {
         tv_text.setOnClickListener(new View.OnClickListener() {
@@ -74,9 +66,6 @@ public class MainActivity extends AppCompatActivity {
         //注意添加需要自己拼接@ 符号
         //SpannableString sps=MainActivity.getSpan("{[@娃哈哈:99]}");
         //.getText().insert(mCopyWeChat.getSelectionEnd(),sps);
-
-        mCopyWeChat.addAtSpan("@娃哈哈"," ","99");
-        Log.e(TAG, "AddText: "+mCopyWeChat.getUserIdString());
 
     }
 
@@ -180,9 +169,12 @@ public class MainActivity extends AppCompatActivity {
                 c[i] = (char) 32;
                 continue;
             }
-            if (c[i] > 65280 && c[i] < 65375)
+            if (c[i] > 65280 && c[i] < 65375){
                 c[i] = (char) (c[i] - 65248);
+            }
+
         }
         return new String(c);
     }
+
 }

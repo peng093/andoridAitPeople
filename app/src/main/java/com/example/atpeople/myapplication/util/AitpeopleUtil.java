@@ -1,22 +1,18 @@
-package com.example.atpeople.myapplication;
+package com.example.atpeople.myapplication.util;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
-import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import java.util.ArrayList;
+import com.example.atpeople.myapplication.atpeople.model.AtBean;
+import com.example.atpeople.myapplication.getdata.SeconActivity;
+
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -33,7 +29,7 @@ public class AitpeopleUtil {
      * @Describe 匹配@name 或者#name 的字符,并返回一个有name,有id,有起始位置,有结束位置的集合对象
      */
     private static String NAME_RULE = "(@|#)[a-zA-Z_\u4e00-\u9fa5_0-9]{1,100} ";
-    public static List<AtBean> getAtBeanList(String str,List<AtBean>aitList) {
+    public static List<AtBean> getAtBeanList(String str, List<AtBean>aitList) {
         // 编译正则表达式
         Pattern pattern = Pattern.compile(NAME_RULE);
         Matcher m = pattern.matcher(str);

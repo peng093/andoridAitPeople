@@ -6,7 +6,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <com.example.atpeople.myapplication.MsgEditText
+    <EditText
         android:id="@+id/copy_wechat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />

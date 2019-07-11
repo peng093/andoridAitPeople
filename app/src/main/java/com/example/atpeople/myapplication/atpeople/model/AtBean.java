@@ -1,4 +1,4 @@
-package com.example.atpeople.myapplication;
+package com.example.atpeople.myapplication.atpeople.model;
 
 public class AtBean {
 
