@@ -1,5 +1,6 @@
 package com.example.atpeople.myapplication;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.support.annotation.Nullable;
@@ -17,6 +18,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.atpeople.myapplication.atpeople.model.AtBean;
+import com.example.atpeople.myapplication.getdata.SeconActivity;
+import com.example.atpeople.myapplication.slidinguppanel.SlidingUpPanel;
 import com.example.atpeople.myapplication.util.AitpeopleUtil;
 import com.example.atpeople.myapplication.util.ViewSpan;
 
@@ -38,10 +41,12 @@ public class MainActivity extends AppCompatActivity {
     EditText mCopyWeChat;
     Button tv_text;
     TextView show_tv;
+    Button bt_haha;
     public static MainActivity instance;
 
     private final String mMentionTextFormat = "{[%s, %s]}";
     static List<AtBean> aitList=new ArrayList<>();
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,8 +55,9 @@ public class MainActivity extends AppCompatActivity {
         mCopyWeChat = findViewById(R.id.copy_wechat);
         tv_text = findViewById(R.id.bt_add);
         show_tv= findViewById(R.id.show_tv);
+        bt_haha= findViewById(R.id.bt_haha);
         initData();
-
+        bt_haha.setBackgroundColor(R.color.material_red_900);
     }
     private void initData() {
         tv_text.setOnClickListener(new View.OnClickListener() {
@@ -66,7 +72,8 @@ public class MainActivity extends AppCompatActivity {
         //注意添加需要自己拼接@ 符号
         //SpannableString sps=MainActivity.getSpan("{[@娃哈哈:99]}");
         //.getText().insert(mCopyWeChat.getSelectionEnd(),sps);
-
+        Intent intent = new Intent(this, SlidingUpPanel.class);
+        startActivity(intent);
     }
 
     public static SpannableString getSpan( String usrStr){
