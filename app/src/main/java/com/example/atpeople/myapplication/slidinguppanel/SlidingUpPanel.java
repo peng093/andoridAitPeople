@@ -54,6 +54,12 @@ public class SlidingUpPanel extends AppCompatActivity {
     }
 
     private void init() {
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         bt_click_show.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
