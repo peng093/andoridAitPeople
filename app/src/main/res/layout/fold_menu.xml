@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:id="@+id/traffic_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="10dp"
+        android:orientation="vertical" >
+
+        <RelativeLayout
+            android:id="@+id/traffic_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            android:foreground="?selectableItemBackgroundBorderless"
+            android:background="@drawable/rect_white_bg" >
+
+            <ImageView
+                android:id="@+id/traffic_icon"
+                android:layout_width="26dp"
+                android:layout_height="28dp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/service_traffic_icon" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="45dp"
+                android:text="交通"
+                android:textColor="#4b4b47"
+                android:textSize="15dp" />
+
+            <ImageView
+                android:id="@+id/traffic_arrow"
+                android:layout_width="12dp"
+                android:layout_height="6dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="10dp"
+                android:background="@drawable/service_arrow_down"
+                android:tag="service_arrow"
+                />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="5dp"
+                android:layout_alignParentBottom="true"
+                android:background="@color/material_orange_900"
+                android:orientation="vertical"
+                android:tag="bottom_show"
+                >
+            </LinearLayout>
+        </RelativeLayout>
+
+        <com.example.atpeople.myapplication.foldingmenu.FoldingLayout
+            android:id="@+id/traffic_item"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:tag="service_item" >
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:background="@color/material_orange_900"
+                >
+
+            </android.support.v7.widget.RecyclerView>
+        </com.example.atpeople.myapplication.foldingmenu.FoldingLayout>
+
+    </LinearLayout>
+</LinearLayout>

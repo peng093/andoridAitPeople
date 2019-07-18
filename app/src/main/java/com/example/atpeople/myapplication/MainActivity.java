@@ -18,10 +18,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.atpeople.myapplication.atpeople.model.AtBean;
+import com.example.atpeople.myapplication.foldingmenu.FoldingMenu;
 import com.example.atpeople.myapplication.getdata.SeconActivity;
 import com.example.atpeople.myapplication.slidinguppanel.SlidingUpPanel;
 import com.example.atpeople.myapplication.util.AitpeopleUtil;
 import com.example.atpeople.myapplication.util.ViewSpan;
+
+
+import com.alibaba.fastjson.JSONObject;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
@@ -33,10 +39,10 @@ import java.util.regex.Pattern;
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "MainActivity";
     /**
-    * 原理是这样,@的时候跳转到第二个页面,然后返回的时候拼接字符串格式如: [@test2,99]
-    * 拿到字符串之后呢,先把字符串处理,取出里面的id和name,分解来,并截取name和id转整形
+     * 原理是这样,@的时候跳转到第二个页面,然后返回的时候拼接字符串格式如: [@test2,99]
+     * 拿到字符串之后呢,先把字符串处理,取出里面的id和name,分解来,并截取name和id转整形
      * 然后生成Span,并设置点击事件,返回SpannableString
-    * */
+     */
 
     EditText mCopyWeChat;
     Button tv_text;
@@ -45,7 +51,8 @@ public class MainActivity extends AppCompatActivity {
     public static MainActivity instance;
 
     private final String mMentionTextFormat = "{[%s, %s]}";
-    static List<AtBean> aitList=new ArrayList<>();
+    static List<AtBean> aitList = new ArrayList<>();
+
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,11 +61,12 @@ public class MainActivity extends AppCompatActivity {
         instance = this;
         mCopyWeChat = findViewById(R.id.copy_wechat);
         tv_text = findViewById(R.id.bt_add);
-        show_tv= findViewById(R.id.show_tv);
-        bt_haha= findViewById(R.id.bt_haha);
+        show_tv = findViewById(R.id.show_tv);
+        bt_haha = findViewById(R.id.bt_haha);
         initData();
         bt_haha.setBackgroundColor(R.color.material_red_900);
     }
+
     private void initData() {
         tv_text.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -68,81 +76,100 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
     private void AddText() {
         //注意添加需要自己拼接@ 符号
         //SpannableString sps=MainActivity.getSpan("{[@娃哈哈:99]}");
         //.getText().insert(mCopyWeChat.getSelectionEnd(),sps);
-        Intent intent = new Intent(this, SlidingUpPanel.class);
+        Intent intent = new Intent(this, FoldingMenu.class);
         startActivity(intent);
+
+        String josnArray = "[1,2,3,4,5,6,7,888,666,999]";
+        List<Integer> list = JSONObject.parseArray(josnArray, Integer.class);
+        List<Integer> list2= GsonToList(josnArray, Integer.class);
+        Log.e(TAG, "gson: " + list2.toString());
+        Log.e(TAG, "json: " + list.toString());
+
     }
 
-    public static SpannableString getSpan( String usrStr){
+    public static <T> List<T> GsonToList(String gsonStr, Class<T> cls) {
+        Gson gson=new Gson();
+        List<T> list = null;
+        if (gson != null) {
+            list = gson.fromJson(gsonStr, new TypeToken<List<T>>() {}.getType());
+        }
+        return list;
+    }
+
+    public static SpannableString getSpan(String usrStr) {
         String name = usrStr.split(":")[0];
-        name=name.substring(2,name.length());
+        name = name.substring(2, name.length());
         final String phone = usrStr.split(":")[1];
-        final int id= Integer.valueOf(phone.substring(0,phone.length()-2)) ;
+        final int id = Integer.valueOf(phone.substring(0, phone.length() - 2));
 
         SpannableString spanText = new SpannableString(name);
         // 把带有@的字符串,赋值到控件上
         TextView textView = new TextView(instance);
-        textView.setText(name+" ");
+        textView.setText(name + " ");
         textView.setTextColor(Color.RED);
         // 再把带有@内容的控件创建一个ViewSpan(就是把文字转成整体图像)
-        ViewSpan span = new ViewSpan(textView,textView.getMaxWidth());
+        ViewSpan span = new ViewSpan(textView, textView.getMaxWidth());
         spanText.setSpan(span, 0, spanText.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
         //添加点击事件
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                Toast.makeText(instance, "id:"+id, Toast.LENGTH_SHORT).show();
+                Toast.makeText(instance, "id:" + id, Toast.LENGTH_SHORT).show();
             }
         };
-        spanText.setSpan(clickableSpan,0, spanText.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        spanText.setSpan(clickableSpan, 0, spanText.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
         return spanText;
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==100){
+        if (requestCode == 100) {
             //mentionUser(99,"@QQ");
         }
     }
 
     public void getString(View view) {
-        String test="发给打个{[@haha,99]}梵蒂{[#haha,99]}冈地方{[@ppp,11]}妇{[@ASFFDdfdsfdsf4864864sdfsffsdfsf,55]}asdasdadadasdsda{[@萨达所大所多撒爱仕达大所多啊实打实大啊啊四大阿斯顿撒多,55]}";
-        String tt="@haha 发给#tttt @美滋滋 打个@haha 梵蒂冈地方@pppp 个 ";
+        String test = "发给打个{[@haha,99]}梵蒂{[#haha,99]}冈地方{[@ppp,11]}妇{[@ASFFDdfdsfdsf4864864sdfsffsdfsf,55]}asdasdadadasdsda{[@萨达所大所多撒爱仕达大所多啊实打实大啊啊四大阿斯顿撒多,55]}";
+        String tt = "@haha 发给#tttt @美滋滋 打个@haha 梵蒂冈地方@pppp 个 ";
         //激活点击事件
         show_tv.setMovementMethod(LinkMovementMethod.getInstance());
         // {[@haha,99]}替换为@haha ,并保存id和name
-        String newString=getStr(ToDBC(test));
+        String newString = getStr(ToDBC(test));
         // 匹配@name 或者#name,并记录起始位置
-        List<AtBean> atBeanList = AitpeopleUtil.getAtBeanList(newString,aitList);
+        List<AtBean> atBeanList = AitpeopleUtil.getAtBeanList(newString, aitList);
         // 给集合对象增加点击事件
-        SpannableString spannableStr = AitpeopleUtil.getClickSpannableString(newString, atBeanList,this);
+        SpannableString spannableStr = AitpeopleUtil.getClickSpannableString(newString, atBeanList, this);
         show_tv.setText(spannableStr);
 
 
     }
 
     private static final String AT = "\"@[^,，：:\\\\s@]+\"";
-    public void pipei(String str){
+
+    public void pipei(String str) {
         SpannableString spannableString = new SpannableString(str);
         Pattern pattern = Pattern.compile(AT);
         Matcher matcher = pattern.matcher(spannableString);
         while (matcher.find()) {
-            Log.e(TAG, "pipei: "+matcher.group());
+            Log.e(TAG, "pipei: " + matcher.group());
         }
     }
 
 
     private static Pattern PATTERN = Pattern.compile("(?<=\\{\\[)(.+?)(?=\\]\\})");
+
     /**
      * @Author Peng
      * @Date 2019/6/11 17:50
      * @Describe 将符合格式{[@wawa,99]} 替换为文字@wawa ,并将名字和id存到集合对象中
      */
-    public static String getStr(String content){
+    public static String getStr(String content) {
         aitList.clear();
         String newStr = content;
         Matcher matcher = PATTERN.matcher(content);
@@ -151,8 +178,8 @@ public class MainActivity extends AppCompatActivity {
             String NEW = "{[" + matcher.group() + "]}";
             String[] str = matcher.group().split(",");
             // 拼接出一个@name ,带有空格格式
-            String name =str[0]+" " ;
-            int id =Integer.valueOf(str[1]);
+            String name = str[0] + " ";
+            int id = Integer.valueOf(str[1]);
             AtBean bean = new AtBean(id, name, 0, 0);
             aitList.add(bean);
             if (text == "") {
@@ -163,6 +190,7 @@ public class MainActivity extends AppCompatActivity {
         }
         return text == "" ? content : text;
     }
+
     /**
      * 半角转换为全角
      *
@@ -176,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
                 c[i] = (char) 32;
                 continue;
             }
-            if (c[i] > 65280 && c[i] < 65375){
+            if (c[i] > 65280 && c[i] < 65375) {
                 c[i] = (char) (c[i] - 65248);
             }
 

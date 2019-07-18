@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:foreground="?selectableItemBackgroundBorderless"
+    android:clickable="true"
     >
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="35dp"
+        android:background="@drawable/service_btn_bg"
+        android:lines="2"
+        android:ellipsize="end"
         android:gravity="center"
-        android:padding="@dimen/dp_10"
-        android:text=""
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:textSize="12dp"
         />
-</android.support.constraint.ConstraintLayout>
+</LinearLayout>

@@ -20,7 +20,7 @@
         <activity android:name=".MainActivity"></activity>
         <activity android:name=".getdata.SeconActivity"></activity>
         <activity android:name=".slidinguppanel.SlidingUpPanel"></activity>
-
+        <activity android:name=".foldingmenu.FoldingMenu"></activity>
     </application>
 
 </manifest>
