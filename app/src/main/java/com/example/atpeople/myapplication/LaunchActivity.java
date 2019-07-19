@@ -1,6 +1,7 @@
 package com.example.atpeople.myapplication;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import java.util.List;
  * Create by peng on 2019/7/16
  */
 public class LaunchActivity extends AhoyOnboarderActivity {
+    private SharedPreferences mPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,8 +55,18 @@ public class LaunchActivity extends AhoyOnboarderActivity {
 
         Typeface face = Typeface.createFromAsset(getAssets(), "fonts/Roboto-Light.ttf");
         setFont(face);
-
-        setOnboardPages(pages);
+        SharedPreferences jame = getSharedPreferences("jame", 0);
+        boolean isFirst = jame.getBoolean("isFirst", true);
+        if(isFirst){
+            setOnboardPages(pages);
+            SharedPreferences.Editor edit = jame.edit();
+            edit.putBoolean("isFirst", false);
+            edit.commit();
+        }else {
+            Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
     }
 
     @Override

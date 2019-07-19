@@ -36,8 +36,6 @@ public class FoldingMenu extends AppCompatActivity {
     private RelativeLayout mTrafficBarLayout;
     private FoldingLayout mTrafficFoldingLayout;
 
-
-    View mBottomView;
     RecyclerView recycle;
     FoldAdapter foldAdapter;
 
@@ -49,12 +47,12 @@ public class FoldingMenu extends AppCompatActivity {
         mTrafficLayout = (LinearLayout) findViewById(R.id.traffic_layout);
         mTrafficBarLayout = (RelativeLayout) findViewById(R.id.traffic_bar_layout);
         mTrafficFoldingLayout = ((FoldingLayout) findViewById(R.id.traffic_item));
-        mBottomView = findViewById(R.id.bottom_view);
+
         recycle=findViewById(R.id.recycle);
         mTrafficBarLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleAnimation(v, mTrafficFoldingLayout, mTrafficLayout, mBottomView);
+                handleAnimation(v, mTrafficFoldingLayout, mTrafficLayout, null);
             }
         });
         GridLayoutManager layoutManager = new GridLayoutManager(this, 3);
@@ -98,7 +96,7 @@ public class FoldingMenu extends AppCompatActivity {
             }
         });
         // 折叠
-        animateFold(foldingLayout, 350);
+        animateFold(foldingLayout, 500);
     }
     @SuppressLint("NewApi")
     public void animateFold(FoldingLayout foldLayout, int duration) {
