@@ -23,6 +23,7 @@
         <activity android:name=".ui.foldingmenu.FoldingMenu"></activity>
         <activity android:name=".ui.carview.Carview"></activity>
         <activity android:name=".atpeople.AitPeople"></activity>
+        <activity android:name=".ui.BoWen"></activity>
     </application>
 
 </manifest>
