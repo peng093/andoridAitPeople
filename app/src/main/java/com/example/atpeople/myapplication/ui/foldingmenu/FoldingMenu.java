@@ -1,9 +1,8 @@
-package com.example.atpeople.myapplication.foldingmenu;
+package com.example.atpeople.myapplication.ui.foldingmenu;
 
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -18,7 +17,7 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.foldingmenu.adapter.FoldAdapter;
+import com.example.atpeople.myapplication.ui.foldingmenu.adapter.FoldAdapter;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.example.atpeople.myapplication.foldingmenu;
+package com.example.atpeople.myapplication.ui.foldingmenu;
 
 /**
  * This interface listens for when the folding layout begins folding (enters

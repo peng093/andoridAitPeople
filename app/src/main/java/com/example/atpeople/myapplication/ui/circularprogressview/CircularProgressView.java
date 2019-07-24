@@ -1,4 +1,4 @@
-package com.example.atpeople.myapplication.getdata;
+package com.example.atpeople.myapplication.ui.circularprogressview;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.customview.CompletedView;
 
-public class SeconActivity extends AppCompatActivity {
+public class CircularProgressView extends AppCompatActivity {
 
     int id;
 

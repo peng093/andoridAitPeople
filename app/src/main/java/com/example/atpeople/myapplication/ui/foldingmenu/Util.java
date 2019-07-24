@@ -1,4 +1,4 @@
-package com.example.atpeople.myapplication.foldingmenu;
+package com.example.atpeople.myapplication.ui.foldingmenu;
 
 import android.os.Build;
 

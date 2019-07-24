@@ -1,11 +1,11 @@
-package com.example.atpeople.myapplication;
+package com.example.atpeople.myapplication.atpeople;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
@@ -17,54 +17,55 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONObject;
+import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atpeople.model.AtBean;
-import com.example.atpeople.myapplication.foldingmenu.FoldingMenu;
-import com.example.atpeople.myapplication.getdata.SeconActivity;
-import com.example.atpeople.myapplication.slidinguppanel.SlidingUpPanel;
+import com.example.atpeople.myapplication.ui.carview.Carview;
 import com.example.atpeople.myapplication.util.AitpeopleUtil;
 import com.example.atpeople.myapplication.util.ViewSpan;
-
-
-import com.alibaba.fastjson.JSONObject;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
-public class MainActivity extends AppCompatActivity {
-    private static final String TAG = "MainActivity";
+/**
+ * Create by peng on 2019/7/24
+ */
+public class AitPeople extends AppCompatActivity {
+    private static final String TAG = "AitPeople";
     /**
      * 原理是这样,@的时候跳转到第二个页面,然后返回的时候拼接字符串格式如: [@test2,99]
      * 拿到字符串之后呢,先把字符串处理,取出里面的id和name,分解来,并截取name和id转整形
      * 然后生成Span,并设置点击事件,返回SpannableString
      */
-
+    @BindView(R.id.copy_wechat)
     EditText mCopyWeChat;
+    @BindView(R.id.bt_add)
     Button tv_text;
+    @BindView(R.id.show_tv)
     TextView show_tv;
+    @BindView(R.id.bt_haha)
     Button bt_haha;
-    public static MainActivity instance;
 
     private final String mMentionTextFormat = "{[%s, %s]}";
     static List<AtBean> aitList = new ArrayList<>();
 
+    public static AitPeople instance;
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.ait_poeple);
+        ButterKnife.bind(this);
         instance = this;
-        mCopyWeChat = findViewById(R.id.copy_wechat);
-        tv_text = findViewById(R.id.bt_add);
-        show_tv = findViewById(R.id.show_tv);
-        bt_haha = findViewById(R.id.bt_haha);
-        initData();
         bt_haha.setBackgroundColor(R.color.material_red_900);
+        initData();
     }
 
     private void initData() {
@@ -78,12 +79,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void AddText() {
-        //注意添加需要自己拼接@ 符号
-        //SpannableString sps=MainActivity.getSpan("{[@娃哈哈:99]}");
-        //.getText().insert(mCopyWeChat.getSelectionEnd(),sps);
-        Intent intent = new Intent(this, FoldingMenu.class);
-        startActivity(intent);
-
         String josnArray = "[1,2,3,4,5,6,7,888,666,999]";
         List<Integer> list = JSONObject.parseArray(josnArray, Integer.class);
         List<Integer> list2= GsonToList(josnArray, Integer.class);
@@ -100,6 +95,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return list;
     }
+
+
 
     public static SpannableString getSpan(String usrStr) {
         String name = usrStr.split(":")[0];
@@ -146,8 +143,6 @@ public class MainActivity extends AppCompatActivity {
         // 给集合对象增加点击事件
         SpannableString spannableStr = AitpeopleUtil.getClickSpannableString(newString, atBeanList, this);
         show_tv.setText(spannableStr);
-
-
     }
 
     private static final String AT = "\"@[^,，：:\\\\s@]+\"";
@@ -211,5 +206,4 @@ public class MainActivity extends AppCompatActivity {
         }
         return new String(c);
     }
-
 }

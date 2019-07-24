@@ -57,7 +57,7 @@
             </LinearLayout>
         </RelativeLayout>
 
-        <com.example.atpeople.myapplication.foldingmenu.FoldingLayout
+        <com.example.atpeople.myapplication.ui.foldingmenu.FoldingLayout
             android:id="@+id/traffic_item"
             android:layout_width="match_parent"
             android:layout_height="150dp"
@@ -72,7 +72,7 @@
                 >
 
             </android.support.v7.widget.RecyclerView>
-        </com.example.atpeople.myapplication.foldingmenu.FoldingLayout>
+        </com.example.atpeople.myapplication.ui.foldingmenu.FoldingLayout>
 
     </LinearLayout>
 </LinearLayout>

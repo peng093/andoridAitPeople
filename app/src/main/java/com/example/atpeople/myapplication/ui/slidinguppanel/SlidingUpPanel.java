@@ -1,7 +1,6 @@
-package com.example.atpeople.myapplication.slidinguppanel;
+package com.example.atpeople.myapplication.ui.slidinguppanel;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.design.widget.BottomSheetDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
@@ -19,7 +18,7 @@ import android.widget.Toast;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.slidinguppanel.adapter.DialogAdapter;
+import com.example.atpeople.myapplication.ui.slidinguppanel.adapter.DialogAdapter;
 import com.sothree.slidinguppanel.SlidingUpPanelLayout;
 
 import java.util.ArrayList;

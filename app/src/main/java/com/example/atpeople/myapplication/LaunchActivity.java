@@ -9,6 +9,7 @@ import android.support.v4.content.ContextCompat;
 
 import com.codemybrainsout.onboarder.AhoyOnboarderActivity;
 import com.codemybrainsout.onboarder.AhoyOnboarderCard;
+import com.example.atpeople.myapplication.main.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;

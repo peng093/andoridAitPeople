@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.example.atpeople.myapplication.foldingmenu;
+package com.example.atpeople.myapplication.ui.foldingmenu;
 
 import android.content.Context;
 import android.content.res.TypedArray;

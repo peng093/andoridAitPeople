@@ -17,10 +17,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MainActivity"></activity>
-        <activity android:name=".getdata.SeconActivity"></activity>
-        <activity android:name=".slidinguppanel.SlidingUpPanel"></activity>
-        <activity android:name=".foldingmenu.FoldingMenu"></activity>
+        <activity android:name=".main.MainActivity"></activity>
+        <activity android:name=".ui.circularprogressview.CircularProgressView"></activity>
+        <activity android:name=".ui.slidinguppanel.SlidingUpPanel"></activity>
+        <activity android:name=".ui.foldingmenu.FoldingMenu"></activity>
+        <activity android:name=".ui.carview.Carview"></activity>
+        <activity android:name=".atpeople.AitPeople"></activity>
     </application>
 
 </manifest>

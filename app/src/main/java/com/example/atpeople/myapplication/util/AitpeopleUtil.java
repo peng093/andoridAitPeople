@@ -11,7 +11,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.View;
 
 import com.example.atpeople.myapplication.atpeople.model.AtBean;
-import com.example.atpeople.myapplication.getdata.SeconActivity;
+import com.example.atpeople.myapplication.ui.circularprogressview.CircularProgressView;
 
 import java.util.List;
 import java.util.regex.Matcher;
@@ -57,7 +57,7 @@ public class AitpeopleUtil {
             Clickable clickableSpan=new Clickable(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(activity, SeconActivity.class);
+                    Intent intent = new Intent(activity, CircularProgressView.class);
                     intent.putExtra("id", atBean.getId());
                     activity.startActivity(intent);
                 }
