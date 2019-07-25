@@ -30,8 +30,10 @@ public class CircularProgressView extends AppCompatActivity {
 
         mTasksView =findViewById(R.id.tasks_view);
         tv_name.setText("morris");
-        double num=4/(double)30;
-        mTotalProgress=(int)(num*100);
+        // 定制总进度
+        // double num=4/(double)30;
+        // mTotalProgress=(int)(num*100);
+        mTotalProgress=100;
         tv_progress.setText("4/30");
         new Thread(new ProgressRunable()).start();
     }
@@ -44,6 +46,7 @@ public class CircularProgressView extends AppCompatActivity {
                 // 画进度条
                 mTasksView.setProgress(mCurrentProgress);
                 try {
+                    // 可以控制进度条完成速度
                     Thread.sleep(10);
                 } catch (Exception e) {
                     e.printStackTrace();

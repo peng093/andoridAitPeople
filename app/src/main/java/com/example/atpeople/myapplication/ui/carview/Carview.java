@@ -1,5 +1,6 @@
 package com.example.atpeople.myapplication.ui.carview;
 
+import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -69,19 +70,25 @@ public class Carview extends AppCompatActivity {
                     float alpha = 0.0f;
                     if (mDistance <= 0) {
                         title_top.setBackgroundColor(Color.argb((int) 0, 255, 255, 255));
+                        // 这里可以直接设置imageview的颜色,也可以直接替换图片
+                        // iv_back.setImageTintList(ColorStateList.valueOf(Color.parseColor("#FFFFFF")));
                         iv_back.setImageResource(R.mipmap.back);
                         title_content.setAlpha(0);
-                        if (Build.VERSION.SDK_INT >= 21) {// 状态栏白色字体
+                        if (Build.VERSION.SDK_INT >= 21) {
+                            // 状态栏白色字体
                             decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
                         }
                     } else if (mDistance > 0 && mDistance <= maxDistance) {
-                        alpha = mDistance * 1f / maxDistance;//百分比
+                        alpha = mDistance * 1f / maxDistance;
+                        //百分比
                         double dd = (alpha * 255);
                         title_top.setBackgroundColor(Color.argb((int) dd, 255, 255, 255));
                         iv_back.setImageResource(R.mipmap.back_black);
+                        // 这里可以直接设置imageview的颜色,也可以直接替换图片
+                        //iv_back.setImageTintList(ColorStateList.valueOf(Color.argb((int) dd, 0, 0, 0)));
                         title_content.setAlpha(alpha);
-                        //title_content.setTextColor(Color.parseColor("#666666"));
-                        if (Build.VERSION.SDK_INT >= 21) {// 状态栏字体灰色
+                        if (Build.VERSION.SDK_INT >= 21) {
+                            // 状态栏字体灰色
                             decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
                         }
                     } else {
