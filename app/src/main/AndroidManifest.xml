@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.atpeople.myapplication">
+    <!--服务线程弹窗-->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
 
     <application
         android:name=".AppStart"
@@ -23,7 +25,10 @@
         <activity android:name=".ui.foldingmenu.FoldingMenu"></activity>
         <activity android:name=".ui.carview.Carview"></activity>
         <activity android:name=".atpeople.AitPeople"></activity>
-        <activity android:name=".ui.BoWen"></activity>
+        <activity android:name=".ui.ChipView"></activity>
+        <activity
+            android:name=".ui.ActivityAlert"
+            android:theme="@style/MyToolsAddAvatar" />
     </application>
 
 </manifest>

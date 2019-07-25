@@ -12,7 +12,7 @@ import android.widget.LinearLayout;
 
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atpeople.AitPeople;
-import com.example.atpeople.myapplication.ui.BoWen;
+import com.example.atpeople.myapplication.ui.ChipView;
 import com.example.atpeople.myapplication.ui.carview.Carview;
 import com.example.atpeople.myapplication.ui.circularprogressview.CircularProgressView;
 import com.example.atpeople.myapplication.ui.foldingmenu.FoldingMenu;
@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addDemo("CircularProgressView", CircularProgressView.class);
         addDemo("FoldingMenu", FoldingMenu.class);
         addDemo("SlidingUpPanel", SlidingUpPanel.class);
-        addDemo("BoWen", BoWen.class);
+        addDemo("ChipView", ChipView.class);
 
     }
 

@@ -10,4 +10,8 @@
     <color name="colorOrange">#FFA500</color>
     <color name="colorBlack">#000000</color>
     <color name="colorGrren">#00FF00</color>
+    <color name="transparent">#00000000</color>
+    <!--半透明-->
+    <color name="semitransparent">#33000000</color>
+
 </resources>

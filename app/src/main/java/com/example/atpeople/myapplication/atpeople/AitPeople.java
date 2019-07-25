@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONObject;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atpeople.model.AtBean;
-import com.example.atpeople.myapplication.ui.carview.Carview;
+import com.example.atpeople.myapplication.ui.ActivityAlert;
 import com.example.atpeople.myapplication.util.AitpeopleUtil;
 import com.example.atpeople.myapplication.util.ViewSpan;
 import com.google.gson.Gson;
@@ -84,7 +84,7 @@ public class AitPeople extends AppCompatActivity {
         List<Integer> list2= GsonToList(josnArray, Integer.class);
         Log.e(TAG, "gson: " + list2.toString());
         Log.e(TAG, "json: " + list.toString());
-
+        startActivity(new Intent(this, ActivityAlert.class));
     }
 
     public static <T> List<T> GsonToList(String gsonStr, Class<T> cls) {
