@@ -21,12 +21,14 @@ import com.alibaba.fastjson.JSONObject;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atpeople.model.AtBean;
 import com.example.atpeople.myapplication.ui.ActivityAlert;
+import com.example.atpeople.myapplication.ui.activityalert.MainViewModel;
 import com.example.atpeople.myapplication.util.AitpeopleUtil;
 import com.example.atpeople.myapplication.util.ViewSpan;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -84,7 +86,21 @@ public class AitPeople extends AppCompatActivity {
         List<Integer> list2= GsonToList(josnArray, Integer.class);
         Log.e(TAG, "gson: " + list2.toString());
         Log.e(TAG, "json: " + list.toString());
-        startActivity(new Intent(this, ActivityAlert.class));
+
+        // 从资源文件取数组
+        String[] testNum = getResources().getStringArray(R.array.testNum);
+        List<String> str=Arrays.asList(getResources().getStringArray(R.array.testString));
+        List<String> testList=Arrays.asList(testNum);
+        String test="";
+        for (String s : str) {
+            test+=s;
+        }
+
+
+        MainViewModel viewModel = new MainViewModel("mvvm测试标题",test,"取消","确定",this);
+        Intent intent=new Intent(this,ActivityAlert.class);
+        intent.putExtra("data",viewModel);
+        startActivity(intent);
     }
 
     public static <T> List<T> GsonToList(String gsonStr, Class<T> cls) {

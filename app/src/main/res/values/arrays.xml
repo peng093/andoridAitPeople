@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="testNum">
+        <item name="one">1</item>
+        <item name="two">2</item>
+        <item name="three">3</item>
+        <item name="four">4</item>
+        <item name="five">5</item>
+        <item name="six">6</item>
+        <item name="seven">7</item>
+    </string-array>
+
+    <string-array name="testString">
+        <item name="one">姓名</item>
+        <item name="two">年龄</item>
+        <item name="three">户籍</item>
+        <item name="four">工作经历</item>
+        <item name="five">教育经历</item>
+        <item name="six">特长</item>
+        <item name="seven">爱好</item>
+    </string-array>
+</resources>
