@@ -3,6 +3,9 @@
     package="com.example.atpeople.myapplication">
     <!--服务线程弹窗-->
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.CAMERA"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".AppStart"
@@ -25,10 +28,12 @@
         <activity android:name=".ui.foldingmenu.FoldingMenu"></activity>
         <activity android:name=".ui.carview.Carview"></activity>
         <activity android:name=".atpeople.AitPeople"></activity>
-        <activity android:name=".ui.ChipView"></activity>
+        <activity android:name=".ui.chip.ChipView"></activity>
         <activity
             android:name=".ui.ActivityAlert"
             android:theme="@style/MyToolsAddAvatar" />
+        <activity android:name=".ui.canvas.CanvasView"></activity>
+        <activity android:name=".ui.camera.SmartsCamera"></activity>
     </application>
 
 </manifest>

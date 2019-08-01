@@ -9,7 +9,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        ndk {
+            abiFilters 'armeabi-v7a','arm64-v8a','x86','x86_64'
+        }
     }
     buildTypes {
         release {
@@ -20,6 +22,7 @@ android {
     dataBinding{
         enabled = true
     }
+
 }
 
 dependencies {
@@ -47,4 +50,8 @@ dependencies {
     // butterknife注入
     implementation 'com.jakewharton:butterknife:8.5.1'
     annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+    // 权限申请
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+    // 相机识别
+    implementation 'com.github.pqpo:SmartCamera:v2.0.0'
 }

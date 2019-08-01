@@ -1,4 +1,4 @@
-package com.example.atpeople.myapplication.ui;
+package com.example.atpeople.myapplication.ui.chip;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;

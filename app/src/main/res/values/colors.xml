@@ -13,5 +13,6 @@
     <color name="transparent">#00000000</color>
     <!--半透明-->
     <color name="semitransparent">#33000000</color>
-
+    <!--smartcamere-->
+    <color name="colorTrans">#000</color>
 </resources>

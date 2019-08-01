@@ -1,18 +1,24 @@
 package com.example.atpeople.myapplication;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.widget.Toast;
 
 import com.codemybrainsout.onboarder.AhoyOnboarderActivity;
 import com.codemybrainsout.onboarder.AhoyOnboarderCard;
 import com.example.atpeople.myapplication.main.MainActivity;
+import com.tbruyelle.rxpermissions2.RxPermissions;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.reactivex.Observer;
+import io.reactivex.disposables.Disposable;
 
 /**
  * Create by peng on 2019/7/16
@@ -22,7 +28,7 @@ public class LaunchActivity extends AhoyOnboarderActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        requestReadAndWritePermission();
         AhoyOnboarderCard ahoyOnboarderCard1 = new AhoyOnboarderCard("Work Assistant", "Helps you find task targets quickly.", R.drawable.backpack);
         AhoyOnboarderCard ahoyOnboarderCard2 = new AhoyOnboarderCard("Work Report", "Dynamic information editing, and complete information reporting.", R.drawable.chalk);
         AhoyOnboarderCard ahoyOnboarderCard3 = new AhoyOnboarderCard("Share", "Share your work with the team.", R.drawable.chat);
@@ -69,7 +75,36 @@ public class LaunchActivity extends AhoyOnboarderActivity {
             finish();
         }
     }
+    private void requestReadAndWritePermission() {
+        RxPermissions rxPermissions = new RxPermissions(this);
+        rxPermissions.request(
+                Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                .subscribe(new Observer<Boolean>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
 
+                    }
+
+                    @Override
+                    public void onNext(Boolean aBoolean) {
+                        if(!aBoolean){
+                            Toast.makeText(LaunchActivity.this, "请开启权限！", Toast.LENGTH_LONG).show();
+                            finish();
+                        }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
     @Override
     public void onFinishButtonPressed() {
         Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
