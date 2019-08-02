@@ -22,6 +22,7 @@ import com.example.atpeople.myapplication.ui.circularprogressview.CircularProgre
 import com.example.atpeople.myapplication.ui.foldingmenu.FoldingMenu;
 import com.example.atpeople.myapplication.ui.notify.Notify;
 import com.example.atpeople.myapplication.ui.slidinguppanel.SlidingUpPanel;
+import com.example.atpeople.myapplication.ui.webview.WebView;
 import com.example.atpeople.myapplication.util.BackgroundColorUtil;
 
 
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addDemo("CardRecognition", CardRecognition.class);
         addDemo("MPAndroidChart", MPAndroidChart.class);
         addDemo("Notify", Notify.class);
-
+        addDemo("WebView", WebView.class);
     }
 
     private void addDemo(String demoName, Class<? extends Activity> activityClass) {
