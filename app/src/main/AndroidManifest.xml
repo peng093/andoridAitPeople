@@ -40,6 +40,8 @@
         <activity android:name=".ui.camera.SmartsCamera"></activity>
         <activity android:name=".ui.cardrecognition.CardRecognition"></activity>
         <activity android:name=".ui.chart.MPAndroidChart"></activity>
+        <activity android:name=".ui.notify.Notify"></activity>
+        <activity android:name=".ui.notify.OtherActivity"></activity>
     </application>
 
 </manifest>

@@ -20,6 +20,7 @@ import com.example.atpeople.myapplication.ui.chip.ChipView;
 import com.example.atpeople.myapplication.ui.carview.Carview;
 import com.example.atpeople.myapplication.ui.circularprogressview.CircularProgressView;
 import com.example.atpeople.myapplication.ui.foldingmenu.FoldingMenu;
+import com.example.atpeople.myapplication.ui.notify.Notify;
 import com.example.atpeople.myapplication.ui.slidinguppanel.SlidingUpPanel;
 import com.example.atpeople.myapplication.util.BackgroundColorUtil;
 
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addDemo("CanvasView", CanvasView.class);
         addDemo("CardRecognition", CardRecognition.class);
         addDemo("MPAndroidChart", MPAndroidChart.class);
+        addDemo("Notify", Notify.class);
+
     }
 
     private void addDemo(String demoName, Class<? extends Activity> activityClass) {
