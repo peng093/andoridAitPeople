@@ -3,6 +3,7 @@ package com.example.atpeople.myapplication.ui.camera;
 import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Build;
@@ -226,6 +227,7 @@ public class SmartsCamera extends AppCompatActivity {
                     String path= FileUtil.saveBitmap(getBaseContext(),bitmap);
                     Log.e(TAG, "onCropped:保存路径=== "+path );
                     // 把图片路径传回
+                    returnBackResult(path);
                     alertDialog.dismiss();
                     finish();
                 }
@@ -244,6 +246,14 @@ public class SmartsCamera extends AppCompatActivity {
                 window.setBackgroundDrawableResource(R.color.colorTrans);
             }
         alertDialog.show();
+    }
+
+
+    private void returnBackResult(String path) {
+        Intent resultIntent = new Intent();
+        resultIntent.putExtra("path", path);
+        setResult(10, resultIntent);
+        finish();
     }
 
     @Override

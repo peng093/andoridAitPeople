@@ -14,6 +14,7 @@ import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atpeople.AitPeople;
 import com.example.atpeople.myapplication.ui.camera.SmartsCamera;
 import com.example.atpeople.myapplication.ui.canvas.CanvasView;
+import com.example.atpeople.myapplication.ui.cardrecognition.CardRecognition;
 import com.example.atpeople.myapplication.ui.chip.ChipView;
 import com.example.atpeople.myapplication.ui.carview.Carview;
 import com.example.atpeople.myapplication.ui.circularprogressview.CircularProgressView;
@@ -37,7 +38,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addDemo("SlidingUpPanel", SlidingUpPanel.class);
         addDemo("ChipView", ChipView.class);
         addDemo("CanvasView", CanvasView.class);
-        addDemo("SmartsCamera", SmartsCamera.class);
+        addDemo("CardRecognition", CardRecognition.class);
 
     }
 
