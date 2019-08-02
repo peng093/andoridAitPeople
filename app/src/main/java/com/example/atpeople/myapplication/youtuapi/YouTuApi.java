@@ -28,7 +28,7 @@ public class YouTuApi {
     private static final String TAG = "YouTuApi";
 
     public final static String API_URL = "https://api.youtu.qq.com/youtu/ocrapi/";
-
+    private static int EXPIRED_SECONDS = 2592000;
     private String m_appid;
     private String m_secret_id;
     private String m_secret_key;
@@ -84,9 +84,9 @@ public class YouTuApi {
                     new java.security.SecureRandom());
 
             StringBuffer mySign = new StringBuffer("");
-//            YoutuSign.appSign(m_appid, m_secret_id, m_secret_key,
-//                    System.currentTimeMillis() / 1000 + EXPIRED_SECONDS,
-//                    m_user_id, mySign);
+            YoutuSign.appSign(m_appid, m_secret_id, m_secret_key,
+                    System.currentTimeMillis() / 1000 + EXPIRED_SECONDS,
+                    "2394668226", mySign);
 
             System.setProperty("sun.net.client.defaultConnectTimeout", "30000");
             System.setProperty("sun.net.client.defaultReadTimeout", "30000");

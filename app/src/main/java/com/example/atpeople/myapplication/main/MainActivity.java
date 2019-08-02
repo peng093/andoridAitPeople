@@ -55,6 +55,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b.setText(demoName);
         b.setTag(activityClass);
         b.setTextColor(Color.WHITE);
+        b.setAllCaps(false);
         int radus=BackgroundColorUtil.dip2px(this,10);
         b.setBackground(BackgroundColorUtil.getRandomColorDrawable(radus,true,1));
         b.setOnClickListener(this);
