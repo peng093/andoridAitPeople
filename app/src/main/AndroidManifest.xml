@@ -39,6 +39,7 @@
         <activity android:name=".ui.canvas.CanvasView"></activity>
         <activity android:name=".ui.camera.SmartsCamera"></activity>
         <activity android:name=".ui.cardrecognition.CardRecognition"></activity>
+        <activity android:name=".ui.chart.MPAndroidChart"></activity>
     </application>
 
 </manifest>

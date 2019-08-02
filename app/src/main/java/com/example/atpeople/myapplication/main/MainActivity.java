@@ -15,6 +15,7 @@ import com.example.atpeople.myapplication.atpeople.AitPeople;
 import com.example.atpeople.myapplication.ui.camera.SmartsCamera;
 import com.example.atpeople.myapplication.ui.canvas.CanvasView;
 import com.example.atpeople.myapplication.ui.cardrecognition.CardRecognition;
+import com.example.atpeople.myapplication.ui.chart.MPAndroidChart;
 import com.example.atpeople.myapplication.ui.chip.ChipView;
 import com.example.atpeople.myapplication.ui.carview.Carview;
 import com.example.atpeople.myapplication.ui.circularprogressview.CircularProgressView;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addDemo("ChipView", ChipView.class);
         addDemo("CanvasView", CanvasView.class);
         addDemo("CardRecognition", CardRecognition.class);
-
+        addDemo("MPAndroidChart", MPAndroidChart.class);
     }
 
     private void addDemo(String demoName, Class<? extends Activity> activityClass) {

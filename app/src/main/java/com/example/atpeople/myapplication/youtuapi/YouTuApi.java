@@ -22,9 +22,11 @@ import javax.net.ssl.X509TrustManager;
 
 /**
  * Create by peng on 2019/8/1
+ * 从2019年8月1日起，此体验接口增加调用限制，每日调用次数限制：500 次/天，并发数限制：1个/秒
  */
 public class YouTuApi {
     private static final String TAG = "YouTuApi";
+
     public final static String API_URL = "https://api.youtu.qq.com/youtu/ocrapi/";
 
     private String m_appid;

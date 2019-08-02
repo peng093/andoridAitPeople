@@ -59,4 +59,6 @@ dependencies {
     implementation 'com.github.pqpo:SmartCamera:v2.0.0'
     // 汉王
     implementation files('libs/Hanvon_SDK_Android_1.0.jar')
+    // mpachart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
 }
