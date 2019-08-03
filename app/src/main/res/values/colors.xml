@@ -15,4 +15,6 @@
     <color name="semitransparent">#33000000</color>
     <!--smartcamere-->
     <color name="colorTrans">#000</color>
+    <!--loading-->
+    <color name="loading_dialog_bg">#4F000000</color>
 </resources>

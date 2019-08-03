@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
@@ -13,9 +14,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 import com.example.atpeople.myapplication.R;
+import com.example.atpeople.myapplication.customview.LoadingDialog;
 import com.example.atpeople.myapplication.ui.camera.SmartsCamera;
 import com.example.atpeople.myapplication.util.Base64Convert;
 import com.example.atpeople.myapplication.youtuapi.YouTuApi;
@@ -25,6 +28,8 @@ import com.example.atpeople.myapplication.youtuapi.model.BusinessCardInfo;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.util.List;
+
+import javax.net.ssl.HttpsURLConnection;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,6 +50,8 @@ public class CardRecognition extends AppCompatActivity {
     TextView tv_content;
 
     private YouTuApi youTuApi;
+    private LoadingDialog mLoadingDialog;
+    private Handler mHandler;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,21 +62,30 @@ public class CardRecognition extends AppCompatActivity {
         youTuApi.setRequestListener(new YouTuApi.OnRequestListener() {
             @Override
             public void onSuccess(int statusCode, final String responseBody) {
-                // 切换回主线程
+                mHandler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            mLoadingDialog.dismiss();
+                            tv_content.setText(responseBody);
+                            Log.e("wei", "识别返回: "+ responseBody);
+                            BusinessCardInfo businessCardInfo=getDataInfo(responseBody);
+                        } catch (Exception e) {
+
+                        }
+
+                    }
+                });
+            }
+            @Override
+            public void onFailure(final int statusCode) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        tv_content.setText(responseBody);
-                        Log.e("wei", "识别返回: "+ responseBody);
-                        BusinessCardInfo businessCardInfo=getDataInfo(responseBody);
+                        mLoadingDialog.dismiss();
+                        Log.e("wei", "错误码: "+ statusCode);
                     }
                 });
-
-            }
-
-            @Override
-            public void onFailure(int statusCode) {
-                Log.e("wei", "错误码: "+ statusCode);
             }
         });
     }
@@ -114,6 +130,8 @@ public class CardRecognition extends AppCompatActivity {
         return info;
     }
     private void init() {
+        mHandler = new Handler();
+        mLoadingDialog = new LoadingDialog(this);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,19 +154,21 @@ public class CardRecognition extends AppCompatActivity {
             final String path = data.getStringExtra("path");
             Bitmap bitmap=getLoacalBitmap(path);
             iv_img.setImageBitmap(bitmap);
+            mLoadingDialog.setText("识别中...");
+            mLoadingDialog.show();
             // tx优图识别
-//            new Thread(new Runnable() {
-//                @Override
-//                public void run() {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
                     try {
                         String base64=Base64Convert.StringToBase64(path,2);
                         youTuApi.nameCardOcr(base64);
                     } catch (Exception e) {
-
+                        e.printStackTrace();
                     }
 
-//                }
-//            }).start();
+                }
+            }).start();
         }
     }
 

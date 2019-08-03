@@ -86,7 +86,7 @@ public class YouTuApi {
             StringBuffer mySign = new StringBuffer("");
             YoutuSign.appSign(m_appid, m_secret_id, m_secret_key,
                     System.currentTimeMillis() / 1000 + EXPIRED_SECONDS,
-                    "2394668226", mySign);
+                    "", mySign);
 
             System.setProperty("sun.net.client.defaultConnectTimeout", "30000");
             System.setProperty("sun.net.client.defaultReadTimeout", "30000");
@@ -140,8 +140,8 @@ public class YouTuApi {
                     mListener.onFailure(responseCode);
                 }
             }
-            JSONObject respose = new JSONObject(resposeBuffer.toString());
-            return respose;
+            //JSONObject respose = new JSONObject(resposeBuffer.toString());
+            //return respose;
         } catch (FileNotFoundException e) {
             if (mListener != null) {
                 // 没配置app_key
