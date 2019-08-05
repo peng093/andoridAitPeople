@@ -59,5 +59,6 @@ dependencies {
     implementation 'com.github.pqpo:SmartCamera:v2.0.0'
     // mpachart
     implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
-
+    // 应用内悬浮窗
+    implementation 'com.yw.game.floatmenu:FloatMenu:2.0.1'
 }
