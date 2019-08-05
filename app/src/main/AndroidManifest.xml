@@ -43,6 +43,7 @@
         <activity android:name=".ui.notify.Notify"></activity>
         <activity android:name=".ui.notify.OtherActivity"></activity>
         <activity android:name=".ui.webview.WebView"></activity>
+        <activity android:name=".ui.betterspinner.Spinner"></activity>
     </application>
 
 </manifest>

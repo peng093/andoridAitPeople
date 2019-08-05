@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
@@ -17,7 +18,7 @@ import android.widget.Toast;
 
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atpeople.AitPeople;
-import com.example.atpeople.myapplication.ui.camera.SmartsCamera;
+import com.example.atpeople.myapplication.ui.betterspinner.Spinner;
 import com.example.atpeople.myapplication.ui.canvas.CanvasView;
 import com.example.atpeople.myapplication.ui.cardrecognition.CardRecognition;
 import com.example.atpeople.myapplication.ui.chart.MPAndroidChart;
@@ -41,24 +42,22 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ViewGroup mListView;
     /**悬浮窗*/
     FloatLogoMenu mFloatMenu;
-    FloatLogoMenu mFloatMenu1;
     ArrayList<FloatItem> itemList = new ArrayList<>();
     private Activity mActivity;
-
     String HOME = "首页";
     String FEEDBACK = "客服";
     String MESSAGE = "消息";
-
     String[] MENU_ITEMS = {HOME, FEEDBACK, MESSAGE};
-
     private int[] menuIcons = new int[]{R.drawable.yw_menu_account, R.drawable.yw_menu_fb, R.drawable.yw_menu_msg};
-
+    Drawable bg_color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mListView =findViewById(R.id.list);
+        int radus=BackgroundColorUtil.dip2px(this,10);
+        bg_color= BackgroundColorUtil.getRandomColorDrawable(radus,true,1);
         addDemo("AitPeople", AitPeople.class);
         addDemo("Carview", Carview.class);
         addDemo("CircularProgressView", CircularProgressView.class);
@@ -70,6 +69,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addDemo("MPAndroidChart", MPAndroidChart.class);
         addDemo("Notify", Notify.class);
         addDemo("WebView", WebView.class);
+        addDemo("Spinner", Spinner.class);
         initFloatMenu();
     }
 
@@ -82,8 +82,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b.setTag(activityClass);
         b.setTextColor(Color.WHITE);
         b.setAllCaps(false);
-        int radus=BackgroundColorUtil.dip2px(this,10);
-        b.setBackground(BackgroundColorUtil.getRandomColorDrawable(radus,true,1));
+        b.setBackground(bg_color);
         b.setOnClickListener(this);
         mListView.addView(b);
     }
@@ -102,7 +101,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         mFloatMenu = new FloatLogoMenu.Builder()
                 .withActivity(mActivity)
-                //.withContext(mActivity.getApplication())//这个在7.0（包括7.0）以上以及大部分7.0以下的国产手机上需要用户授权，需要搭配<uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+                // 如果是要系统级的悬浮窗，需要动态申请悬浮于其他app上层的权限，否则无效果
+                //.withContext(mActivity.getApplication())
                 .logo(BitmapFactory.decodeResource(getResources(), R.drawable.yw_game_logo))
                 .drawCicleMenuBg(true)
                 .backMenuColor(0xffe4e3e1)

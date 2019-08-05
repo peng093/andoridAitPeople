@@ -1,17 +1,13 @@
 package com.example.atpeople.myapplication.util;
 
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
-
-import com.example.atpeople.myapplication.AppStart;
 
 
 /**
