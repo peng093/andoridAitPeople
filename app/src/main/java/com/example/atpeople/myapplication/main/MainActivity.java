@@ -28,6 +28,7 @@ import com.example.atpeople.myapplication.ui.circularprogressview.CircularProgre
 import com.example.atpeople.myapplication.ui.foldingmenu.FoldingMenu;
 import com.example.atpeople.myapplication.ui.notify.Notify;
 import com.example.atpeople.myapplication.ui.slidinguppanel.SlidingUpPanel;
+import com.example.atpeople.myapplication.ui.userinfo.UserInfo;
 import com.example.atpeople.myapplication.ui.webview.WebView;
 import com.example.atpeople.myapplication.util.BackgroundColorUtil;
 import com.yw.game.floatmenu.FloatItem;
@@ -58,6 +59,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mListView =findViewById(R.id.list);
         int radus=BackgroundColorUtil.dip2px(this,10);
         bg_color= BackgroundColorUtil.getRandomColorDrawable(radus,true,1);
+
+        addDemo("UserInfo", UserInfo.class);
         addDemo("AitPeople", AitPeople.class);
         addDemo("Carview", Carview.class);
         addDemo("CircularProgressView", CircularProgressView.class);
