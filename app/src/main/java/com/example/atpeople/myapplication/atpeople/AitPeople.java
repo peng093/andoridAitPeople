@@ -80,6 +80,7 @@ public class AitPeople extends AppCompatActivity {
         instance = this;
         bt_haha.setBackgroundColor(R.color.material_red_900);
         initData();
+
     }
 
     private void initData() {
@@ -90,9 +91,6 @@ public class AitPeople extends AppCompatActivity {
             }
         });
         new UtilMoreText(tv_folding,msg,"...More","Pick up",5,Color.BLUE);
-//        Drawable down = getResources().getDrawable(R.drawable.ic_keyboard_arrow_down_black_18dp);
-//        Drawable up = getResources().getDrawable(R.drawable.ic_keyboard_arrow_up_black_18dp);
-//        new UtilMoreText(tv_folding,msg,down,up,5);
     }
 
     private void AddText() {
