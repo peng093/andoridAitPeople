@@ -45,6 +45,7 @@
         <activity android:name=".ui.webview.WebView"></activity>
         <activity android:name=".ui.betterspinner.Spinner"></activity>
         <activity android:name=".ui.userinfo.UserInfo"></activity>
+        <activity android:name=".ui.textanimation.TextAnimation"></activity>
     </application>
 
 </manifest>

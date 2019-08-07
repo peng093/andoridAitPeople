@@ -28,6 +28,7 @@ import com.example.atpeople.myapplication.ui.circularprogressview.CircularProgre
 import com.example.atpeople.myapplication.ui.foldingmenu.FoldingMenu;
 import com.example.atpeople.myapplication.ui.notify.Notify;
 import com.example.atpeople.myapplication.ui.slidinguppanel.SlidingUpPanel;
+import com.example.atpeople.myapplication.ui.textanimation.TextAnimation;
 import com.example.atpeople.myapplication.ui.userinfo.UserInfo;
 import com.example.atpeople.myapplication.ui.webview.WebView;
 import com.example.atpeople.myapplication.util.BackgroundColorUtil;
@@ -73,6 +74,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addDemo("Notify", Notify.class);
         addDemo("WebView", WebView.class);
         addDemo("Spinner", Spinner.class);
+        addDemo("TextAnimation", TextAnimation.class);
         initFloatMenu();
     }
 
