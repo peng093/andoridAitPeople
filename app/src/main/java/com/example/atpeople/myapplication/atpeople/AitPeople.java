@@ -26,6 +26,7 @@ import com.example.atpeople.myapplication.ui.activityalert.MainViewModel;
 import com.example.atpeople.myapplication.util.AitpeopleUtil;
 import com.example.atpeople.myapplication.util.UtilMoreText;
 import com.example.atpeople.myapplication.util.ViewSpan;
+import com.example.atpeople.myapplication.util.particleview.ParticleView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -58,7 +59,8 @@ public class AitPeople extends AppCompatActivity {
     Button bt_haha;
     @BindView(R.id.tv_folding)
     TextView tv_folding;
-
+    @BindView(R.id.pv_2)
+    ParticleView pv_2;
 
     private final String mMentionTextFormat = "{[%s, %s]}";
     static List<AtBean> aitList = new ArrayList<>();
@@ -80,7 +82,9 @@ public class AitPeople extends AppCompatActivity {
         instance = this;
         bt_haha.setBackgroundColor(R.color.material_red_900);
         initData();
-
+        pv_2.mParticleText="V3.5.5";
+        pv_2.mHostText="FMS";
+        pv_2.startAnim();
     }
 
     private void initData() {
