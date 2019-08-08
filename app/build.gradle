@@ -43,8 +43,7 @@ dependencies {
     implementation 'com.sothree.slidinguppanel:library:3.4.0'
     // 万能适配器
     implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.31'
-    // 引导页
-    implementation 'com.codemybrainsout.onboarding:onboarder:1.0.4'
+
     // josn转化list或者对象
     implementation 'com.alibaba:fastjson:1.1.63.android'
     implementation 'com.google.code.gson:gson:2.8.5'
