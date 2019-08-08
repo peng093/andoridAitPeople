@@ -30,8 +30,8 @@ public class LaunchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_launch);
         mPv1 = (ParticleView) findViewById(R.id.pv_1);
         // 前部分主文字
-        mPv1.mHostText="有朋自";
-        mPv1.mParticleText="远方来";
+        mPv1.mHostText="心有所想";
+        mPv1.mParticleText="目有所见";
         mPv1.setOnParticleAnimListener(new ParticleView.ParticleAnimListener() {
             @Override
             public void onAnimationEnd() {

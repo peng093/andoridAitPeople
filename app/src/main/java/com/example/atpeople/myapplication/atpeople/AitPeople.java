@@ -59,8 +59,6 @@ public class AitPeople extends AppCompatActivity {
     Button bt_haha;
     @BindView(R.id.tv_folding)
     TextView tv_folding;
-    @BindView(R.id.pv_2)
-    ParticleView pv_2;
 
     private final String mMentionTextFormat = "{[%s, %s]}";
     static List<AtBean> aitList = new ArrayList<>();
@@ -82,9 +80,6 @@ public class AitPeople extends AppCompatActivity {
         instance = this;
         bt_haha.setBackgroundColor(R.color.material_red_900);
         initData();
-        pv_2.mParticleText="V3.5.5";
-        pv_2.mHostText="FMS";
-        pv_2.startAnim();
     }
 
     private void initData() {
@@ -177,18 +172,6 @@ public class AitPeople extends AppCompatActivity {
         SpannableString spannableStr = AitpeopleUtil.getClickSpannableString(newString, atBeanList, this);
         show_tv.setText(spannableStr);
     }
-
-    private static final String AT = "\"@[^,，：:\\\\s@]+\"";
-
-    public void pipei(String str) {
-        SpannableString spannableString = new SpannableString(str);
-        Pattern pattern = Pattern.compile(AT);
-        Matcher matcher = pattern.matcher(spannableString);
-        while (matcher.find()) {
-            Log.e(TAG, "pipei: " + matcher.group());
-        }
-    }
-
 
     private static Pattern PATTERN = Pattern.compile("(?<=\\{\\[)(.+?)(?=\\]\\})");
 
