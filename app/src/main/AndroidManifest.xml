@@ -46,6 +46,7 @@
         <activity android:name=".ui.betterspinner.Spinner"></activity>
         <activity android:name=".ui.userinfo.UserInfo"></activity>
         <activity android:name=".ui.textanimation.TextAnimation"></activity>
+        <activity android:name=".ui.launchwithvideo.LaunchWithVideo"></activity>
     </application>
 
 </manifest>

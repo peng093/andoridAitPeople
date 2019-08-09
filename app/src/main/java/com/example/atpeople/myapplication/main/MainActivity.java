@@ -26,6 +26,7 @@ import com.example.atpeople.myapplication.ui.chip.ChipView;
 import com.example.atpeople.myapplication.ui.carview.Carview;
 import com.example.atpeople.myapplication.ui.circularprogressview.CircularProgressView;
 import com.example.atpeople.myapplication.ui.foldingmenu.FoldingMenu;
+import com.example.atpeople.myapplication.ui.launchwithvideo.LaunchWithVideo;
 import com.example.atpeople.myapplication.ui.notify.Notify;
 import com.example.atpeople.myapplication.ui.slidinguppanel.SlidingUpPanel;
 import com.example.atpeople.myapplication.ui.textanimation.TextAnimation;
@@ -75,6 +76,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addDemo("WebView", WebView.class);
         addDemo("Spinner", Spinner.class);
         addDemo("TextAnimation", TextAnimation.class);
+        addDemo("LaunchWithVideo", LaunchWithVideo.class);
+
         initFloatMenu();
     }
 

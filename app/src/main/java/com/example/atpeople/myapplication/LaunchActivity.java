@@ -38,21 +38,21 @@ public class LaunchActivity extends AppCompatActivity {
                 goToIndex();
             }
         });
-
-        mPv1.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                mPv1.startAnim();
-            }
-        }, 200);
+        mPv1.startAnim();
         requestReadAndWritePermission();
     }
 
 
     private void goToIndex(){
-        Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
-        startActivity(intent);
-        finish();
+        mPv1.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        }, 800);
+
     }
     private void  isFirst(){
         SharedPreferences jame = getSharedPreferences("jame", 0);
