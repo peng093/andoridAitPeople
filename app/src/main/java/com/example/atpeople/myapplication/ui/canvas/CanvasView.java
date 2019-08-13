@@ -11,11 +11,12 @@ import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.atpeople.myapplication.R;
+import com.example.atpeople.myapplication.util.TextBitmap;
 
 import java.util.Arrays;
 import java.util.List;
@@ -29,7 +30,10 @@ import butterknife.ButterKnife;
 public class CanvasView extends AppCompatActivity {
     @BindView(R.id.lly_lly)
     LinearLayout lly_lly;
-
+    @BindView(R.id.iv_text)
+    ImageView iv_text;
+    @BindView(R.id.iv_text2)
+    ImageView iv_text2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +42,15 @@ public class CanvasView extends AppCompatActivity {
         Integer[] colors = {Color.BLUE, Color.RED, Color.GRAY};
         Drawable drawable =new BitmapDrawable(getBitmap(Arrays.asList(colors)));
         lly_lly.setBackground(drawable);
+        int width=dip2px(50);
+        int bgColor=Color.parseColor("#019FE8");
+        iv_text.setImageBitmap(TextBitmap.getCircleTextBitmap("A",bgColor,width,width,Color.WHITE));
+        iv_text2.setImageBitmap(TextBitmap.getRectTextBitmap("B",bgColor,width,width,Color.WHITE));
     }
-
+    public  int dip2px(float dipValue) {
+        final float scale = getResources().getDisplayMetrics().density;
+        return (int) (dipValue * scale + 0.5f);
+    }
     public Bitmap getBitmap(List<Integer> colors) {
         int w = 320,h = 640;
         Paint paint = new Paint();
@@ -82,4 +93,5 @@ public class CanvasView extends AppCompatActivity {
 
         return output;
     }
+
 }
