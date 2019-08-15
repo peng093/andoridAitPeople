@@ -71,4 +71,6 @@ dependencies {
     implementation 'com.facebook.fresco:imagepipeline-okhttp3:1.11.0+'
     // 带图标的editview
     implementation 'com.gregacucnik:edittextview:1.6'
+    // 自动适应宽度，自定换行
+    implementation 'com.hyman:flowlayout-lib:1.1.2'
 }

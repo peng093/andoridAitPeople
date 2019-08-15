@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atpeople.AitPeople;
+import com.example.atpeople.myapplication.ui.search.SearchActivity;
 import com.example.atpeople.myapplication.ui.betterspinner.Spinner;
 import com.example.atpeople.myapplication.ui.canvas.CanvasView;
 import com.example.atpeople.myapplication.ui.cardrecognition.CardRecognition;
@@ -77,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addDemo("Spinner", Spinner.class);
         addDemo("TextAnimation", TextAnimation.class);
         addDemo("LaunchWithVideo", LaunchWithVideo.class);
-
+        addDemo("SearchActivity", SearchActivity.class);
         initFloatMenu();
     }
 

@@ -20,6 +20,10 @@ import io.reactivex.disposables.Disposable;
 
 /**
  * Create by peng on 2019/7/16
+ * 动态更换启动页，实现的思路如下：
+ * 1、本地有个默认图片
+ * 2、每次启动的时候联网检查是否有新的图片，如果有就下载到本地
+ * 3、启动的时候判断一下，如果有缓存到本地的则显示，否则显示默认的
  */
 public class LaunchActivity extends AppCompatActivity {
     private ParticleView mPv1;
