@@ -13,10 +13,12 @@ import android.os.SystemClock;
 import android.widget.RemoteViews;
 import android.widget.Toast;
 
+import com.example.atpeople.myapplication.AppStart;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.ui.notify.model.NotifyBean;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -325,53 +327,35 @@ public class NotifyUtil {
      * 数据整理，返回集合
      * */
     public static List<NotifyBean> initDatas() {
+        int[] img_resoure={R.drawable.tb_bigicon,R.drawable.netease_bigicon,
+                R.drawable.weixin,R.drawable.xc_smaillicon, R.drawable.yybao_smaillicon,
+                R.drawable.android_bigicon,R.drawable.android_bigicon,
+                R.drawable.hl_smallicon,R.mipmap.logo_192};
         List<NotifyBean> mDataList = new ArrayList<>();
-        NotifyBean notifybean1 = new NotifyBean();
-        notifybean1.setImageId(R.drawable.tb_bigicon);
-        notifybean1.setTitleId(R.string.title1);
-        notifybean1.setTypeId(R.string.type1);
-        mDataList.add(notifybean1);
-        NotifyBean notifybean2 = new NotifyBean();
-        notifybean2.setImageId(R.drawable.netease_bigicon);
-        notifybean2.setTitleId(R.string.title2);
-        notifybean2.setTypeId(R.string.type2);
-        mDataList.add(notifybean2);
-        NotifyBean notifybean3 = new NotifyBean();
-        notifybean3.setImageId(R.drawable.weixin);
-        notifybean3.setTitleId(R.string.title3);
-        notifybean3.setTypeId(R.string.type3);
-        mDataList.add(notifybean3);
-        NotifyBean notifybean4 = new NotifyBean();
-        notifybean4.setImageId(R.drawable.xc_smaillicon);
-        notifybean4.setTitleId(R.string.title4);
-        notifybean4.setTypeId(R.string.type4);
-        mDataList.add(notifybean4);
-        NotifyBean notifybean5 = new NotifyBean();
-        notifybean5.setImageId(R.drawable.yybao_smaillicon);
-        notifybean5.setTitleId(R.string.title5);
-        notifybean5.setTypeId(R.string.type5);
-        mDataList.add(notifybean5);
-        NotifyBean notifybean6 = new NotifyBean();
-        notifybean6.setImageId(R.drawable.android_bigicon);
-        notifybean6.setTitleId(R.string.title6);
-        notifybean6.setTypeId(R.string.type6);
-        mDataList.add(notifybean6);
-        NotifyBean notifybean7 = new NotifyBean();
-        notifybean7.setImageId(R.drawable.android_bigicon);
-        notifybean7.setTitleId(R.string.title7);
-        notifybean7.setTypeId(R.string.type7);
-        mDataList.add(notifybean7);
-        NotifyBean notifybean8 = new NotifyBean();
-        notifybean8.setImageId(R.drawable.hl_smallicon);
-        notifybean8.setTitleId(R.string.title8);
-        notifybean8.setTypeId(R.string.type8);
-        mDataList.add(notifybean8);
-        NotifyBean notifybean9 = new NotifyBean();
-        notifybean9.setImageId(R.drawable.logo);
-        notifybean9.setTitleId(R.string.title9);
-        notifybean9.setTypeId(R.string.title9);
-        mDataList.add(notifybean9);
-
+        String[] titles = AppStart.getContext().getResources().getStringArray(R.array.titles);
+        String[] types = AppStart.getContext().getResources().getStringArray(R.array.types);
+        for (int i = 0; i < img_resoure.length; i++) {
+            NotifyBean notifybean = new NotifyBean(img_resoure[i],titles[i],types[i]);
+            mDataList.add(notifybean);
+        }
+//        NotifyBean notifybean1 = new NotifyBean(R.drawable.tb_bigicon,R.string.title1,R.string.type1);
+//        mDataList.add(notifybean1);
+//        NotifyBean notifybean2 = new NotifyBean(R.drawable.netease_bigicon,R.string.title2,R.string.type2);
+//        mDataList.add(notifybean2);
+//        NotifyBean notifybean3 = new NotifyBean(R.drawable.weixin,R.string.title3,R.string.type3);
+//        mDataList.add(notifybean3);
+//        NotifyBean notifybean4 = new NotifyBean(R.drawable.xc_smaillicon,R.string.title4,R.string.type4);
+//        mDataList.add(notifybean4);
+//        NotifyBean notifybean5 = new NotifyBean(R.drawable.yybao_smaillicon,R.string.title5,R.string.type5);
+//        mDataList.add(notifybean5);
+//        NotifyBean notifybean6 = new NotifyBean(R.drawable.android_bigicon,R.string.title6,R.string.type6);
+//        mDataList.add(notifybean6);
+//        NotifyBean notifybean7 = new NotifyBean(R.drawable.android_bigicon,R.string.title7,R.string.type7);
+//        mDataList.add(notifybean7);
+//        NotifyBean notifybean8 = new NotifyBean(R.drawable.hl_smallicon,R.string.title8,R.string.type8);
+//        mDataList.add(notifybean8);
+//        NotifyBean notifybean9 = new NotifyBean(R.mipmap.logo_192,R.string.title9,R.string.title9);
+//        mDataList.add(notifybean9);
         return mDataList;
     }
 }

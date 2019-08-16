@@ -5,8 +5,14 @@ package com.example.atpeople.myapplication.ui.notify.model;
  */
 public class NotifyBean {
     int imageId;
-    int titleId;
-    int typeId;
+    private String titleId;
+    private String typeId;
+
+    public NotifyBean(int imageId, String titleId, String typeId) {
+        this.imageId = imageId;
+        this.titleId = titleId;
+        this.typeId = typeId;
+    }
 
     public int getImageId() {
         return imageId;
@@ -16,19 +22,19 @@ public class NotifyBean {
         this.imageId = imageId;
     }
 
-    public int getTitleId() {
+    public String getTitleId() {
         return titleId;
     }
 
-    public void setTitleId(int titleId) {
+    public void setTitleId(String titleId) {
         this.titleId = titleId;
     }
 
-    public int getTypeId() {
+    public String getTypeId() {
         return typeId;
     }
 
-    public void setTypeId(int typeId) {
+    public void setTypeId(String typeId) {
         this.typeId = typeId;
     }
 }

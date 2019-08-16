@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">AtPeople</string>
+    <string name="app_name">UI</string>
     <!--底部面板专用文字-->
     <string name="action_settings">Settings</string>
     <string name="action_hide">Hide Panel</string>
