@@ -45,15 +45,6 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "MainActivity";
     private ViewGroup mListView;
-    /**悬浮窗*/
-    FloatLogoMenu mFloatMenu;
-    ArrayList<FloatItem> itemList = new ArrayList<>();
-    private Activity mActivity;
-    String HOME = "首页";
-    String FEEDBACK = "客服";
-    String MESSAGE = "消息";
-    String[] MENU_ITEMS = {HOME, FEEDBACK, MESSAGE};
-    private int[] menuIcons = new int[]{R.drawable.yw_menu_account, R.drawable.yw_menu_fb, R.drawable.yw_menu_msg};
     Drawable bg_color;
 
     @Override
@@ -64,24 +55,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int radus=BackgroundColorUtil.dip2px(this,10);
         bg_color= BackgroundColorUtil.getRandomColorDrawable(radus,true,1);
 
-        addDemo("UserInfo", UserInfo.class);
-        addDemo("AitPeople", AitPeople.class);
-        addDemo("Carview", Carview.class);
-        addDemo("CircularProgressView", CircularProgressView.class);
-        addDemo("FoldingMenu", FoldingMenu.class);
-        addDemo("SlidingUpPanel", SlidingUpPanel.class);
-        addDemo("ChipView", ChipView.class);
-        addDemo("CanvasView", CanvasView.class);
-        addDemo("CardRecognition", CardRecognition.class);
-        addDemo("MPAndroidChart", MPAndroidChart.class);
-        addDemo("Notify", Notify.class);
-        addDemo("WebView", WebView.class);
-        addDemo("Spinner", Spinner.class);
-        addDemo("TextAnimation", TextAnimation.class);
-        addDemo("LaunchWithVideo", LaunchWithVideo.class);
-        addDemo("SearchActivity", SearchActivity.class);
-        addDemo("Login", Login.class);
-        initFloatMenu();
+        addDemo("UiActivity", UiActivity.class);
+        addDemo("RxBingdingActivity", RxBingdingActivity.class);
     }
 
     private void addDemo(String demoName, Class<? extends Activity> activityClass) {
@@ -102,51 +77,5 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         Class activityClass = (Class) view.getTag();
         startActivity(new Intent(this, activityClass));
-    }
-
-
-    private void initFloatMenu() {
-        mActivity = this;
-        for (int i = 0; i < menuIcons.length; i++) {
-            itemList.add(new FloatItem(MENU_ITEMS[i], 0x99000000, 0x99000000, BitmapFactory.decodeResource(this.getResources(), menuIcons[i]), String.valueOf(i + 1)));
-        }
-        mFloatMenu = new FloatLogoMenu.Builder()
-                .withActivity(mActivity)
-                // 如果是要系统级的悬浮窗，需要动态申请悬浮于其他app上层的权限，否则无效果
-                //.withContext(mActivity.getApplication())
-                .logo(BitmapFactory.decodeResource(getResources(), R.drawable.yw_game_logo))
-                .drawCicleMenuBg(true)
-                .backMenuColor(0xffe4e3e1)
-                .setBgDrawable(this.getResources().getDrawable(R.drawable.yw_game_float_menu_bg))
-                //这个背景色需要和logo的背景色一致
-                .setFloatItems(itemList)
-                .defaultLocation(FloatLogoMenu.RIGHT)
-                .drawRedPointNum(false)
-                .showWithListener(new FloatMenuView.OnMenuClickListener() {
-                    @Override
-                    public void onItemClick(int position, String title) {
-                        Toast.makeText(MainActivity.this, "position " + position + " title:" + title + " is clicked.", Toast.LENGTH_SHORT).show();
-                    }
-
-                    @Override
-                    public void dismiss() {
-
-                    }
-                });
-
-        new Handler(Looper.getMainLooper()).postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                refreshDot();
-            }
-        }, 5000);
-    }
-    public void refreshDot() {
-        for (FloatItem menuItem : itemList) {
-            if (TextUtils.equals(menuItem.getTitle(), "我的")) {
-                menuItem.dotNum = String.valueOf(8);
-            }
-        }
-        mFloatMenu.setFloatItemList(itemList);
     }
 }

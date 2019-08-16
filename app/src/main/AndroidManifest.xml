@@ -26,14 +26,15 @@
             </intent-filter>
         </activity>
         <activity android:name=".main.MainActivity"></activity>
+        <activity android:name=".main.UiActivity"></activity>
+        <activity android:name=".main.RxBingdingActivity"></activity>
         <activity android:name=".ui.circularprogressview.CircularProgressView"></activity>
         <activity android:name=".ui.slidinguppanel.SlidingUpPanel"></activity>
         <activity android:name=".ui.foldingmenu.FoldingMenu"></activity>
         <activity android:name=".ui.carview.Carview"></activity>
         <activity android:name=".atpeople.AitPeople"></activity>
         <activity android:name=".ui.chip.ChipView"></activity>
-        <activity
-            android:name=".ui.ActivityAlert"
+        <activity android:name=".ui.ActivityAlert"
             android:theme="@style/MyToolsAddAvatar" />
         <activity android:name=".ui.canvas.CanvasView"></activity>
         <activity android:name=".ui.camera.SmartsCamera"></activity>
@@ -48,6 +49,7 @@
         <activity android:name=".ui.launchwithvideo.LaunchWithVideo"></activity>
         <activity android:name=".ui.search.SearchActivity"></activity>
         <activity android:name=".rxbinding.Login"></activity>
+        <activity android:name=".rxbinding.click.ClickForAdapter"></activity>
     </application>
 
 </manifest>
