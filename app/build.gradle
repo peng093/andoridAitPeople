@@ -78,4 +78,6 @@ dependencies {
     implementation 'com.gregacucnik:edittextview:1.6'
     // 自动适应宽度，自定换行
     implementation 'com.hyman:flowlayout-lib:1.1.2'
+    // 网络请求框架
+    implementation 'com.kongzue.baseokhttp_v3:baseokhttp_v3:3.1.2'
 }

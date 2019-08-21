@@ -57,6 +57,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         addDemo("UiActivity", UiActivity.class);
         addDemo("RxBingdingActivity", RxBingdingActivity.class);
+        addDemo("NetworkRequestActivity", NetworkRequestActivity.class);
+
     }
 
     private void addDemo(String demoName, Class<? extends Activity> activityClass) {

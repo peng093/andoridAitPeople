@@ -28,6 +28,7 @@
         <activity android:name=".main.MainActivity"></activity>
         <activity android:name=".main.UiActivity"></activity>
         <activity android:name=".main.RxBingdingActivity"></activity>
+        <activity android:name=".main.NetworkRequestActivity"></activity>
         <activity android:name=".ui.circularprogressview.CircularProgressView"></activity>
         <activity android:name=".ui.slidinguppanel.SlidingUpPanel"></activity>
         <activity android:name=".ui.foldingmenu.FoldingMenu"></activity>
@@ -50,6 +51,7 @@
         <activity android:name=".ui.search.SearchActivity"></activity>
         <activity android:name=".rxbinding.Login"></activity>
         <activity android:name=".rxbinding.click.ClickForAdapter"></activity>
+        <activity android:name=".networkrequest.NormalRequest"></activity>
     </application>
 
 </manifest>
