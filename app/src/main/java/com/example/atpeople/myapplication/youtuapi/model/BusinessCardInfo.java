@@ -16,6 +16,7 @@ public class BusinessCardInfo {
     private String phone;
     private String qq;
     private String wechat;
+    private String website;
 
     public String getTitle() {
         return title;
@@ -79,5 +80,13 @@ public class BusinessCardInfo {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getWebsite() {
+        return website;
+    }
+
+    public void setWebsite(String website) {
+        this.website = website;
     }
 }

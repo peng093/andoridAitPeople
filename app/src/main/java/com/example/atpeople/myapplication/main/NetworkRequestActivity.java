@@ -14,7 +14,6 @@ import android.widget.LinearLayout;
 
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.networkrequest.NormalRequest;
-import com.example.atpeople.myapplication.ui.userinfo.UserInfo;
 import com.example.atpeople.myapplication.util.BackgroundColorUtil;
 
 import butterknife.BindView;

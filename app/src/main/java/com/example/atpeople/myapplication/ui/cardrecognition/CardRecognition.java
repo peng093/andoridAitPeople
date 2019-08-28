@@ -21,6 +21,7 @@ import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.customview.LoadingDialog;
 import com.example.atpeople.myapplication.ui.camera.SmartsCamera;
 import com.example.atpeople.myapplication.util.Base64Convert;
+import com.example.atpeople.myapplication.util.GsonUtil;
 import com.example.atpeople.myapplication.youtuapi.YouTuApi;
 import com.example.atpeople.myapplication.youtuapi.model.BusinessCardBean;
 import com.example.atpeople.myapplication.youtuapi.model.BusinessCardInfo;
@@ -67,9 +68,10 @@ public class CardRecognition extends AppCompatActivity {
                     public void run() {
                         try {
                             mLoadingDialog.dismiss();
-                            tv_content.setText(responseBody);
+                            //tv_content.setText(responseBody);
                             Log.e("wei", "识别返回: "+ responseBody);
                             BusinessCardInfo businessCardInfo=getDataInfo(responseBody);
+                            tv_content.setText(GsonUtil.toJson(businessCardInfo));
                         } catch (Exception e) {
 
                         }
@@ -121,6 +123,8 @@ public class CardRecognition extends AppCompatActivity {
                             break;
                         case "微信":
                             info.setWechat(item.itemstring);
+                        case "网址":
+                            info.setWebsite(item.itemstring);
                             break;
                     }
                 }
@@ -152,7 +156,7 @@ public class CardRecognition extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode==10 && data != null){
             final String path = data.getStringExtra("path");
-            Bitmap bitmap=getLoacalBitmap(path);
+            final Bitmap bitmap=getLoacalBitmap(path);
             iv_img.setImageBitmap(bitmap);
             mLoadingDialog.setText("识别中...");
             mLoadingDialog.show();
@@ -161,7 +165,8 @@ public class CardRecognition extends AppCompatActivity {
                 @Override
                 public void run() {
                     try {
-                        String base64=Base64Convert.StringToBase64(path,2);
+                        //St
+                        String base64=Base64Convert.bitmapToBase64(bitmap);
                         youTuApi.nameCardOcr(base64);
                     } catch (Exception e) {
                         e.printStackTrace();
