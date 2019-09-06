@@ -181,7 +181,11 @@ public class SmartsCamera extends AppCompatActivity {
 
         });
     }
-
+    /**
+     * @Author Peng
+     * @Date 2019/8/30 10:57
+     * @Describe 创建卡片框框浮层
+     */
     private void initMaskView() {
         final MaskView maskView = (MaskView) mCameraView.getMaskView();
         maskView.setMaskLineColor(0xff00adb5);
@@ -196,12 +200,15 @@ public class SmartsCamera extends AppCompatActivity {
             public void run() {
                 int width = mCameraView.getWidth();
                 int height = mCameraView.getHeight();
-                if (width < height) {
-                    maskView.setMaskSize((int) (width * 0.6f), (int) (width * 0.6f / 0.63));
-                    maskView.setMaskOffset(0, -(int)(width * 0.1));
-                } else {
-                    maskView.setMaskSize((int) (width * 0.6f), (int) (width * 0.6f * 0.63));
-                }
+//                if (width < height) {
+//                    maskView.setMaskSize((int) (width * 0.6f), (int) (width * 0.6f / 0.63));
+//                    maskView.setMaskOffset(0, -(int)(width * 0.1));
+//                } else {
+//                    maskView.setMaskSize((int) (width * 0.6f), (int) (width * 0.6f * 0.63));
+//                }
+                // 把原本的宽高比调换设置横向模式
+                maskView.setMaskSize((int) (width * 0.6f / 0.63),(int) (width * 0.6f));
+                maskView.setMaskOffset(0, -(int)(width * 0.1));
             }
         });
         mCameraView.setMaskView(maskView);

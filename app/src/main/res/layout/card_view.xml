@@ -4,15 +4,8 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        app:layout_collapseMode="pin"
-        app:popupTheme="@style/AppTheme.PopupOverlay" />
     <ImageView
         android:id="@+id/iv_img"
-        android:layout_marginTop="55dp"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         />
@@ -20,7 +13,7 @@
         android:id="@+id/tv_content"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="250dp"
+        android:layout_gravity="center"
         />
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fab"

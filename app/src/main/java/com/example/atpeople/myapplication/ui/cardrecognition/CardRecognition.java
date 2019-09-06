@@ -28,6 +28,7 @@ import com.example.atpeople.myapplication.youtuapi.model.BusinessCardInfo;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -41,8 +42,6 @@ import butterknife.ButterKnife;
  * Create by peng on 2019/8/1
  */
 public class CardRecognition extends AppCompatActivity {
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
     @BindView(R.id.fab)
     FloatingActionButton fab;
     @BindView(R.id.iv_img)
@@ -97,38 +96,62 @@ public class CardRecognition extends AppCompatActivity {
         BusinessCardInfo info = new BusinessCardInfo();
         if (businessCardBean.errorcode == 0) {
             List<BusinessCardBean.ItemsBean> items = businessCardBean.items;
+            List<String>titles=new ArrayList<>();
+            List<String>company=new ArrayList<>();
+            List<String>addr=new ArrayList<>();
+            List<String>email=new ArrayList<>();
+            List<String>phones=new ArrayList<>();
+            List<String>qq=new ArrayList<>();
+            List<String>wechat=new ArrayList<>();
+            List<String>website=new ArrayList<>();
             if (items != null && items.size() > 0) {
                 for (BusinessCardBean.ItemsBean item : items) {
                     switch (item.item){
                         case "姓名":
                             info.setName(item.itemstring);
                             break;
+                        case "英文姓名":
+                            info.setEn_name(item.itemstring);
+                            break;
                         case "职位":
-                            info.setTitle(item.itemstring);
+                            titles.add(item.itemstring);
+                            break;
+                        case "英文职位":
+                            titles.add(item.itemstring);
                             break;
                         case "公司":
-                            info.setCompany(item.itemstring);
+                            company.add(item.itemstring);
+                            break;
+                        case "英文公司":
+                            company.add(item.itemstring);
                             break;
                         case "地址":
-                            info.setAddress(item.itemstring);
+                            addr.add(item.itemstring);
                             break;
                         case "邮箱":
-                            info.setEmail(item.itemstring);
+                            email.add(item.itemstring);
                             break;
                         case "手机":
-                            info.setPhone(item.itemstring);
+                            phones.add(item.itemstring);
                             break;
                         case "QQ":
-                            info.setQq(item.itemstring);
+                            qq.add(item.itemstring);
                             break;
                         case "微信":
-                            info.setWechat(item.itemstring);
+                            wechat.add(item.itemstring);
                         case "网址":
-                            info.setWebsite(item.itemstring);
+                            website.add(item.itemstring);
                             break;
                     }
                 }
-
+                info.setTitle(titles);
+                info.setCompany(company);
+                info.setAddress(addr);
+                info.setEmail(email);
+                info.setPhone(phones);
+                info.setQq(qq);
+                info.setWechat(wechat);
+                info.setWebsite(website);
             }
         }
         return info;
@@ -136,12 +159,6 @@ public class CardRecognition extends AppCompatActivity {
     private void init() {
         mHandler = new Handler();
         mLoadingDialog = new LoadingDialog(this);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
