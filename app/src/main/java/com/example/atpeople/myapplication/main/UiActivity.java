@@ -33,6 +33,7 @@ import com.example.atpeople.myapplication.ui.launchwithvideo.LaunchWithVideo;
 import com.example.atpeople.myapplication.ui.notify.Notify;
 import com.example.atpeople.myapplication.ui.search.SearchActivity;
 import com.example.atpeople.myapplication.ui.slidinguppanel.SlidingUpPanel;
+import com.example.atpeople.myapplication.ui.table.Table;
 import com.example.atpeople.myapplication.ui.textanimation.TextAnimation;
 import com.example.atpeople.myapplication.ui.userinfo.UserInfo;
 import com.example.atpeople.myapplication.ui.webview.WebView;
@@ -100,6 +101,8 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
         addDemo("LaunchWithVideo", LaunchWithVideo.class);
         addDemo("SearchActivity", SearchActivity.class);
         addDemo("手势登录", GesturePswActivity.class);
+        addDemo("Table", Table.class);
+
         initFloatMenu();
     }
 

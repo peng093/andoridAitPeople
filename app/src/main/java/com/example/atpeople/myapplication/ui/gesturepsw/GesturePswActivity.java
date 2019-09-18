@@ -73,6 +73,7 @@ public class GesturePswActivity extends AppCompatActivity implements View.OnClic
         return !TextUtils.isEmpty(SPManager.getInstance().getPatternPSW());
     }
 
+    /**其他界面返回的时候，都会调用onResume()*/
     @Override
     protected void onResume() {
         super.onResume();

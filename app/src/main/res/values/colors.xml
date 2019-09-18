@@ -17,4 +17,5 @@
     <color name="colorTrans">#000</color>
     <!--loading-->
     <color name="loading_dialog_bg">#4F000000</color>
+    <color name="rippleColor">#FFCCCCCC</color>
 </resources>

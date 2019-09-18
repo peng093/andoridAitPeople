@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical"
+    >
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:clickable="false"
+        >
+
+        <TableRow android:layout_width="match_parent"
+            android:clickable="false"
+            >
+
+            <TextView
+                android:id="@+id/security"
+                style="@style/settings_menu"
+                android:drawableTop="@drawable/icon_close_x"
+                android:text="帐号与安全"/>
+
+            <TextView
+                android:id="@+id/helpFeedback"
+                style="@style/settings_menu"
+                android:drawableTop="@drawable/icon_close_x"
+                android:text="帮助与反馈"/>
+        </TableRow>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:layout_marginTop="10dp"
+            android:background="#ccc"/>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:clickable="false"
+            >
+
+            <TextView
+                android:id="@+id/novice"
+                style="@style/settings_menu"
+                android:drawableTop="@drawable/icon_close_x"
+                android:text="新手教学"/>
+
+            <TextView
+                android:id="@+id/exitLogin"
+                style="@style/settings_menu"
+                android:drawableTop="@drawable/icon_close_x"
+                android:text="退出登录"/>
+        </TableRow>
+    </TableLayout>
+    <TextView
+        android:id="@+id/tv_test"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:background="@drawable/settings_button_selector"
+        android:gravity="center"
+        android:text="点击效果"
+        />
+</LinearLayout>
