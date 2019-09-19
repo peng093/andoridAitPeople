@@ -2,6 +2,7 @@ package com.example.atpeople.myapplication.main;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.res.TypedArray;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -10,12 +11,14 @@ import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.example.atpeople.myapplication.AppStart;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atpeople.AitPeople;
 import com.example.atpeople.myapplication.rxbinding.Login;
@@ -51,10 +54,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        setTheme(R.style.tapActive);
         mListView =findViewById(R.id.list);
         int radus=BackgroundColorUtil.dip2px(this,10);
         bg_color= BackgroundColorUtil.getRandomColorDrawable(radus,true,1);
-
         addDemo("UiActivity", UiActivity.class);
         addDemo("RxBingdingActivity", RxBingdingActivity.class);
         addDemo("NetworkRequestActivity", NetworkRequestActivity.class);
@@ -68,9 +71,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         b.setLayoutParams(layoutParams);
         b.setText(demoName);
         b.setTag(activityClass);
-        b.setTextColor(Color.WHITE);
+        b.setTextColor(Color.BLACK);
         b.setAllCaps(false);
-        b.setBackground(bg_color);
         b.setOnClickListener(this);
         mListView.addView(b);
     }
@@ -79,5 +81,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View view) {
         Class activityClass = (Class) view.getTag();
         startActivity(new Intent(this, activityClass));
+    }
+
+    public static void setClickRipple(View view){
+        TypedValue typedValue = new TypedValue();
+        AppStart.getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, typedValue, true);
+        int[] attribute = new int[]{android.R.attr.selectableItemBackground};
+        TypedArray typedArray = AppStart.getContext().getTheme().obtainStyledAttributes(typedValue.resourceId, attribute);
+        view.setForeground(typedArray.getDrawable(0));
     }
 }

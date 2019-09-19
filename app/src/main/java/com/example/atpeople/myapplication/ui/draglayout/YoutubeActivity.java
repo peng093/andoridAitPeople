@@ -34,7 +34,10 @@ public class YoutubeActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.youtobe_layout);
 		ButterKnife.bind(this);
+		init();
+	}
 
+	private void init() {
 		listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
