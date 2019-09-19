@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:tag="listView" >
+    </ListView>
+
+    <com.example.atpeople.myapplication.ui.draglayout.view.YoutubeLayout
+        android:id="@+id/dragLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="invisible" >
+        <LinearLayout
+            android:id="@+id/viewHeader"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#AD78CC"
+            android:orientation="vertical"
+            android:gravity="center_horizontal"
+            >
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@mipmap/logo_192"
+                />
+            <TextView
+                android:id="@+id/tv_item"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:gravity="center"
+                android:tag="text"
+                android:text="视频播放页面"
+                android:textColor="@android:color/white"
+                android:textSize="25sp"
+                />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/viewDesc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:tag="listView" >
+        </ListView>
+    </com.example.atpeople.myapplication.ui.draglayout.view.YoutubeLayout>
+
+</FrameLayout>

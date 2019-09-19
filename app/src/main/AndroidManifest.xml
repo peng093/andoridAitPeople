@@ -54,6 +54,7 @@
         <activity android:name=".networkrequest.NormalRequest"></activity>
         <activity android:name=".ui.gesturepsw.GesturePswActivity"></activity>
         <activity android:name=".ui.table.Table"></activity>
+        <activity android:name=".ui.draglayout.YoutubeActivity"></activity>
     </application>
 
 </manifest>

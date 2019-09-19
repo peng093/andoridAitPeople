@@ -27,6 +27,7 @@ import com.example.atpeople.myapplication.ui.carview.Carview;
 import com.example.atpeople.myapplication.ui.chart.MPAndroidChart;
 import com.example.atpeople.myapplication.ui.chip.ChipView;
 import com.example.atpeople.myapplication.ui.circularprogressview.CircularProgressView;
+import com.example.atpeople.myapplication.ui.draglayout.YoutubeActivity;
 import com.example.atpeople.myapplication.ui.foldingmenu.FoldingMenu;
 import com.example.atpeople.myapplication.ui.gesturepsw.GesturePswActivity;
 import com.example.atpeople.myapplication.ui.launchwithvideo.LaunchWithVideo;
@@ -102,7 +103,7 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
         addDemo("SearchActivity", SearchActivity.class);
         addDemo("手势登录", GesturePswActivity.class);
         addDemo("Table", Table.class);
-
+        addDemo("YoutubeActivity", YoutubeActivity.class);
         initFloatMenu();
     }
 
