@@ -44,8 +44,8 @@ public class NotifyUtil {
         if (Build.VERSION.SDK_INT >= 26) {
             //当sdk版本大于26
             String id = "channel_1";
-            String description = "143";
-            int importance = NotificationManager.IMPORTANCE_LOW;
+            String description = "UI_143";
+            int importance = NotificationManager.IMPORTANCE_HIGH;
             NotificationChannel channel = new NotificationChannel(id, description, importance);
             channel.enableLights(true);
             channel.enableVibration(true);

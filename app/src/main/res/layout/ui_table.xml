@@ -59,7 +59,7 @@
         android:id="@+id/tv_test"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/settings_button_selector"
+        android:background="?selectableItemBackground"
         android:gravity="center"
         android:text="点击效果"
         />

@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.atpeople.myapplication.R;
+import com.example.atpeople.myapplication.baseactivity.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -16,7 +17,7 @@ import butterknife.OnClick;
 /**
  * Create by peng on 2019/9/18
  */
-public class Table extends AppCompatActivity {
+public class Table extends BaseActivity {
     private static final String TAG = "Table";
     @BindView(R.id.security)
     TextView security;
@@ -31,8 +32,22 @@ public class Table extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.ui_table);
-        ButterKnife.bind(this);
+    }
+
+    @Override
+    protected int initLayout() {
+        return R.layout.ui_table;
+    }
+
+    @Override
+    protected void initView() {
+        // 隐藏通用的标题，用于特殊页面，自定义标题
+        setToolbarShow(false);
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     @OnClick({R.id.security,R.id.helpFeedback,R.id.novice,R.id.exitLogin,R.id.tv_test})

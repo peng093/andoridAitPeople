@@ -38,6 +38,7 @@ import com.example.atpeople.myapplication.ui.textanimation.TextAnimation;
 import com.example.atpeople.myapplication.ui.userinfo.UserInfo;
 import com.example.atpeople.myapplication.ui.webview.WebView;
 import com.example.atpeople.myapplication.util.BackgroundColorUtil;
+import com.example.atpeople.myapplication.util.TipHelper;
 import com.yw.game.floatmenu.FloatItem;
 import com.yw.game.floatmenu.FloatLogoMenu;
 import com.yw.game.floatmenu.FloatMenuView;
@@ -61,7 +62,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addDemo("UiActivity", UiActivity.class);
         addDemo("RxBingdingActivity", RxBingdingActivity.class);
         addDemo("NetworkRequestActivity", NetworkRequestActivity.class);
-
+        addDemo("UseBaseActivity", UseBaseActivity.class);
     }
 
     private void addDemo(String demoName, Class<? extends Activity> activityClass) {
@@ -79,6 +80,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        TipHelper.Vibrate(this, new long[]{0,500,500,500}, false);
         Class activityClass = (Class) view.getTag();
         startActivity(new Intent(this, activityClass));
     }

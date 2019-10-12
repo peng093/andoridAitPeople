@@ -24,15 +24,18 @@
             android:orientation="vertical"
             android:gravity="center_horizontal"
             >
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@mipmap/logo_192"
+            <com.example.atpeople.myapplication.customview.CustomVideoView
+                android:id="@+id/welcome_videoview"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:clickable="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
                 />
             <TextView
                 android:id="@+id/tv_item"
                 android:layout_width="match_parent"
-                android:layout_height="100dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:tag="text"
                 android:text="视频播放页面"

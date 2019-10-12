@@ -19,7 +19,6 @@ public class FileUtil {
 
     /**
      * 随机生产文件名
-     *
      * @return
      */
     private static String generateFileName() {
@@ -27,7 +26,6 @@ public class FileUtil {
     }
     /**
      * 保存bitmap到本地
-     *
      * @param context
      * @param mBitmap
      * @return

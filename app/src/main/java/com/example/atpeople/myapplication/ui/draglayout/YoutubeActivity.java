@@ -1,6 +1,8 @@
 package com.example.atpeople.myapplication.ui.draglayout;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.atpeople.myapplication.R;
+import com.example.atpeople.myapplication.customview.CustomVideoView;
 import com.example.atpeople.myapplication.ui.draglayout.view.YoutubeLayout;
 
 import butterknife.BindView;
@@ -28,12 +31,22 @@ public class YoutubeActivity extends Activity {
 	ListView viewDesc;
 	@BindView(R.id.tv_item)
 	TextView tv_item;
-
+	@BindView(R.id.welcome_videoview)
+	CustomVideoView welcome_videoview;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.youtobe_layout);
 		ButterKnife.bind(this);
+		welcome_videoview.setVideoURI(Uri.parse("android.resource://"+this.getPackageName()+"/"+R.raw.kr36));
+		welcome_videoview.start();
+		welcome_videoview.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+			@Override
+			public void onCompletion(MediaPlayer mp) {
+				welcome_videoview.start();
+
+			}
+		});
 		init();
 	}
 
