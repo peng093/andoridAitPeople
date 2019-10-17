@@ -25,10 +25,6 @@ public class UseBaseActivity extends BaseActivity {
     Button bt_custom_title;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        //设置是否显示状态栏
-        setShowStatusBar(false);
-        //是否允许屏幕旋转
-        setAllowScreenRoate(true);
         //以上设置一定要在 super.onCreate(savedInstanceState) 方法之前设置
         super.onCreate(savedInstanceState);
     }
@@ -40,7 +36,7 @@ public class UseBaseActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        setTitle("通用顶部标题。。");
+        setTitle("通用顶部标题");
         setTopLeftButton(0, new OnClickListener() {
             @Override
             public void onClick() {

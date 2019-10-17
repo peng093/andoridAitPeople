@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
@@ -181,5 +182,6 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
     protected void onDestroy() {
         super.onDestroy();
         mFloatMenu.destoryFloat();
+        ActivityCompat.finishAfterTransition(this);
     }
 }

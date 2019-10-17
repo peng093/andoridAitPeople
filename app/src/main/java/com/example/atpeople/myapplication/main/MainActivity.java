@@ -1,6 +1,7 @@
 package com.example.atpeople.myapplication.main;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.BitmapFactory;
@@ -16,6 +17,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.atpeople.myapplication.AppStart;
@@ -45,16 +48,22 @@ import com.yw.game.floatmenu.FloatMenuView;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
     private static final String TAG = "MainActivity";
     private ViewGroup mListView;
     Drawable bg_color;
+    @BindView(R.id.lly_root)
+    ScrollView lly_root;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         setTheme(R.style.tapActive);
         mListView =findViewById(R.id.list);
         int radus=BackgroundColorUtil.dip2px(this,10);
@@ -80,9 +89,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
-        TipHelper.Vibrate(this, new long[]{0,500,500,500}, false);
+        // 振动主要是延时触发，及振动时长-就两个比较重要的
+        TipHelper.Vibrate(this, new long[]{0,300,300}, false);
         Class activityClass = (Class) view.getTag();
-        startActivity(new Intent(this, activityClass));
+        //startActivity(new Intent(this, activityClass));
+        Intent intent = new Intent(this, activityClass);
+        ActivityOptions options = ActivityOptions.makeScaleUpAnimation(lly_root, lly_root.getWidth()/2,
+                lly_root.getHeight()/2,0 ,0 );
+        startActivity(intent, options.toBundle());
+
     }
 
     public static void setClickRipple(View view){

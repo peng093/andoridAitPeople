@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.view.ViewGroup;
@@ -66,7 +67,9 @@ public class NetworkRequestActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View view) {
-        Class activityClass = (Class) view.getTag();
-        startActivity(new Intent(this, activityClass));
+        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        recreate();
+//        Class activityClass = (Class) view.getTag();
+//        startActivity(new Intent(this, activityClass));
     }
 }
