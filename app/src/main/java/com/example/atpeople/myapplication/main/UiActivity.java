@@ -19,26 +19,26 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.atpeople.AitPeople;
-import com.example.atpeople.myapplication.rxbinding.Login;
-import com.example.atpeople.myapplication.ui.betterspinner.Spinner;
+import com.example.atpeople.myapplication.atPeople.AitPeople;
+import com.example.atpeople.myapplication.ui.betterSpinner.Spinner;
 import com.example.atpeople.myapplication.ui.canvas.CanvasView;
-import com.example.atpeople.myapplication.ui.cardrecognition.CardRecognition;
-import com.example.atpeople.myapplication.ui.carview.Carview;
+import com.example.atpeople.myapplication.ui.cardRecognition.CardRecognition;
+import com.example.atpeople.myapplication.ui.carView.Carview;
 import com.example.atpeople.myapplication.ui.chart.MPAndroidChart;
 import com.example.atpeople.myapplication.ui.chip.ChipView;
-import com.example.atpeople.myapplication.ui.circularprogressview.CircularProgressView;
-import com.example.atpeople.myapplication.ui.draglayout.YoutubeActivity;
-import com.example.atpeople.myapplication.ui.foldingmenu.FoldingMenu;
+import com.example.atpeople.myapplication.ui.circularProgressView.CircularProgressView;
+import com.example.atpeople.myapplication.ui.dragLayout.YoutubeActivity;
+import com.example.atpeople.myapplication.ui.foldingMenu.FoldingMenu;
 import com.example.atpeople.myapplication.ui.gesturepsw.GesturePswActivity;
-import com.example.atpeople.myapplication.ui.launchwithvideo.LaunchWithVideo;
+import com.example.atpeople.myapplication.ui.launchWithVideo.LaunchWithVideo;
+import com.example.atpeople.myapplication.ui.mediaPlayBySeekbar.MediaPlayBySeekbar;
 import com.example.atpeople.myapplication.ui.notify.Notify;
 import com.example.atpeople.myapplication.ui.search.SearchActivity;
-import com.example.atpeople.myapplication.ui.slidinguppanel.SlidingUpPanel;
+import com.example.atpeople.myapplication.ui.slidinGupPanel.SlidingUpPanel;
 import com.example.atpeople.myapplication.ui.table.Table;
-import com.example.atpeople.myapplication.ui.textanimation.TextAnimation;
-import com.example.atpeople.myapplication.ui.userinfo.UserInfo;
-import com.example.atpeople.myapplication.ui.webview.WebView;
+import com.example.atpeople.myapplication.ui.textAnimation.TextAnimation;
+import com.example.atpeople.myapplication.ui.userInfo.UserInfo;
+import com.example.atpeople.myapplication.ui.webView.WebView;
 import com.example.atpeople.myapplication.util.BackgroundColorUtil;
 import com.yw.game.floatmenu.FloatItem;
 import com.yw.game.floatmenu.FloatLogoMenu;
@@ -105,6 +105,7 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
         addDemo("手势登录", GesturePswActivity.class);
         addDemo("Table", Table.class);
         addDemo("YoutubeActivity", YoutubeActivity.class);
+        addDemo("录音拖动播放", MediaPlayBySeekbar.class);
         initFloatMenu();
     }
 

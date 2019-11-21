@@ -4,49 +4,27 @@ import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.content.res.TypedArray;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Handler;
-import android.os.Looper;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.atpeople.myapplication.AppStart;
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.atpeople.AitPeople;
-import com.example.atpeople.myapplication.rxbinding.Login;
-import com.example.atpeople.myapplication.ui.search.SearchActivity;
-import com.example.atpeople.myapplication.ui.betterspinner.Spinner;
-import com.example.atpeople.myapplication.ui.canvas.CanvasView;
-import com.example.atpeople.myapplication.ui.cardrecognition.CardRecognition;
-import com.example.atpeople.myapplication.ui.chart.MPAndroidChart;
-import com.example.atpeople.myapplication.ui.chip.ChipView;
-import com.example.atpeople.myapplication.ui.carview.Carview;
-import com.example.atpeople.myapplication.ui.circularprogressview.CircularProgressView;
-import com.example.atpeople.myapplication.ui.foldingmenu.FoldingMenu;
-import com.example.atpeople.myapplication.ui.launchwithvideo.LaunchWithVideo;
-import com.example.atpeople.myapplication.ui.notify.Notify;
-import com.example.atpeople.myapplication.ui.slidinguppanel.SlidingUpPanel;
-import com.example.atpeople.myapplication.ui.textanimation.TextAnimation;
-import com.example.atpeople.myapplication.ui.userinfo.UserInfo;
-import com.example.atpeople.myapplication.ui.webview.WebView;
+import com.example.atpeople.myapplication.atPeople.model.AtBean;
 import com.example.atpeople.myapplication.util.BackgroundColorUtil;
 import com.example.atpeople.myapplication.util.TipHelper;
-import com.yw.game.floatmenu.FloatItem;
-import com.yw.game.floatmenu.FloatLogoMenu;
-import com.yw.game.floatmenu.FloatMenuView;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -89,6 +67,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        List<AtBean> list1=new ArrayList<>();
+        list1.add(new AtBean(1,"text",1,1));
+        list1.add(new AtBean(2,"text2",2,2));
+        List<AtBean> list2=new ArrayList<>();
+        list2.add(new AtBean(2,"text2",2,2));
+        list2.add(new AtBean(1,"text",1,1));
+//        String str1=GsonUtil.toJson(list1);
+//        String str2=GsonUtil.toJson(list2);
+//        Log.e(TAG, "str1: "+str1);
+//        Log.e(TAG, "str2: "+str2);
+        Log.e(TAG, "对比元素: "+compareUser(list1,list2));
+        List<Float> list=new ArrayList<>();
+        list.add(0.9f);
+        list.add(0.5f);
+        list.add(5.5f);
+        list.add(0.7f);
+        Collections.sort(list);
+        Log.e(TAG, "排序后: "+list); //[0.5, 0.7, 0.9, 5.5]
         // 振动主要是延时触发，及振动时长-就两个比较重要的
         TipHelper.Vibrate(this, new long[]{0,300,300}, false);
         Class activityClass = (Class) view.getTag();
@@ -106,5 +102,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         int[] attribute = new int[]{android.R.attr.selectableItemBackground};
         TypedArray typedArray = AppStart.getContext().getTheme().obtainStyledAttributes(typedValue.resourceId, attribute);
         view.setForeground(typedArray.getDrawable(0));
+    }
+
+    private boolean compareUser(List<AtBean>user1,List<AtBean>user2){
+        for (int i = 0; i < user1.size(); i++) {
+            for (int i1 = 0; i1 < user2.size(); i1++) {
+                if (user1.get(i).getId()==user2.get(i1).getId()){
+                    if(user1.get(i).getName()!=user2.get(i1).getName() || user1.get(i).getStartPos()!=user2.get(i1).getStartPos()){
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
     }
 }

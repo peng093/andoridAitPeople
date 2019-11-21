@@ -2,16 +2,14 @@ package com.example.atpeople.myapplication.ui.table;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.baseactivity.BaseActivity;
+import com.example.atpeople.myapplication.baseActivity.BaseActivity;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**

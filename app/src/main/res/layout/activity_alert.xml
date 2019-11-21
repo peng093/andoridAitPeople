@@ -6,7 +6,7 @@
     <data>
         <variable
             name="activityalert"
-            type="com.example.atpeople.myapplication.ui.activityalert.MainViewModel"/>
+            type="com.example.atpeople.myapplication.ui.activityAlert.MainViewModel"/>
     </data>
 
     <LinearLayout

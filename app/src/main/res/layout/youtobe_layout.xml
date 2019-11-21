@@ -10,7 +10,7 @@
         android:tag="listView" >
     </ListView>
 
-    <com.example.atpeople.myapplication.ui.draglayout.view.YoutubeLayout
+    <com.example.atpeople.myapplication.ui.dragLayout.view.YoutubeLayout
         android:id="@+id/dragLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -51,6 +51,6 @@
             android:background="@color/white"
             android:tag="listView" >
         </ListView>
-    </com.example.atpeople.myapplication.ui.draglayout.view.YoutubeLayout>
+    </com.example.atpeople.myapplication.ui.dragLayout.view.YoutubeLayout>
 
 </FrameLayout>
