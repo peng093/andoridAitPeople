@@ -12,12 +12,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.alibaba.fastjson.JSONArray;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atPeople.AitPeople;
 import com.example.atpeople.myapplication.ui.betterSpinner.Spinner;
@@ -33,6 +35,7 @@ import com.example.atpeople.myapplication.ui.gesturepsw.GesturePswActivity;
 import com.example.atpeople.myapplication.ui.launchWithVideo.LaunchWithVideo;
 import com.example.atpeople.myapplication.ui.mediaPlayBySeekbar.MediaPlayBySeekbar;
 import com.example.atpeople.myapplication.ui.notify.Notify;
+import com.example.atpeople.myapplication.ui.paymentCode.PaymentCode;
 import com.example.atpeople.myapplication.ui.search.SearchActivity;
 import com.example.atpeople.myapplication.ui.slidinGupPanel.SlidingUpPanel;
 import com.example.atpeople.myapplication.ui.table.Table;
@@ -40,11 +43,15 @@ import com.example.atpeople.myapplication.ui.textAnimation.TextAnimation;
 import com.example.atpeople.myapplication.ui.userInfo.UserInfo;
 import com.example.atpeople.myapplication.ui.webView.WebView;
 import com.example.atpeople.myapplication.util.BackgroundColorUtil;
+import com.example.atpeople.myapplication.util.RemoveDuplicateUtil;
+import com.example.atpeople.myapplication.util.TestA;
+import com.example.atpeople.myapplication.util.TestB;
 import com.yw.game.floatmenu.FloatItem;
 import com.yw.game.floatmenu.FloatLogoMenu;
 import com.yw.game.floatmenu.FloatMenuView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -106,6 +113,7 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
         addDemo("Table", Table.class);
         addDemo("YoutubeActivity", YoutubeActivity.class);
         addDemo("录音拖动播放", MediaPlayBySeekbar.class);
+        addDemo("支付密码UI", PaymentCode.class);
         initFloatMenu();
     }
 
@@ -127,6 +135,28 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
     public void onClick(View view) {
         Class activityClass = (Class) view.getTag();
         startActivity(new Intent(this, activityClass));
+
+        List<TestA>list=new ArrayList<>();
+        list.add(new TestA("AA",18));
+        list.add(new TestA("AA",18));
+        list.add(new TestA("BB",18));
+        List<TestA>list2=new ArrayList<>();
+        list2.add(new TestA("AA",18));
+        list2.add(new TestA("BB",18));
+        list2.add(new TestA("CC",20));
+
+        List<TestB>list3=new ArrayList<>();
+        list3.add(new TestB("PPP",18));
+        list3.add(new TestB("BB",18));
+        list3.add(new TestB("PPP",20));
+
+        List<TestA> list_name = RemoveDuplicateUtil.replese("name", list);
+        List<TestA> list_age = RemoveDuplicateUtil.replese("age", list2);
+        List<TestB> list_text = RemoveDuplicateUtil.replese("text", list3);
+
+        Log.e("list_name",""+JSONArray.toJSON(list_name));
+        Log.e("list_age", ""+JSONArray.toJSON(list_age));
+        Log.e("list_text", ""+JSONArray.toJSON(list_text));
     }
 
     /**

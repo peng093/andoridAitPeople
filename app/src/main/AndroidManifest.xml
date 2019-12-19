@@ -58,6 +58,7 @@
         <activity android:name=".ui.dragLayout.YoutubeActivity"></activity>
         <activity android:name=".main.UseBaseActivity"></activity>
         <activity android:name=".ui.mediaPlayBySeekbar.MediaPlayBySeekbar"></activity>
+        <activity android:name=".ui.paymentCode.PaymentCode"></activity>
     </application>
 
 </manifest>

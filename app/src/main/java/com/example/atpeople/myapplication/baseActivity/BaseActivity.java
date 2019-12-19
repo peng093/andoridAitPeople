@@ -30,15 +30,10 @@ import butterknife.ButterKnife;
  * Create by peng on 2019/10/12
  */
 public abstract class BaseActivity extends AppCompatActivity {
-    // 获取TAG的activity名称
     protected final String TAG = this.getClass().getSimpleName();
-    //是否显示标题栏
     private boolean isShowTitle = true;
-    //是否显示状态栏
     private boolean isShowStatusBar = true;
-    //是否允许旋转屏幕
     private boolean isAllowScreenRoate = true;
-    //封装Toast对象
     private static Toast toast;
     public Context context;
 
