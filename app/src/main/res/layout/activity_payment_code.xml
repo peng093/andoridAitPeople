@@ -9,6 +9,13 @@
         android:layout_width="match_parent"
         android:text="支付"
         android:layout_height="wrap_content" />
-
-
+    <Button
+        android:id="@+id/btn_pay2"
+        android:layout_width="match_parent"
+        android:text="动画开启"
+        android:layout_height="wrap_content" />
+    <com.example.atpeople.myapplication.customview.ParticleTextView
+        android:id="@+id/particleTextView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
 </LinearLayout>

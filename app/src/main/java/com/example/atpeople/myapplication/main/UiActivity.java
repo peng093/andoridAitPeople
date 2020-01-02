@@ -110,7 +110,7 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
         addDemo("LaunchWithVideo", LaunchWithVideo.class);
         addDemo("SearchActivity", SearchActivity.class);
         addDemo("手势登录", GesturePswActivity.class);
-        addDemo("Table", Table.class);
+        addDemo("Table(注解的简单使用)", Table.class);
         addDemo("YoutubeActivity", YoutubeActivity.class);
         addDemo("录音拖动播放", MediaPlayBySeekbar.class);
         addDemo("支付密码UI", PaymentCode.class);

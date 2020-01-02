@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.example.atpeople.myapplication.R;
+import com.example.atpeople.myapplication.util.PictureUtil;
 import com.example.atpeople.myapplication.util.TextBitmap;
 
 import java.util.Arrays;
@@ -34,6 +35,9 @@ public class CanvasView extends AppCompatActivity {
     ImageView iv_text;
     @BindView(R.id.iv_text2)
     ImageView iv_text2;
+    @BindView(R.id.iv_text3)
+    ImageView iv_text3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +50,7 @@ public class CanvasView extends AppCompatActivity {
         int bgColor=Color.parseColor("#019FE8");
         iv_text.setImageBitmap(TextBitmap.getCircleTextBitmap("A",bgColor,width,width,Color.WHITE));
         iv_text2.setImageBitmap(TextBitmap.getRectTextBitmap("B",bgColor,width,width,Color.WHITE));
+        PictureUtil.downPic(iv_text3,this);
     }
     public  int dip2px(float dipValue) {
         final float scale = getResources().getDisplayMetrics().density;
