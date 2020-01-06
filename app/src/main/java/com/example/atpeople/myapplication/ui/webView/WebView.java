@@ -25,7 +25,9 @@ public class WebView extends AppCompatActivity {
     private void initWebView() {
 
         mContentWv.getSettings().setJavaScriptEnabled(true);
-        mContentWv.loadUrl("https://github.com/peng093");
+        // mContentWv.loadUrl("https://github.com/peng093");
+        mContentWv.loadUrl("file:///android_asset/localH5/textAnimation/index.html");
+
         mContentWv.setWebViewClient(new WebViewClient() {
             @Override
             public boolean shouldOverrideUrlLoading(android.webkit.WebView view, String url) {
