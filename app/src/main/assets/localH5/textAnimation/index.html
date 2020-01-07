@@ -116,7 +116,11 @@ let height = window.innerHeight;
 let textSize = 0;
 let textCenter = 0;
 const letters = [];
-const prompt = ['F', 'M', 'S', 'V', '3', '.', '5', '.', '23'];
+let prompt = ['心', '有', '所', '思', '目', '有', '所', '见'];
+ function setPrompt(str) {
+    	prompt=str.split(",")
+ }
+
 let runPrompt = true;
 
 const resizePage = () => {

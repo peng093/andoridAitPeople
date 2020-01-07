@@ -20,7 +20,6 @@ import com.example.atpeople.myapplication.AppStart;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atPeople.model.AtBean;
 import com.example.atpeople.myapplication.util.BackgroundColorUtil;
-import com.example.atpeople.myapplication.util.Dijkstra;
 import com.example.atpeople.myapplication.util.TipHelper;
 
 import java.util.ArrayList;
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addDemo("RxBingdingActivity", RxBingdingActivity.class);
         addDemo("NetworkRequestActivity", NetworkRequestActivity.class);
         addDemo("UseBaseActivity", UseBaseActivity.class);
-        Dijkstra.main(null);
     }
 
     private void addDemo(String demoName, Class<? extends Activity> activityClass) {
