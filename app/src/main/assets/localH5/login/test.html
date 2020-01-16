@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        .downloadBtn {
+            width: 12rem;
+            height: 3.6rem;
+            background: red;
+            position: absolute;
+            left: 50%;
+            top: 29.6rem;
+            margin-left: -6rem;
+            font-size: 1rem;
+        }
+        </style>
+</head>
+<body>
+    <div class="content">
+        <img class="contentImg" id="contentImg" src="login-bg.jpg"/>
+        <button class="downloadBtn">立即下载</button>
+    </div>
+    <script>
+        function initWidth() {
+            document.getElementById("contentImg").style.width = document.documentElement.clientWidth + 'px'
+        }
+        function initFontSize() {
+            const cw = document.documentElement.clientWidth
+            // width: 375px -> fontSize:16px
+            if (cw == 375) {
+                document.documentElement.style.fontSize = '16px'
+            } else {
+                document.documentElement.style.fontSize = cw / 375 * 16 + 'px'
+            }
+        }
+        initWidth()
+        initFontSize()
+        window.onresize = () => {
+            initWidth()
+            initFontSize()
+        }
+    </script>
+</body>
+</html>

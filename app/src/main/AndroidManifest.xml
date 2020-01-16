@@ -59,6 +59,7 @@
         <activity android:name=".main.UseBaseActivity"></activity>
         <activity android:name=".ui.mediaPlayBySeekbar.MediaPlayBySeekbar"></activity>
         <activity android:name=".ui.paymentCode.PaymentCode"></activity>
+        <activity android:name=".ui.textAnimation.CombinationAnimation"></activity>
     </application>
 
 </manifest>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="flexible" content="initial-dpr=2" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+<script src="http://g.tbcdn.cn/mtb/lib-flexible/0.3.2/??flexible_css.js,flexible.js"
+></script>
+    <title>Document</title>
+    <style>
+        html, body {height:100%;overflow:auto;margin: 0;}
+        html{overflow-y:scroll;}
+        .box {
+            width: 100%;
+            height: 100%;
+            background: url(bg.jpg) no-repeat;
+            background-position: center center;
+            background-size: cover;
+            display:flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .top-title {
+            margin-top: -2rem;
+            width: 12rem;
+            height: 3rem;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .logo {
+            width: 0.8rem;
+            margin-right: 0.2666rem;
+        }
+
+        .text-title {
+            color: white;
+            margin-right: 0.2666rem;
+            font-size: 0.5rem;
+        }
+
+        .login-view {
+            width: 8rem;
+            height: 6rem;
+            padding: 0.4rem;
+            background: url(bg2.png) no-repeat;
+            background-position: center center;
+            background-size: cover;
+        }
+        .div-left{
+            display: inline-block;
+            width: 1.5rem;
+            font-size: 0.3rem;
+            text-align: center;
+        }        
+        ::-moz-placeholder {
+            color: white;
+        }
+
+        ::-webkit-input-placeholder {
+            color: white;
+        }
+
+        :-ms-input-placeholder {
+            color: white;
+        }
+
+        .login-view .login-input {
+            width: 6rem;
+            padding: 0.1333rem;
+            background: none;
+            border: 0.5px solid ghostwhite;
+            outline: none;
+            border-radius: 0.04rem;
+            color:white;
+            font-size: 0.3rem;
+        }
+
+        .login-view .login-input2 {
+            width: 3.5rem;
+            padding: 0.1333rem;
+            background: none;
+            border: 0.5px solid ghostwhite;
+            outline: none;
+            border-radius: 0.04rem;
+            color:white;
+            font-size: 0.3rem;
+        }
+
+        .login-item {
+            margin-top: 0.4rem;
+            color: white;
+        }
+
+        .login-text {
+            margin-top: 0.2666rem;
+            text-align: center;
+            color: white;
+            font-size: 0.6rem;
+        }
+        .login-bottom{
+            margin-top: 0.5rem;
+            color: white;
+        }
+        .login-btn {
+            width: 6rem;
+            display: inline-block;
+            background: #0da5f1;
+            padding: 0.1rem;
+            text-align: center;
+            border-radius: 0.0666rem;
+            font-size: 0.3rem;
+        }
+        .yanzheng{
+            margin-left: 0.2666rem;
+            width: 0.4rem;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="top-title">
+            <image class="logo" src="logo.png" mode="aspectFit|aspectFill|widthFix" lazy-load="false" binderror=""
+                bindload="">
+    
+            </image>
+            <span class="text-title"> | </span>
+            <span class="text-title"> 阳东智慧市场监控平台后台管理 </span>
+        </div>
+        <div class="login-view">
+            <div class="login-text">用户登录</div>
+            <div class="login-item login-account"><div class="div-left"> 账&nbsp;&nbsp;&nbsp;&nbsp;号:</div> <input type="text" class="login-input"placeholder="请输入账号"></div>
+            <div class="login-item login-psd"> <div class="div-left">密&nbsp;&nbsp;&nbsp;&nbsp;码:</div> <input type="password" class="login-input" placeholder="请输入密码">
+            </div>
+            <div class="login-item"><div class="div-left">验证码:</div>   <input type="text" class="login-input2" placeholder="请输入验证码">
+                <image class="yanzheng"  src="logo.png" mode="aspectFit|aspectFill|widthFix" lazy-load="false"
+                    binderror="" bindload="">
+    
+                </image>
+            </div>
+            <div class="login-bottom"><div class="div-left">&nbsp;&nbsp;&nbsp;&nbsp;</div> <div class="login-btn">登录</div></div>
+            
+        </div>
+    </div>
+    
+</body>
+
+</html>

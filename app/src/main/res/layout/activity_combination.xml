@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical"
+    >
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="组合动画测试,模拟场景"
+        android:visibility="gone"
+        />
+    <com.example.atpeople.myapplication.customview.FlashTextView
+        android:id="@+id/tv_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FMS V3.5.25"
+        android:visibility="gone"
+        />
+
+    <com.example.atpeople.myapplication.customview.FlashTextView
+        android:id="@+id/tv_text3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="FMS V3.5.25"
+        />
+</LinearLayout>
