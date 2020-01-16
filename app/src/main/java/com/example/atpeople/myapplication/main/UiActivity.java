@@ -39,6 +39,7 @@ import com.example.atpeople.myapplication.ui.paymentCode.PaymentCode;
 import com.example.atpeople.myapplication.ui.search.SearchActivity;
 import com.example.atpeople.myapplication.ui.slidinGupPanel.SlidingUpPanel;
 import com.example.atpeople.myapplication.ui.table.Table;
+import com.example.atpeople.myapplication.ui.textAnimation.CombinationAnimation;
 import com.example.atpeople.myapplication.ui.textAnimation.TextAnimation;
 import com.example.atpeople.myapplication.ui.userInfo.UserInfo;
 import com.example.atpeople.myapplication.ui.webView.WebView;
@@ -114,6 +115,7 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
         addDemo("YoutubeActivity", YoutubeActivity.class);
         addDemo("录音拖动播放", MediaPlayBySeekbar.class);
         addDemo("支付密码UI", PaymentCode.class);
+        addDemo("组合动画", CombinationAnimation.class);
         initFloatMenu();
     }
 
