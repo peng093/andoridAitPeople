@@ -1,6 +1,7 @@
 package com.example.atpeople.myapplication.main;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
@@ -42,7 +43,8 @@ public class UseBaseActivity extends BaseActivity {
                 finish();
             }
         });
-
+        setShowStatusBar(true);
+        setStatusBarFontColor(this,Color.WHITE);
         setTopRightButton("我的",R.mipmap.titlebar_search,new OnClickListener() {
             @Override
             public void onClick() {

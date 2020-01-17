@@ -21,6 +21,8 @@ allprojects {
             url "https://jitpack.io"
         }
         mavenCentral()
+        // 华为推送集成
+         maven {url 'http://developer.huawei.com/repo/'}
     }
 }
 

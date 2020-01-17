@@ -20,3 +20,13 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 -keep class me.pqpo.smartcameralib.**{*;}
+# 华为消息传输混淆
+-ignorewarning
+-keepattributes *Annotation*
+-keepattributes Exceptions
+-keepattributes InnerClasses
+-keepattributes Signature
+-keepattributes SourceFile,LineNumberTable
+-keep class com.hianalytics.android.**{*;}
+-keep class com.huawei.updatesdk.**{*;}
+-keep class com.huawei.hms.**{*;}

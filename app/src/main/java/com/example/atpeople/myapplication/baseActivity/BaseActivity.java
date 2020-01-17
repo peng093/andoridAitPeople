@@ -1,9 +1,12 @@
 package com.example.atpeople.myapplication.baseActivity;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
 import android.support.annotation.Nullable;
@@ -59,6 +62,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toolbar);
         viewContent = findViewById(R.id.view_content);
         mTitle = findViewById(R.id.tv_title);
+
         setSupportActionBar(toolbar);
         // 使用自带返回键
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -69,10 +73,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (!isShowTitle) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
-        if (!isShowStatusBar) {
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN
-                    , WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }
+
         LayoutInflater.from(this).inflate(initLayout(),viewContent);
         ButterKnife.bind(this);
         //设置屏幕是否可旋转
@@ -119,9 +120,25 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param showStatusBar true or false
      */
     public void setShowStatusBar(boolean showStatusBar) {
-        isShowStatusBar = showStatusBar;
+        if (!showStatusBar) {
+            // 隐藏状态栏
+            getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }else {
+            // 显示状态栏
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        }
     }
-
+    public  void setStatusBarFontColor(Activity activity, int fontColor){
+        if (Build.VERSION.SDK_INT >= 21) {
+            View decorView = activity.getWindow().getDecorView();
+            if(fontColor==Color.WHITE){
+                decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
+            }else {
+                // 灰色字体
+                decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
+            }
+        }
+    }
     /**
      * 是否允许屏幕旋转
      *

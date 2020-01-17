@@ -26,6 +26,12 @@ android {
             keyAlias "key"
             keyPassword "123456"
         }
+        debug{
+            storeFile file("./keyStore/myUi.jks")
+            storePassword "123456"
+            keyAlias "key"
+            keyPassword "123456"
+        }
     }
     dataBinding{
         enabled = true
@@ -90,4 +96,6 @@ dependencies {
     implementation project(':gesturepswlib')
     // 粒子动画
     implementation 'yasic.library.ParticleTextView:particletextview:0.0.3'
+    // 华为推送
+     implementation 'com.huawei.android.hms:push:2.6.3.301'
 }

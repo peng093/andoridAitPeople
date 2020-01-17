@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -21,6 +22,13 @@ import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atPeople.model.AtBean;
 import com.example.atpeople.myapplication.util.BackgroundColorUtil;
 import com.example.atpeople.myapplication.util.TipHelper;
+import com.example.atpeople.myapplication.util.ToastUtil;
+import com.huawei.hms.api.ConnectionResult;
+import com.huawei.hms.api.HuaweiApiClient;
+import com.huawei.hms.support.api.client.PendingResult;
+import com.huawei.hms.support.api.client.ResultCallback;
+import com.huawei.hms.support.api.push.HuaweiPush;
+import com.huawei.hms.support.api.push.TokenResult;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -36,7 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Drawable bg_color;
     @BindView(R.id.lly_root)
     ScrollView lly_root;
-
+    HuaweiApiClient client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +52,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ButterKnife.bind(this);
         setTheme(R.style.tapActive);
         mListView =findViewById(R.id.list);
+        huaweiPushInit();
+
         int radus=BackgroundColorUtil.dip2px(this,10);
         bg_color= BackgroundColorUtil.getRandomColorDrawable(radus,true,1);
         addDemo("UiActivity", UiActivity.class);
@@ -115,5 +125,56 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
         return true;
+    }
+
+    private void huaweiPushInit() {
+        client = new HuaweiApiClient.Builder(this)
+                .addApi(HuaweiPush.PUSH_API)
+                .addConnectionCallbacks(new HuaweiApiClient.ConnectionCallbacks() {
+                    @Override public void onConnected() {
+                        //华为移动服务client连接成功，在这边处理业务自己的事件
+                        Log.i(TAG, "HuaweiApiClient 连接成功");
+                        ToastUtil.makeText(getBaseContext(),"HuaweiApiClient 连接成功");
+                        getTokenAsyn();
+                    }
+                    @Override public void onConnectionSuspended(int i) {
+                        //HuaweiApiClient断开连接的时候，业务可以处理自己的事件
+                        Log.i(TAG, "HuaweiApiClient 连接断开");
+                        ToastUtil.makeText(getBaseContext(),"HuaweiApiClient 连接断开");
+                        // client.connect();
+                    }
+                })
+                .addOnConnectionFailedListener(new HuaweiApiClient.OnConnectionFailedListener() {
+                    @Override
+                    public void onConnectionFailed(ConnectionResult arg0) {
+                        Log.i(TAG, "HuaweiApiClient连接失败，错误码：" + arg0.getErrorCode());
+                        ToastUtil.makeText(getBaseContext(),"HuaweiApiClient连接失败，错误码：" + arg0.getErrorCode());
+                    }
+
+                })
+                .build();
+        client.connect(this);
+    }
+    private void getTokenAsyn() {
+        getActivityUri();
+        if (!client.isConnected()) {
+            Log.e(TAG, "获取TOKEN失败，原因：HuaweiApiClient未连接");
+            return;
+        }
+        PendingResult<TokenResult> tokenResult = HuaweiPush.HuaweiPushApi.getToken(client);
+        tokenResult.setResultCallback(new ResultCallback<TokenResult>() {
+            @Override
+            public void onResult(TokenResult result) {
+                Log.e(TAG,"异步回调接口result："+result.getTokenRes().getToken());
+            }
+        });
+    }
+    private void getActivityUri(){
+        Intent intent = new Intent(Intent.ACTION_VIEW,
+                Uri.parse("wonderfullpush://com.wonderfull.android.push/notification?action=your parameter"));
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setAction(Intent.ACTION_VIEW);
+        String intnetUri = intent.toUri(Intent.URI_INTENT_SCHEME);
+        Log.d("hwpush", "intnetUri===" + intnetUri);
     }
 }
