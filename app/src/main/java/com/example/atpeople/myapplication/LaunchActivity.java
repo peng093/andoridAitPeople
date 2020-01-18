@@ -32,7 +32,6 @@ import io.reactivex.disposables.Disposable;
  * 3、启动的时候判断一下，如果有缓存到本地的则显示，否则显示默认的
  */
 public class LaunchActivity extends AppCompatActivity {
-    // private ParticleView mPv1;
     private android.webkit.WebView mContentWv;
 
     @Override
@@ -40,17 +39,6 @@ public class LaunchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
         mContentWv = findViewById(R.id.wv_webview_content);
-//        mPv1 = (ParticleView) findViewById(R.id.pv_1);
-//        // 前部分主文字
-//        mPv1.mHostText="心有所想";
-//        mPv1.mParticleText="目有所见";
-//        mPv1.setOnParticleAnimListener(new ParticleView.ParticleAnimListener() {
-//            @Override
-//            public void onAnimationEnd() {
-//                goToIndex();
-//            }
-//        });
-//        mPv1.startAnim();
         initWebView();
         requestReadAndWritePermission();
     }

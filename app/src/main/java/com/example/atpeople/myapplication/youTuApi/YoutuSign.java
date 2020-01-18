@@ -11,7 +11,7 @@ public class YoutuSign {
 	 *@param  secret_id   http://open.youtu.qq.com/上申请的密钥id
 	 *@param  secret_key  http://open.youtu.qq.com/上申请的密钥key
 	 *@param  expired     签名过期时间
-	 *@param  user_id      业务账号系统,没有可以不填
+	 *@param  user_id     业务账号系统,没有可以不填
 	 *@param  mySign      生成的签名
 	 *@return 0表示成功
 	 */

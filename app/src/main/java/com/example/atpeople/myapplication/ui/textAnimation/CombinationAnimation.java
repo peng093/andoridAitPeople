@@ -67,6 +67,6 @@ public class CombinationAnimation extends BaseActivity {
         tv_text2.setText("Hello world", AnimationUtils.loadAnimation(this, R.anim.right_to_fade), 300);
 
         // 从透明到不透明
-        tv_text3.setText("测试透明度", AnimationUtils.loadAnimation(this, R.anim.to_alpha), 300);
+        tv_text3.setText("FMS V3.5.35", AnimationUtils.loadAnimation(this, R.anim.to_alpha), 300);
     }
 }

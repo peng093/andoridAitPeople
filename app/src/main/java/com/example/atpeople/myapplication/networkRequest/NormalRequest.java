@@ -55,8 +55,7 @@ public class NormalRequest extends AppCompatActivity {
         BaseOkHttp.overallHeader = new Parameter()
                 .add("Charset", "UTF-8")
                 .add("Content-Type", "application/json")
-                .add("Accept-Encoding", "gzip,deflate")
-        ;
+                .add("Accept-Encoding", "gzip,deflate");
         init();
     }
 

@@ -73,7 +73,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (!isShowTitle) {
             requestWindowFeature(Window.FEATURE_NO_TITLE);
         }
-
+        // 默认显示状态栏
+        setShowStatusBar(true);
         LayoutInflater.from(this).inflate(initLayout(),viewContent);
         ButterKnife.bind(this);
         //设置屏幕是否可旋转
@@ -126,6 +127,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         }else {
             // 显示状态栏
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
+            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary,null));
         }
     }
     public  void setStatusBarFontColor(Activity activity, int fontColor){
