@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tc="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#addafd"
     android:orientation="vertical">
 
@@ -45,5 +46,16 @@
             />
     </FrameLayout>
 
-
+    <com.example.atpeople.myapplication.customview.CircularProgress
+        android:id="@+id/progress_bar"
+        android:layout_marginTop="50dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center_horizontal"
+        app:inCircleColor="#DCDCDC"
+        app:outCircleColor="#F0F0F0"
+        app:progressColor="#50CE7B"
+        app:textBold="true"
+        app:textColor="#50CE7B"
+        app:lineWidth="5dp" />
 </LinearLayout>

@@ -1,11 +1,15 @@
 package com.example.atpeople.myapplication.ui.circularProgressView;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
 import com.example.atpeople.myapplication.R;
+import com.example.atpeople.myapplication.customview.CircularProgress;
 import com.example.atpeople.myapplication.customview.CompletedView;
 
 public class CircularProgressView extends AppCompatActivity {
@@ -18,6 +22,7 @@ public class CircularProgressView extends AppCompatActivity {
     private CompletedView mTasksView;
     private TextView tv_progress;
     TextView tv_name;
+    CircularProgress progress_bar;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -36,6 +41,7 @@ public class CircularProgressView extends AppCompatActivity {
         mTotalProgress=100;
         tv_progress.setText("4/30");
         new Thread(new ProgressRunable()).start();
+        initView();
     }
 
     class ProgressRunable implements Runnable {
@@ -55,4 +61,29 @@ public class CircularProgressView extends AppCompatActivity {
         }
     }
 
+    private void initView() {
+        progress_bar = (CircularProgress) findViewById(R.id.progress_bar);
+        progress_bar.setProgress(0);
+        progress_bar.setText("测试\n"+progress_bar.getProgress()+"%");
+        addProgress(0);
+    }
+
+    private void addProgress(int i) {
+        if (i>=100){
+            i = 0;
+        }else {
+            ++i;
+        }
+        handler.sendEmptyMessageDelayed(i, 100);
+    }
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            progress_bar.setProgress(msg.what);
+            progress_bar.setText("测试\n"+progress_bar.getProgress() + "%");
+            addProgress(msg.what);
+        }
+    };
 }
