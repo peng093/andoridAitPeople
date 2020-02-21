@@ -74,11 +74,14 @@ public class CanvasView extends AppCompatActivity {
             position += itemArcWidth;
         }
 
-        return getRoundedCornerBitmap(whiteBgBitmap,20f) ;
+        return getRoundedCornerBitmap(whiteBgBitmap,20f);
     }
-
+    /**
+     * @Author Peng
+     * @Date 2020/2/20 10:00
+     * @Describe Bitmap加圆角
+     */
     public static Bitmap getRoundedCornerBitmap(Bitmap bitmap,float roundPx){
-
         Bitmap output = Bitmap.createBitmap(bitmap.getWidth(), bitmap
                 .getHeight(), Bitmap.Config.ARGB_8888);
         Canvas canvas = new Canvas(output);
@@ -95,7 +98,6 @@ public class CanvasView extends AppCompatActivity {
 
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
         canvas.drawBitmap(bitmap, rect, rect, paint);
-
         return output;
     }
 

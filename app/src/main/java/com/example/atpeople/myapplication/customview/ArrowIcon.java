@@ -4,13 +4,8 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
-import android.graphics.Region;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import java.util.Arrays;
@@ -19,14 +14,14 @@ import java.util.List;
 /**
  * Create by peng on 2019/7/30
  */
-public class ScanRadar extends View {
-    public ScanRadar(Context context) {
+public class ArrowIcon extends View {
+    public ArrowIcon(Context context) {
 
         super(context);
 
     }
 
-    public ScanRadar(Context context, AttributeSet attrs) {
+    public ArrowIcon(Context context, AttributeSet attrs) {
         super(context, attrs);
 
     }
@@ -44,7 +39,6 @@ public class ScanRadar extends View {
      */
     @Override
     protected void onDraw(Canvas canvas) {
-
         super.onDraw(canvas);
         Integer[] colors = {Color.BLUE, Color.RED, Color.GRAY};
         divide(canvas, Arrays.asList(colors));
@@ -58,19 +52,8 @@ public class ScanRadar extends View {
     private void divide(Canvas canvas, List<Integer> colors) {
         float x = getMeasuredWidth();
         float y = getMeasuredHeight();
-        // 当前所在view的宽高是150*150，即左上角原点（0,0）右下角（150*150）的正方形
-        // 因此画扇形的左上角，要超出当前view左上角，及右下角
-        int itemArcWidth = 360 / colors.size();
-        int position = 0;
-        for (Integer color : colors) {
-            //canvas.drawArc(oval, position, itemArcWidth, true, getPaint(color, 2, true));
-            canvas.drawArc(-400, -400, x+400, y+400,position, itemArcWidth, true, getPaint(color, 2, true));
-            position += itemArcWidth;
-        }
-
-        // canvas.drawRect(300, 300, x - 300, y - 300, getPaint(Color.WHITE, 4, true));
-        canvas.drawRoundRect(30,30,x - 30,y - 30,15.0f,15.0f,getPaint(Color.WHITE,dip2px(getContext(),4), true));
-        //drawLine(canvas);
+        canvas.drawCircle(x/2,y/2,x/2,getPaint(Color.GREEN,dip2px(getContext(),4), true));
+        canvas.drawLine(x/2,-y/2,x/2,y/2,getPaint(Color.BLACK,dip2px(getContext(),4), true));
     }
 
 

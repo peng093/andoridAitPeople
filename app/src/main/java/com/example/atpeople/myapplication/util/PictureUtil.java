@@ -29,13 +29,6 @@ public class PictureUtil {
     public static void downPic(final ImageView imageView, Context mContext) {
         Uri uri = Uri.parse("http://file02.16sucai.com/d/file/2014/0704/e53c868ee9e8e7b28c424b56afe2066d.jpg");
         ImageRequest imageRequest0=ImageRequest.fromUri(uri);
-//        ImageRequest imageRequest = ImageRequestBuilder
-//                .newBuilderWithSource(uri)
-//                .setAutoRotateEnabled(true)
-//                .setLowestPermittedRequestLevel(ImageRequest.RequestLevel.FULL_FETCH)
-//                .setProgressiveRenderingEnabled(true)//渐进渲染
-////              .setResizeOptions(new ResizeOptions(300, 300))
-//                .build();
         ImagePipeline imagePipeline = Fresco.getImagePipeline();
         // 预加载到硬盘
         // imagePipeline.prefetchToDiskCache(imageRequest, mContext);
