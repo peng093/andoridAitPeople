@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         addDemo("NetworkRequestActivity", NetworkRequestActivity.class);
         addDemo("UseBaseActivity", UseBaseActivity.class);
     }
-
     private void addDemo(String demoName, Class<? extends Activity> activityClass) {
         Button b = new Button(this);
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);

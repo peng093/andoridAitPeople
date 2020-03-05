@@ -5,7 +5,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Looper;
@@ -45,6 +48,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     private TextView mTitle;
 
     private int menuId;
+    private Bitmap bitmap;
     private String menuStr;
     //左边图标的点击事件
     private OnClickListener onClickListenerTopLeft;
@@ -261,7 +265,10 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (menuId != 0) {
             menu.findItem(R.id.menu_1).setIcon(menuId);
         }
-
+        if(bitmap!=null){
+            Drawable drawable = new BitmapDrawable(null,bitmap);
+            menu.findItem(R.id.menu_1).setIcon(drawable);
+        }
         if (!TextUtils.isEmpty(menuStr)) {
             menu.findItem(R.id.menu_1).setTitle(menuStr);
         }
@@ -278,7 +285,11 @@ public abstract class BaseActivity extends AppCompatActivity {
         this.menuId = menuId;
         this.onClickListenerTopRight = rightListener;
     }
-
+    protected void setTopRightButton2(String menuStr, Bitmap bitmap, OnClickListener rightListener) {
+        this.menuStr = menuStr;
+        this.bitmap = bitmap;
+        this.onClickListenerTopRight = rightListener;
+    }
     /**
      * 设置图标及点击回调
      * */

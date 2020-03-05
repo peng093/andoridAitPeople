@@ -115,7 +115,8 @@ public class CircularProgress extends View {
         canvas.translate(center, center);
         mPaint.setStrokeWidth(0);
         mPaint.setColor(textColor);
-        if (isBold) { //字体加粗
+        // 字体加粗
+        if (isBold) {
             mPaint.setTypeface(Typeface.DEFAULT_BOLD);
         } if (!TextUtils.isEmpty(mText)) {
             // 动态设置文字长为圆半径,计算字体大小

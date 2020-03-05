@@ -23,6 +23,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atPeople.AitPeople;
 import com.example.atpeople.myapplication.ui.betterSpinner.Spinner;
+import com.example.atpeople.myapplication.ui.calendar.GoogleCalendarActivity;
 import com.example.atpeople.myapplication.ui.canvas.CanvasView;
 import com.example.atpeople.myapplication.ui.cardRecognition.CardRecognition;
 import com.example.atpeople.myapplication.ui.carView.Carview;
@@ -116,6 +117,8 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
         addDemo("录音拖动播放", MediaPlayBySeekbar.class);
         addDemo("支付密码UI", PaymentCode.class);
         addDemo("组合动画", CombinationAnimation.class);
+        addDemo("仿谷歌日历", GoogleCalendarActivity.class);
+
         initFloatMenu();
     }
 

@@ -32,49 +32,18 @@ import io.reactivex.disposables.Disposable;
  * 3、启动的时候判断一下，如果有缓存到本地的则显示，否则显示默认的
  */
 public class LaunchActivity extends AppCompatActivity {
-    private android.webkit.WebView mContentWv;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-        mContentWv = findViewById(R.id.wv_webview_content);
+
         initWebView();
         requestReadAndWritePermission();
     }
 
     private void initWebView() {
-
-        mContentWv.getSettings().setJavaScriptEnabled(true);
-        mContentWv.loadUrl("file:///android_asset/localH5/textAnimation/index.html");
-        mContentWv.setWebViewClient(new WebViewClient() {
-            @Override
-            public boolean shouldOverrideUrlLoading(android.webkit.WebView view, String url) {
-                view.loadUrl(url);
-                return true;
-            }
-            @Override
-            public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                String str = "测,试,Js,交,互";
-                // 在加载完成之后去调用js的方法
-                mContentWv.loadUrl("javascript:setPrompt('" + str + " ');");
-            }
-        });
-
-        mContentWv.setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                    // 表示按返回键
-                    if (keyCode == KeyEvent.KEYCODE_BACK && mContentWv.canGoBack()) {
-                        mContentWv.goBack();   //后退
-                        return true;    //已处理
-                    }
-                }
-                return false;
-            }
-        });
         Observable.timer(5, TimeUnit.SECONDS)
                 .subscribe(new Observer<Long>() {
                     @Override

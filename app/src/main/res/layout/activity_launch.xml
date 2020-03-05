@@ -1,27 +1,19 @@
-<!--<?xml version="1.0" encoding="utf-8"?>-->
-<!--<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    xmlns:pv="http://schemas.android.com/apk/res-auto"-->
-<!--    >-->
-<!--    <com.example.atpeople.myapplication.util.particleview.ParticleView-->
-<!--        android:id="@+id/pv_1"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:layout_weight="1"-->
-<!--        android:background="#0867AB"-->
-<!--        pv:pv_host_text="Linked"-->
-<!--        pv:pv_particle_text="in"-->
-<!--        pv:pv_text_anim_time="1000"-->
-<!--        pv:pv_spread_anim_time="1500"-->
-<!--        pv:pv_host_text_anim_time="1000" />-->
-<!--</LinearLayout>-->
-<WebView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/wv_webview_content"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginBottom="0dp"
-    android:layout_marginTop="0dp"
-    android:background="#B2DB4D"
-    android:paddingBottom="0dp"
-    android:paddingTop="0dp" />
+    android:background="#ccddcc"
+    android:gravity="center"
+    >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:text="hello world!"
+        android:textSize="50dp"
+        ></TextView>
+
+</LinearLayout>

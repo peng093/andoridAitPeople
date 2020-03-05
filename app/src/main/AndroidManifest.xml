@@ -73,6 +73,7 @@
         <activity android:name=".ui.mediaPlayBySeekbar.MediaPlayBySeekbar"></activity>
         <activity android:name=".ui.paymentCode.PaymentCode"></activity>
         <activity android:name=".ui.textAnimation.CombinationAnimation"></activity>
+    <activity android:name=".ui.calendar.GoogleCalendarActivity"/>
     <activity
         android:name="com.example.atpeople.myapplication.main.NotifyDatailActivity"
         >
