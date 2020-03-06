@@ -100,5 +100,5 @@ dependencies {
      implementation 'com.huawei.android.hms:push:2.6.3.301'
     // Ae文字动画
 //    implementation "com.airbnb.android:lottie:2.2.5"
-    implementation project(path: ':cadar')
+    implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
 }

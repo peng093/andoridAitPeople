@@ -14,20 +14,21 @@ import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.ui.calendar.GoogleCalendarActivity;
 import com.example.atpeople.myapplication.ui.calendar.model.ListItemModel;
 import com.example.atpeople.myapplication.ui.calendar.utils.TimeUtils;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import io.github.memfis19.cadar.data.entity.Event;
 
 /**
  * Create by peng on 2019/7/18
  */
 public class WeeksAdapter extends BaseQuickAdapter<ListItemModel, BaseViewHolder> {
-    public WeeksAdapter(@Nullable List<ListItemModel> data) {
+    List<Event> eventList;
+    public WeeksAdapter(@Nullable List<ListItemModel> data,List<Event> eventList) {
         super(R.layout.adapter_weeks, data);
-
+        this.eventList=eventList;
 }
 
     @Override
@@ -49,7 +50,23 @@ public class WeeksAdapter extends BaseQuickAdapter<ListItemModel, BaseViewHolder
         rv_event_list.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
         EventListAdapter eventListAdapter=new EventListAdapter(new ArrayList<Event>());
         rv_event_list.setAdapter(eventListAdapter);
-        List<Event>list= GoogleCalendarActivity.getEventListByTime(st_calendar,en_calendar);
+        List<Event>list= getEventListByTime(st_calendar,en_calendar,eventList);
         eventListAdapter.setNewData(list);
+    }
+    /**
+     * @Author Peng
+     * @Date 2020/3/5 15:48
+     * @Describe 匹配某一周范围内的事件
+     */
+    public  List<Event> getEventListByTime(Calendar st_calendar, Calendar en_calendar, List<Event> eventList) {
+        long start_week_time = st_calendar.getTimeInMillis();
+        long end_week_time = en_calendar.getTimeInMillis();
+        List<Event> list = new ArrayList<>();
+        for (Event event : eventList) {
+            if (event.getTimeInMillis()> start_week_time && event.getTimeInMillis()  < end_week_time) {
+                list.add(event);
+            }
+        }
+        return list;
     }
 }

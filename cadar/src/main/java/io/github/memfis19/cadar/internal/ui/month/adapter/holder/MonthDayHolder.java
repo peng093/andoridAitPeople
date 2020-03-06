@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import java.util.Calendar;
@@ -25,6 +27,8 @@ public class MonthDayHolder extends RecyclerView.ViewHolder {
     private View itemView;
 
     private TextView dayNumberView;
+    private LinearLayout lly_root;
+    private ImageView iv_indicator;
     private Calendar day;
     private boolean displayDaysOutOfMonth = true;
 
@@ -53,6 +57,8 @@ public class MonthDayHolder extends RecyclerView.ViewHolder {
             monthDayDecorator = monthDayDecoratorFactory.createMonthDayDecorator(itemView);
         } else {
             dayNumberView = (TextView) itemView.findViewById(R.id.month_view_item_content);
+            lly_root = (LinearLayout) itemView.findViewById(R.id.lly_root);
+            iv_indicator= (ImageView) itemView.findViewById(R.id.iv_indicator);
         }
     }
 
@@ -78,18 +84,19 @@ public class MonthDayHolder extends RecyclerView.ViewHolder {
             dayNumberView.setText(String.valueOf(monthDay.get(Calendar.DAY_OF_MONTH)));
 
             if (isSelected) {
-                dayNumberView.setBackgroundResource(R.drawable.event_selected_background);
+                lly_root.setBackgroundResource(R.drawable.event_selected_background);
             } else if (isToday) {
-                dayNumberView.setBackgroundResource(R.drawable.event_today_background);
+                lly_root.setBackgroundResource(R.drawable.event_today_background);
             } else {
-                dayNumberView.setBackgroundColor(Color.TRANSPARENT);
+                lly_root.setBackgroundColor(Color.TRANSPARENT);
             }
-
-            if (eventList == null || eventList.isEmpty()) {
-                dayNumberView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, 0);
-            } else {
-                dayNumberView.setCompoundDrawablesWithIntrinsicBounds(0, 0, 0, R.drawable.event_indicator);
-            }
+            // 如果当天有事件，显示小圆点
+            long totay=monthDay.getTimeInMillis();
+//            if (GoogleCalendarActivity.isHasEventToday(totay)) {
+//                iv_indicator.setVisibility(View.INVISIBLE);
+//            } else {
+//                iv_indicator.setVisibility(View.VISIBLE);
+//            }
         }
     }
 }

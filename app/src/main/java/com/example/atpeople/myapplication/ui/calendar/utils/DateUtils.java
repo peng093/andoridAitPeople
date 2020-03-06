@@ -2,11 +2,6 @@ package com.example.atpeople.myapplication.ui.calendar.utils;
 
 import android.util.Log;
 
-import org.joda.time.DateTime;
-import org.joda.time.Days;
-import org.joda.time.Months;
-import org.joda.time.Weeks;
-import org.joda.time.Years;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -55,6 +50,49 @@ public final class DateUtils {
 
     public static TimeZone getTimeZone() {
         return TimeZone.getDefault();
+    }
+
+
+    /**
+     * 将毫秒值转换为指定格式的字符串
+     * @param : @param time	毫秒值
+     * @param : @param fomat 格式
+     * @return type:String	返回格式化后的字符串
+     */
+    public static String getFormatString(long time, String fomat) {
+        if (time!=0){
+            int b=(""+time).length();
+            // 如果不大于9位数,就*1000
+            long newTime=b>10?time:time*1000;
+            String formatString = "";
+            if (fomat != null) {
+                SimpleDateFormat dateFormat = new SimpleDateFormat(fomat);
+                formatString = dateFormat.format(new Date(newTime));
+            }
+            return formatString;
+        }else {
+            return "Unknown";
+        }
+    }
+
+    public static boolean isTheSameDay(long time,long time2) {
+        try {
+            Calendar nowCal = Calendar.getInstance();
+            Calendar dataCal = Calendar.getInstance();
+            SimpleDateFormat df1 = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
+            SimpleDateFormat df2 = new SimpleDateFormat("yyyy-MM-dd  HH:mm:ss");
+
+            String data1 = df1.format(time);
+            String data2 = df2.format(time2);
+            java.util.Date now = df1.parse(data1);
+            java.util.Date date = df2.parse(data2);
+            nowCal.setTime(now);
+            dataCal.setTime(date);
+            return isSameDay(nowCal, dataCal);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
     }
 
     public static Calendar setTimeToYearStart(Calendar calendar) {
@@ -176,26 +214,7 @@ public final class DateUtils {
      * @see #setTimeToMidnight(java.util.Date)
      * @see #setTimeToEndOfTheDay(java.util.Date)
      */
-    public static int daysBetween(Date start, Date end) {
-        DateTime startDateTime = new DateTime(start);
-        DateTime endDateTime = new DateTime(end);
 
-        return Days.daysBetween(startDateTime, endDateTime).getDays();
-    }
-
-    public static int daysBetweenPure(Date start, Date end) {
-        DateTime startDateTime = new DateTime(setTimeToMidnight(start));
-        DateTime endDateTime = new DateTime(setTimeToMidnight(end));
-
-        return Days.daysBetween(startDateTime, endDateTime).getDays();
-    }
-
-    public static int monthBetween(Date start, Date end) {
-        DateTime startDateTime = new DateTime(start);
-        DateTime endDateTime = new DateTime(end);
-
-        return Months.monthsBetween(startDateTime, endDateTime).getMonths();
-    }
     /**
      * @Author Peng
      * @Date 2020/3/4 17:20
@@ -216,42 +235,9 @@ public final class DateUtils {
     }
 
 
-    public static int weeksBetween(Date start, Date end) {
-        DateTime startDateTime = new DateTime(start);
-        DateTime endDateTime = new DateTime(end);
 
-        return Weeks.weeksBetween(startDateTime, endDateTime).getWeeks();
-    }
 
-    /**
-     * Method returns number of years between two dates using day/month for calculation.
-     * Example: start = 20/12/2015, end = 20/11/2016, result = 0 years.
-     *
-     * @param start - start date
-     * @param end   - end period
-     * @return - number of years between start and end date.
-     */
-    public static int yearsBetween(Date start, Date end) {
-        DateTime startDateTime = new DateTime(start);
-        DateTime endDateTime = new DateTime(end);
 
-        return Years.yearsBetween(startDateTime, endDateTime).getYears();
-    }
-
-    /**
-     * Method returns number of years between two dates using years for calculation.
-     * Example: start = 20/12/2015, end = 20/11/2016, result = 1 year.
-     *
-     * @param start - start date
-     * @param end   - end period
-     * @return - number of years between start and end date.
-     */
-    public static int yearsBetweenPure(Date start, Date end) {
-        DateTime startDateTime = new DateTime(start);
-        DateTime endDateTime = new DateTime(end);
-
-        return Math.abs(endDateTime.getYear() - startDateTime.getYear());
-    }
 
     public static void resetTime(GregorianCalendar calendar) {
         calendar.set(Calendar.HOUR_OF_DAY, 0);
@@ -260,31 +246,9 @@ public final class DateUtils {
         calendar.set(Calendar.MILLISECOND, 0);
     }
 
-    /**
-     * Return the minimum date for using in application. Now it is 01/01/1900
-     *
-     * @return - minimum supported date.
-     */
-    public static Date getMinimumSupportedDate() {
-        DateTime minimumDate = new DateTime(1900, 1, 1, 0, 0);
-        return minimumDate.toDate();
-    }
 
-    /**
-     * Return the maximum date for using in application.
-     *
-     * @return - maximum supported date.
-     */
-    public static Date getMaximumSupportedDate() {
-        DateTime maximumDate = new DateTime(DateTime.now().year().get() + MAX_YEAR_RANGE / 2, 1, 1, 0, 0);
-        return maximumDate.toDate();
-    }
 
-    public static Date getCurrentDate() {
-        DateTime dateTime = new DateTime();
-        DateTime currentDate = new DateTime(dateTime.getYear(), dateTime.getMonthOfYear(), dateTime.getDayOfMonth(), 0, 0);
-        return currentDate.toDate();
-    }
+
 
     public static long getCurrentTime() {
         Calendar calendar = getCalendarInstance();

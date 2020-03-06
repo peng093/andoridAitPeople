@@ -1,12 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="32dp">
-
-    <TextView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="32dp"
+    android:layout_height="32dp"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:id="@+id/lly_root"
+    >
+    <TextView
         android:id="@+id/month_view_item_content"
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
         android:layout_gravity="center"
         android:gravity="center" />
-</FrameLayout>
+    <ImageView
+        android:id="@+id/iv_indicator"
+        android:layout_width="8dp"
+        android:layout_height="8dp"
+        android:src="@drawable/event_indicator"
+        />
+</LinearLayout>

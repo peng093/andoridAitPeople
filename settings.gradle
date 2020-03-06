@@ -1,1 +1,1 @@
-include ':app', ':gesturepswlib', ':cadar'
+include ':app', ':gesturepswlib'

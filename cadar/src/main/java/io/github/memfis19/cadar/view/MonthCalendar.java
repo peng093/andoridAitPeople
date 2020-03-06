@@ -253,11 +253,11 @@ public class MonthCalendar extends LinearLayout implements ViewPager.OnPageChang
             uiHandler.post(new Runnable() {
                 @Override
                 public void run() {
-                    if(correctPosition==Calendar.SUNDAY){
-                        headerItem.addView(view,0);
-                    }else {
+//                    if(correctPosition==Calendar.SUNDAY){
+//                        headerItem.addView(view,0);
+//                    }else {
                         headerItem.addView(view);
-                    }
+//                    }
 
                 }
             });

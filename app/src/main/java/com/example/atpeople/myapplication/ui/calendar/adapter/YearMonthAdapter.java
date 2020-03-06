@@ -12,19 +12,22 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.ui.calendar.model.ListItemModel;
 import com.example.atpeople.myapplication.ui.calendar.utils.TimeUtils;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
 
 /**
  * Create by peng on 2019/7/18
  */
 public class YearMonthAdapter extends BaseQuickAdapter<Pair, BaseViewHolder> {
     ImageView iv_month;
-    public YearMonthAdapter(@Nullable List<Pair> data) {
+    List<Event> eventList;
+    public YearMonthAdapter(@Nullable List<Pair> data, List<Event> eventList) {
         super(R.layout.adapter_year_month, data);
-
+        this.eventList=eventList;
 }
 
     @Override
@@ -40,35 +43,35 @@ public class YearMonthAdapter extends BaseQuickAdapter<Pair, BaseViewHolder> {
     private void showAllWeeksOnMonth(Pair item,RecyclerView rv_list) {
         rv_list.setLayoutManager(new LinearLayoutManager(mContext,LinearLayoutManager.VERTICAL,false));
         List<ListItemModel> listItemModels=new ArrayList<>();
+        // 获取该年月的所有周数
         TimeUtils.getFirstSundayOfMonth((int)item.first,(int)item.second,listItemModels);
-        WeeksAdapter weeksAdapter=new WeeksAdapter(new ArrayList<ListItemModel>());
+        WeeksAdapter weeksAdapter=new WeeksAdapter(listItemModels,eventList);
         rv_list.setAdapter(weeksAdapter);
-        weeksAdapter.setNewData(listItemModels);
     }
     private int getBackgroundId(int month) {
-        int backgroundId = io.github.memfis19.cadar.R.drawable.bkg_12_december;
+        int backgroundId = R.mipmap.bkg_12_dec;
         if (month == Calendar.JANUARY) {
-            backgroundId = io.github.memfis19.cadar.R.drawable.bkg_01_january;
+            backgroundId = R.mipmap.bkg_01_jan;
         } else if (month == Calendar.FEBRUARY) {
-            backgroundId = io.github.memfis19.cadar.R.drawable.bkg_02_february;
+            backgroundId = R.mipmap.bkg_02_feb;
         } else if (month == Calendar.MARCH) {
-            backgroundId = io.github.memfis19.cadar.R.drawable.bkg_03_march;
+            backgroundId = R.mipmap.bkg_03_mar;
         } else if (month == Calendar.APRIL) {
-            backgroundId = io.github.memfis19.cadar.R.drawable.bkg_04_april;
+            backgroundId = R.mipmap.bkg_04_apr;
         } else if (month == Calendar.MAY) {
-            backgroundId = io.github.memfis19.cadar.R.drawable.bkg_05_may;
+            backgroundId = R.mipmap.bkg_05_may;
         } else if (month == Calendar.JUNE) {
-            backgroundId = io.github.memfis19.cadar.R.drawable.bkg_06_june;
+            backgroundId = R.mipmap.bkg_06_jun;
         } else if (month == Calendar.JULY) {
-            backgroundId = io.github.memfis19.cadar.R.drawable.bkg_07_july;
+            backgroundId = R.mipmap.bkg_07_jul;
         } else if (month == Calendar.AUGUST) {
-            backgroundId = io.github.memfis19.cadar.R.drawable.bkg_08_august;
+            backgroundId = R.mipmap.bkg_08_aug;
         } else if (month == Calendar.SEPTEMBER) {
-            backgroundId = io.github.memfis19.cadar.R.drawable.bkg_09_september;
+            backgroundId = R.mipmap.bkg_09_sep;
         } else if (month == Calendar.OCTOBER) {
-            backgroundId = io.github.memfis19.cadar.R.drawable.bkg_10_october;
+            backgroundId = R.mipmap.bkg_10_oct;
         } else if (month == Calendar.NOVEMBER) {
-            backgroundId = io.github.memfis19.cadar.R.drawable.bkg_11_november;
+            backgroundId = R.mipmap.bkg_11_nov;
         }
         return backgroundId;
     }

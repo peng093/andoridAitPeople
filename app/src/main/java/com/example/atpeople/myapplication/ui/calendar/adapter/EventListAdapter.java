@@ -16,15 +16,16 @@ import android.widget.TextView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.atpeople.myapplication.R;
+import com.example.atpeople.myapplication.ui.calendar.model.AxonEventModel;
 import com.example.atpeople.myapplication.ui.calendar.model.ListItemModel;
+import com.example.atpeople.myapplication.ui.calendar.utils.DateUtils;
 import com.example.atpeople.myapplication.util.TextBitmap;
+import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.List;
 
-import io.github.memfis19.cadar.data.entity.Event;
-import io.github.memfis19.cadar.internal.utils.DateUtils;
 
 /**
  * Create by peng on 2019/7/18
@@ -57,7 +58,7 @@ public class EventListAdapter extends BaseQuickAdapter<Event, BaseViewHolder> {
             if(helper.getLayoutPosition()>0){
                 Event beforeItem= getData().get(helper.getLayoutPosition()-1);
                 // 相同就不显示
-                displayDayIndicator = !DateUtils.isSameDay(beforeItem.getEventStartDate(), item.getEventStartDate());
+                displayDayIndicator = !DateUtils.isTheSameDay(beforeItem.getTimeInMillis(),item.getTimeInMillis());
             }else {
                 displayDayIndicator=true;
             }
@@ -68,10 +69,10 @@ public class EventListAdapter extends BaseQuickAdapter<Event, BaseViewHolder> {
         if (displayDayIndicator) {
             day_title.setVisibility(View.VISIBLE);
             // 几号
-            String dayNumber = DateFormat.format(DAY_NUMBER_FORMAT, item.getEventStartDate()).toString();
+            String dayNumber = DateUtils.getFormatString(item.getTimeInMillis(),DAY_NUMBER_FORMAT);
             int dayNumberLength = dayNumber.length();
             // 周几
-            String week=DateFormat.format(WEEK_DAY_FORMAT, item.getEventStartDate()).toString();
+            String week=DateUtils.getFormatString(item.getTimeInMillis(),WEEK_DAY_FORMAT);
             Spannable dayLabelText = new SpannableString(dayNumber + "\n" + week);
             int wholeLength = dayLabelText.length();
             // RelativeSizeSpan设置字体的相对大小
@@ -80,10 +81,10 @@ public class EventListAdapter extends BaseQuickAdapter<Event, BaseViewHolder> {
         } else {
             day_title.setVisibility(View.INVISIBLE);
         }
-
-        event_title.setText(item.getEventTitle());
+        AxonEventModel axonEventModel=(AxonEventModel)item.getData();
+        event_title.setText(axonEventModel.getAxon_title());
         SimpleDateFormat timeFormat = new SimpleDateFormat(TIME_FORMAT, DateUtils.getLocale());
-        event_time.setText(timeFormat.format(item.getEventStartDate()));
+        event_time.setText(timeFormat.format(item.getTimeInMillis()));
     }
 
 }
