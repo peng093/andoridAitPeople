@@ -16,6 +16,9 @@ import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.List;
 
 
@@ -75,4 +78,5 @@ public class YearMonthAdapter extends BaseQuickAdapter<Pair, BaseViewHolder> {
         }
         return backgroundId;
     }
+
 }

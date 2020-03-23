@@ -18,10 +18,13 @@ import com.example.atpeople.myapplication.ui.calendar.model.ListItemModel;
 import com.example.atpeople.myapplication.ui.calendar.utils.TimeUtils;
 import com.example.atpeople.myapplication.util.TextBitmap;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.comparators.EventComparator;
 import com.github.sundeepk.compactcalendarview.domain.Event;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -46,6 +49,7 @@ public class GoogleCalendarActivity extends BaseActivity {
     List<Pair> pairList;
     List<Event>list;
     private boolean shouldShow = true;
+    private Comparator<Event> eventsComparator = new EventComparator();
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -80,17 +84,23 @@ public class GoogleCalendarActivity extends BaseActivity {
                     shouldShow=true;
                     compactCalendarView.showCalendarWithAnimation();
                 }
-
+                // 清除所有事件
+                compactCalendarView.removeAllEvents();
+                Calendar cal=Calendar.getInstance();
+                cal.add(Calendar.DATE, 0);
+                Event ev = new Event(Color.parseColor("#0187be"), cal.getTimeInMillis(),new AxonEventModel(0,"#测试同一天"));
+                list.add(ev);
+                // 按日期排序
+                Collections.sort(list, eventsComparator);
+                compactCalendarView.addEvents(list);
+                yearMonthAdapter.notifyDataSetChanged();
             }
         });
         setShowStatusBar(true);
         setStatusBarFontColor(this, Color.WHITE);
         // 年月列表初始化
         list=new ArrayList<>();
-        Calendar cal=Calendar.getInstance();
-        cal.add(Calendar.DATE, 0);
-        Event ev = new Event(Color.parseColor("#0187be"), cal.getTimeInMillis(),new AxonEventModel(0,"#测试同一天"));
-        list.add(ev);
+
         for (int i = 0; i < 5; i++) {
             Calendar calendar=Calendar.getInstance();
             calendar.add(Calendar.DATE, i);

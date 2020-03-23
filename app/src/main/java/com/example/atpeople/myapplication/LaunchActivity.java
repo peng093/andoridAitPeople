@@ -1,6 +1,7 @@
 package com.example.atpeople.myapplication;
 
 import android.Manifest;
+import android.animation.Animator;
 import android.content.Intent;
 import android.content.SharedPreferences;
 
@@ -11,15 +12,20 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.atpeople.myapplication.main.MainActivity;
 import com.example.atpeople.myapplication.util.particleview.ParticleView;
+import com.romainpiel.shimmer.Shimmer;
+import com.romainpiel.shimmer.ShimmerTextView;
 import com.tbruyelle.rxpermissions2.RxPermissions;
 
 
 import java.util.concurrent.TimeUnit;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -32,42 +38,73 @@ import io.reactivex.disposables.Disposable;
  * 3、启动的时候判断一下，如果有缓存到本地的则显示，否则显示默认的
  */
 public class LaunchActivity extends AppCompatActivity {
-
+    @BindView(R.id.shimmer_tv)
+    ShimmerTextView shimmer_tv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_launch);
-
+        ButterKnife.bind(this);
         initWebView();
         requestReadAndWritePermission();
     }
 
     private void initWebView() {
-        Observable.timer(5, TimeUnit.SECONDS)
-                .subscribe(new Observer<Long>() {
+        Shimmer shimmer = new Shimmer();
+        shimmer.start(shimmer_tv);
+        shimmer.setRepeatCount(0)
+                .setDuration(2000)
+                .setStartDelay(100)
+                // 从左往右，或者从右往左
+                .setDirection(Shimmer.ANIMATION_DIRECTION_LTR)
+                .setAnimatorListener(new Animator.AnimatorListener(){
                     @Override
-                    public void onSubscribe(Disposable d) {
+                    public void onAnimationStart(Animator animation) {
 
                     }
 
                     @Override
-                    public void onNext(Long aLong) {
+                    public void onAnimationEnd(Animator animation) {
                         Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
                         startActivity(intent);
                         finish();
                     }
 
                     @Override
-                    public void onError(Throwable e) {
+                    public void onAnimationCancel(Animator animation) {
 
                     }
 
                     @Override
-                    public void onComplete() {
+                    public void onAnimationRepeat(Animator animation) {
 
                     }
                 });
+//        Observable.timer(5, TimeUnit.SECONDS)
+//                .subscribe(new Observer<Long>() {
+//                    @Override
+//                    public void onSubscribe(Disposable d) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(Long aLong) {
+//                        Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+//                        startActivity(intent);
+//                        finish();
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onComplete() {
+//
+//                    }
+//                });
 
     }
 //    private void goToIndex(){

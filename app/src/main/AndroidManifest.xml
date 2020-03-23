@@ -24,7 +24,8 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
     <!--如果是安卓8.0，应用编译配置的targetSdkVersion>=26，请务必添加以下权限 -->
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
-
+    <!--发送短信  -->
+    <uses-permission android:name="android.permission.SEND_SMS"/>
 <application
         android:name=".AppStart"
         android:allowBackup="true"
@@ -73,6 +74,7 @@
         <activity android:name=".ui.mediaPlayBySeekbar.MediaPlayBySeekbar"></activity>
         <activity android:name=".ui.paymentCode.PaymentCode"></activity>
         <activity android:name=".ui.textAnimation.CombinationAnimation"></activity>
+        <activity android:name=".ui.RtspActivity"></activity>
     <activity android:name=".ui.calendar.GoogleCalendarActivity"/>
     <activity
         android:name="com.example.atpeople.myapplication.main.NotifyDatailActivity"

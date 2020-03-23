@@ -99,6 +99,10 @@ dependencies {
     // 华为推送
      implementation 'com.huawei.android.hms:push:2.6.3.301'
     // Ae文字动画
-//    implementation "com.airbnb.android:lottie:2.2.5"
+    // implementation "com.airbnb.android:lottie:2.2.5"
     implementation 'com.github.sundeepk:compact-calendar-view:3.0.0'
+
+    implementation "com.aaronhan:rtspclient:0.7"
+    // 文字动画
+    implementation 'com.romainpiel.shimmer:library:1.4.0@aar'
 }
