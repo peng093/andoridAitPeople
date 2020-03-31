@@ -48,7 +48,7 @@ public class UseBaseActivity extends BaseActivity {
         setTopRightButton("我的",R.mipmap.titlebar_search,new OnClickListener() {
             @Override
             public void onClick() {
-                showToast("你点击了右上角的图标");
+            showToast("你点击了右上角的图标");
             }
         });
 

@@ -21,6 +21,7 @@ public class AppStart extends Application {
         super.onCreate();
         context = getApplicationContext();
         Fresco.initialize(this);
+        // 手势解锁
         ContextUtils.init(this);
     }
     public static Context getContext() {

@@ -6,24 +6,31 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.baseActivity.BaseActivity;
+import com.example.atpeople.myapplication.broadcast.SmsBroadcast;
+import com.example.atpeople.myapplication.callback.BaseConfigCallBack;
+import com.example.atpeople.myapplication.constant.Constant;
 import com.example.atpeople.myapplication.util.ToastUtil;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
+
+import static com.example.atpeople.myapplication.constant.Constant.BACK_SMS_ACTION;
+import static com.example.atpeople.myapplication.constant.Constant.SEND_SMS;
+import static com.example.atpeople.myapplication.constant.Constant.SEND_SMS_ACTION;
 
 /**
  * Create by peng on 2020/3/19
@@ -36,49 +43,7 @@ public class SendSmsActivity extends BaseActivity {
     @BindView(R.id.bt_send)
     Button bt_send;
 
-    private static final int SEND_SMS = 100;
-
-    String SEND_SMS_ACTION = "3";
-    String BACK_SMS_ACTION = "4";
-
-    BroadcastReceiver liste_send_status= new BroadcastReceiver(){
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            //根据结果码判断是否发送成功
-            switch (getResultCode()){
-                case Activity.RESULT_OK:
-                    ToastUtil.makeText(SendSmsActivity.this, "短信发送成功");
-                    break;
-                case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                    // 普通错误
-                    ToastUtil.makeText(SendSmsActivity.this, "短信发送失败");
-                    break;
-                case SmsManager.RESULT_ERROR_NO_SERVICE:
-                    ToastUtil.makeText(SendSmsActivity.this, "服务当前不可用");
-                    break;
-                case SmsManager.RESULT_ERROR_NULL_PDU:
-                    ToastUtil.makeText(SendSmsActivity.this, "没有提供pdu");
-                    break;
-                case SmsManager.RESULT_ERROR_RADIO_OFF:
-                    ToastUtil.makeText(SendSmsActivity.this, "无线广播被明确地关闭");
-                    break;
-
-            }
-        }
-    };
-    BroadcastReceiver liste_back_status=new BroadcastReceiver(){
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            switch (getResultCode()) {
-                case Activity.RESULT_OK:
-                    Toast.makeText(getBaseContext(), "对方接收到短信!", Toast.LENGTH_SHORT).show();
-                    break;
-                default:
-                    Toast.makeText(getBaseContext(), "对方接收短信失败!", Toast.LENGTH_SHORT).show();
-                    break;
-            }
-        }
-    };
+    private SmsBroadcast mSmsBroadcastReceiver;
 
     @Override
     protected int initLayout() {
@@ -87,10 +52,17 @@ public class SendSmsActivity extends BaseActivity {
 
     @Override
     protected void initView() {
-        // 注册自己发送短信的广播：
-        registerReceiver(liste_send_status, new IntentFilter(SEND_SMS_ACTION));
-        // 注册对方接受到短信的广播：
-        registerReceiver(liste_back_status, new IntentFilter(BACK_SMS_ACTION));
+        mSmsBroadcastReceiver=new SmsBroadcast(this, new BaseConfigCallBack() {
+            @Override
+            public void sendSuccess(String data) {
+                Log.e(TAG, "短信发送成功==axonId: "+data);
+            }
+
+            @Override
+            public void receiveSuccess(String data) {
+                Log.e(TAG, "对方接收到短信==axonId: "+data);
+            }
+        });
     }
 
     @Override
@@ -142,10 +114,14 @@ public class SendSmsActivity extends BaseActivity {
         }
     }
     private void sendSMSS() {
-        // 会发送广播，
-        PendingIntent send= PendingIntent.getBroadcast(SendSmsActivity.this, 0, new Intent(SEND_SMS_ACTION), 0);
+        // 会发送广播SEND_SMS_ACTION要跟注册时候，匹配
+        Intent ss=new Intent(SEND_SMS_ACTION);
+        ss.putExtra("axonId","6666");
+        PendingIntent send= PendingIntent.getBroadcast(SendSmsActivity.this, 0,ss, 0);
         // 如果对方接受到短信 会发送广播
-        PendingIntent reviced= PendingIntent.getBroadcast(SendSmsActivity.this, 0, new Intent(BACK_SMS_ACTION), 0);
+        Intent rr=new Intent(BACK_SMS_ACTION);
+        rr.putExtra("axonId","牛逼111");
+        PendingIntent reviced= PendingIntent.getBroadcast(SendSmsActivity.this, 0,rr, 0);
 
         String content = edContent.getText().toString().trim();
         String phone = edPhone.getText().toString().trim();
@@ -156,7 +132,7 @@ public class SendSmsActivity extends BaseActivity {
             // 分条进行发送。
             for (int i = 0; i < list.size(); i++) {
                 String co=list.get(i);
-                smsManager.sendTextMessage(phone, "aaa", co, send, reviced);
+                smsManager.sendTextMessage("15050136297", "aaa", co, send, reviced);
             }
         } else {
             Toast.makeText(SendSmsActivity.this, "手机号或内容不能为空", Toast.LENGTH_SHORT).show();
@@ -173,8 +149,7 @@ public class SendSmsActivity extends BaseActivity {
     protected void onDestroy() {
         super.onDestroy();
         // 取消注册自定义 Receiver
-        unregisterReceiver(liste_send_status);
-        unregisterReceiver(liste_back_status);
+        unregisterReceiver(mSmsBroadcastReceiver);
     }
 
 }
