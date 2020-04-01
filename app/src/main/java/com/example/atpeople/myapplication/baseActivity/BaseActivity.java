@@ -2,7 +2,9 @@ package com.example.atpeople.myapplication.baseActivity;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.graphics.Bitmap;
@@ -29,6 +31,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.atpeople.myapplication.R;
+import com.example.atpeople.myapplication.callback.AlertCallBack;
 
 import butterknife.ButterKnife;
 
@@ -87,6 +90,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
+//        setTheme(R.style.tapActive);
         //初始化控件
         initView();
         //设置数据
@@ -129,9 +133,9 @@ public abstract class BaseActivity extends AppCompatActivity {
             // 隐藏状态栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }else {
-            // 显示状态栏
+            // 显示状态栏及背景色
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.colorPrimary,null));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.main_color,null));
         }
     }
     public  void setStatusBarFontColor(Activity activity, int fontColor){
@@ -312,6 +316,28 @@ public abstract class BaseActivity extends AppCompatActivity {
     }
 
 
+    protected void showNormalAlertDialog(String title, String content, final AlertCallBack callBack){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(title);
+        dialog.setMessage(content);
+
+        dialog.setNeutralButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                callBack.cancle();
+            }
+        });
+        dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                callBack.sure();
+            }
+        });
+        dialog.setCancelable(true);
+        AlertDialog tmp = dialog.create();
+        tmp.setCanceledOnTouchOutside(true);
+        tmp.show();
+    }
     @Override
     protected void onDestroy() {
         super.onDestroy();

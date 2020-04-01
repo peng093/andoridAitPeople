@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.baseActivity.BaseActivity;
+import com.example.atpeople.myapplication.callback.AlertCallBack;
 import com.example.atpeople.myapplication.ui.table.Table;
 
 import butterknife.BindView;
@@ -48,7 +49,18 @@ public class UseBaseActivity extends BaseActivity {
         setTopRightButton("我的",R.mipmap.titlebar_search,new OnClickListener() {
             @Override
             public void onClick() {
-            showToast("你点击了右上角的图标");
+            // showToast("你点击了右上角的图标");
+                showNormalAlertDialog("提示", "你点击了右上角的图标", new AlertCallBack() {
+                    @Override
+                    public void sure() {
+                        showToast("你点击了确定");
+                    }
+
+                    @Override
+                    public void cancle() {
+                        showToast("你点击了取消");
+                    }
+                });
             }
         });
 
