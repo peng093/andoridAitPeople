@@ -10,7 +10,7 @@ import android.widget.Button;
 import android.widget.SeekBar;
 
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.baseActivity.BaseActivity;
+import com.example.atpeople.myapplication.base.BaseActivity;
 
 import butterknife.BindView;
 

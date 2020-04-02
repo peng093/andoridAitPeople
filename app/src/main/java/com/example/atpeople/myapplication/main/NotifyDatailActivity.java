@@ -3,8 +3,7 @@ package com.example.atpeople.myapplication.main;
 import android.util.Log;
 
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.baseActivity.BaseActivity;
-import com.example.atpeople.myapplication.util.ToastUtil;
+import com.example.atpeople.myapplication.base.BaseActivity;
 
 /**
  * Create by peng on 2020/1/17

@@ -42,9 +42,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".main.MainActivity"></activity>
-        <activity android:name=".main.UiActivity"></activity>
-        <activity android:name=".main.RxBingdingActivity"></activity>
-        <activity android:name=".main.NetworkRequestActivity"></activity>
         <activity android:name=".ui.circularProgressView.CircularProgressView"></activity>
         <activity android:name=".ui.slidinGupPanel.SlidingUpPanel"></activity>
         <activity android:name=".ui.foldingMenu.FoldingMenu"></activity>

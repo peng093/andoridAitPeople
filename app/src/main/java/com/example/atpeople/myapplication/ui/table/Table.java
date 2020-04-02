@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.baseActivity.BaseActivity;
+import com.example.atpeople.myapplication.base.BaseActivity;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;

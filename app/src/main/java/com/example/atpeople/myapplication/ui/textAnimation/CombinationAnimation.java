@@ -8,7 +8,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.baseActivity.BaseActivity;
+import com.example.atpeople.myapplication.base.BaseActivity;
 import com.example.atpeople.myapplication.customview.FlashTextView;
 
 import butterknife.BindView;

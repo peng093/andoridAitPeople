@@ -1,10 +1,7 @@
 package com.example.atpeople.myapplication.ui;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -18,11 +15,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.baseActivity.BaseActivity;
+import com.example.atpeople.myapplication.base.BaseActivity;
 import com.example.atpeople.myapplication.broadcast.SmsBroadcast;
 import com.example.atpeople.myapplication.callback.BaseConfigCallBack;
-import com.example.atpeople.myapplication.constant.Constant;
-import com.example.atpeople.myapplication.util.ToastUtil;
 
 import java.util.ArrayList;
 

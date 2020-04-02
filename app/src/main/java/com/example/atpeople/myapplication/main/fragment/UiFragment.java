@@ -1,16 +1,12 @@
-package com.example.atpeople.myapplication.main;
+package com.example.atpeople.myapplication.main.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -22,12 +18,13 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSONArray;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atPeople.AitPeople;
+import com.example.atpeople.myapplication.base.BaseFragment;
 import com.example.atpeople.myapplication.ui.SendSmsActivity;
 import com.example.atpeople.myapplication.ui.betterSpinner.Spinner;
 import com.example.atpeople.myapplication.ui.calendar.GoogleCalendarActivity;
 import com.example.atpeople.myapplication.ui.canvas.CanvasView;
-import com.example.atpeople.myapplication.ui.cardRecognition.CardRecognition;
 import com.example.atpeople.myapplication.ui.carView.Carview;
+import com.example.atpeople.myapplication.ui.cardRecognition.CardRecognition;
 import com.example.atpeople.myapplication.ui.chart.MPAndroidChart;
 import com.example.atpeople.myapplication.ui.chip.ChipView;
 import com.example.atpeople.myapplication.ui.circularProgressView.CircularProgressView;
@@ -57,18 +54,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
+/**
+ * Create by peng on 2020/4/2
+ */
+public class UiFragment extends BaseFragment implements View.OnClickListener {
+    @BindView(R.id.list)
+    ViewGroup mListView;
 
-public class UiActivity extends AppCompatActivity implements View.OnClickListener{
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
-
-    private ViewGroup mListView;
     /**悬浮窗*/
     FloatLogoMenu mFloatMenu;
     ArrayList<FloatItem> itemList = new ArrayList<>();
-    private Activity mActivity;
     String HOME = "首页";
     String FEEDBACK = "客服";
     String MESSAGE = "消息";
@@ -77,25 +73,19 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
     Drawable bg_color;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        mListView =findViewById(R.id.list);
+    protected int initLayout() {
+        return R.layout.fragment_main;
+    }
 
-        toolbar.setVisibility(View.VISIBLE);
-        toolbar.setTitle("UiActivity");
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
-        int radus=BackgroundColorUtil.dip2px(this,10);
+    @Override
+    protected void initView() {
+
+    }
+
+    @Override
+    protected void initData() {
+        int radus=BackgroundColorUtil.dip2px(getContext(),10);
         bg_color= BackgroundColorUtil.getRandomColorDrawable(radus,true,1);
-
         addDemo("UserInfo", UserInfo.class);
         addDemo("AitPeople", AitPeople.class);
         addDemo("Carview", Carview.class);
@@ -124,9 +114,9 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
     }
 
     private void addDemo(String demoName, Class<? extends Activity> activityClass) {
-        Button b = new Button(this);
+        Button b = new Button(getContext());
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutParams.setMargins(0,BackgroundColorUtil.dip2px(this,10),0,0);
+        layoutParams.setMargins(0, BackgroundColorUtil.dip2px(getContext(),10),0,0);
         b.setLayoutParams(layoutParams);
         b.setText(demoName);
         b.setTag(activityClass);
@@ -140,9 +130,9 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
     @Override
     public void onClick(View view) {
         Class activityClass = (Class) view.getTag();
-        startActivity(new Intent(this, activityClass));
+        startActivity(new Intent(getContext(), activityClass));
 
-        List<TestA>list=new ArrayList<>();
+        List<TestA> list=new ArrayList<>();
         list.add(new TestA("AA",18));
         list.add(new TestA("AA",18));
         list.add(new TestA("BB",18));
@@ -160,7 +150,7 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
         List<TestA> list_age = RemoveDuplicateUtil.replese("age", list2);
         List<TestB> list_text = RemoveDuplicateUtil.replese("text", list3);
 
-        Log.e("list_name",""+JSONArray.toJSON(list_name));
+        Log.e("list_name",""+ JSONArray.toJSON(list_name));
         Log.e("list_age", ""+JSONArray.toJSON(list_age));
         Log.e("list_text", ""+JSONArray.toJSON(list_text));
     }
@@ -171,12 +161,11 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
      * @Describe 悬浮窗
      */
     private void initFloatMenu() {
-        mActivity = this;
         for (int i = 0; i < menuIcons.length; i++) {
             itemList.add(new FloatItem(MENU_ITEMS[i], 0x99000000, 0x99000000, BitmapFactory.decodeResource(this.getResources(), menuIcons[i]), String.valueOf(i + 1)));
         }
         mFloatMenu = new FloatLogoMenu.Builder()
-                .withActivity(mActivity)
+                .withActivity(getContext())
                 // 如果是要系统级的悬浮窗，需要动态申请悬浮于其他app上层的权限，否则无效果
                 //.withContext(mActivity.getApplication())
                 .logo(BitmapFactory.decodeResource(getResources(), R.drawable.yw_game_logo))
@@ -190,7 +179,7 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
                 .showWithListener(new FloatMenuView.OnMenuClickListener() {
                     @Override
                     public void onItemClick(int position, String title) {
-                        Toast.makeText(UiActivity.this, "position " + position + " title:" + title + " is clicked.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getActivity(), "position " + position + " title:" + title + " is clicked.", Toast.LENGTH_SHORT).show();
                     }
 
                     @Override
@@ -216,9 +205,8 @@ public class UiActivity extends AppCompatActivity implements View.OnClickListene
     }
 
     @Override
-    protected void onDestroy() {
+    public void onDestroy() {
         super.onDestroy();
         mFloatMenu.destoryFloat();
-        ActivityCompat.finishAfterTransition(this);
     }
 }

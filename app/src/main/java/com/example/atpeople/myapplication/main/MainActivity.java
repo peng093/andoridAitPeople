@@ -20,9 +20,15 @@ import android.widget.ScrollView;
 import com.example.atpeople.myapplication.AppStart;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atPeople.model.AtBean;
+import com.example.atpeople.myapplication.base.BaseActivity;
+import com.example.atpeople.myapplication.main.fragment.MBaseFragment;
+import com.example.atpeople.myapplication.main.fragment.NetWorkFragment;
+import com.example.atpeople.myapplication.main.fragment.RxJavaFragment;
+import com.example.atpeople.myapplication.main.fragment.UiFragment;
 import com.example.atpeople.myapplication.util.BackgroundColorUtil;
 import com.example.atpeople.myapplication.util.TipHelper;
 import com.example.atpeople.myapplication.util.ToastUtil;
+import com.hjm.bottomtabbar.BottomTabBar;
 import com.huawei.hms.api.ConnectionResult;
 import com.huawei.hms.api.HuaweiApiClient;
 import com.huawei.hms.support.api.client.PendingResult;
@@ -38,91 +44,53 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
-    private ViewGroup mListView;
-    Drawable bg_color;
-    @BindView(R.id.lly_root)
-    ScrollView lly_root;
+    @BindView(R.id.bottom_tab_bar)
+    BottomTabBar mBottomTabBar;
+
     HuaweiApiClient client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        ButterKnife.bind(this);
-        mListView =findViewById(R.id.list);
         huaweiPushInit();
-
-        int radus=BackgroundColorUtil.dip2px(this,10);
-        bg_color= BackgroundColorUtil.getRandomColorDrawable(radus,true,1);
-        addDemo("UiActivity", UiActivity.class);
-        addDemo("RxBingdingActivity", RxBingdingActivity.class);
-        addDemo("NetworkRequestActivity", NetworkRequestActivity.class);
-        addDemo("UseBaseActivity", UseBaseActivity.class);
-    }
-    private void addDemo(String demoName, Class<? extends Activity> activityClass) {
-        Button b = new Button(this);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutParams.setMargins(0,BackgroundColorUtil.dip2px(this,10),0,0);
-        b.setLayoutParams(layoutParams);
-        b.setText(demoName);
-        b.setTag(activityClass);
-        b.setTextColor(Color.BLACK);
-        b.setAllCaps(false);
-        b.setOnClickListener(this);
-        mListView.addView(b);
+//        addDemo("UiActivity", UiActivity.class);
+//        addDemo("RxBingdingActivity", RxBingdingActivity.class);
+//        addDemo("NetworkRequestActivity", NetworkRequestActivity.class);
+//        addDemo("UseBaseActivity", UseBaseActivity.class);
     }
 
     @Override
-    public void onClick(View view) {
-        List<AtBean> list1=new ArrayList<>();
-        list1.add(new AtBean(1,"text",1,1));
-        list1.add(new AtBean(2,"text2",2,2));
-        List<AtBean> list2=new ArrayList<>();
-        list2.add(new AtBean(2,"text2",2,2));
-        list2.add(new AtBean(1,"text",1,1));
-//        String str1=GsonUtil.toJson(list1);
-//        String str2=GsonUtil.toJson(list2);
-//        Log.e(TAG, "str1: "+str1);
-//        Log.e(TAG, "str2: "+str2);
-        Log.e(TAG, "对比元素: "+compareUser(list1,list2));
-        List<Float> list=new ArrayList<>();
-        list.add(0.9f);
-        list.add(0.5f);
-        list.add(5.5f);
-        list.add(0.7f);
-        Collections.sort(list);
-        Log.e(TAG, "排序后: "+list); //[0.5, 0.7, 0.9, 5.5]
-        // 振动主要是延时触发，及振动时长-就两个比较重要的
-        TipHelper.Vibrate(this, new long[]{0,300,300}, false);
-        Class activityClass = (Class) view.getTag();
-        //startActivity(new Intent(this, activityClass));
-        Intent intent = new Intent(this, activityClass);
-        ActivityOptions options = ActivityOptions.makeScaleUpAnimation(lly_root, lly_root.getWidth()/2,
-                lly_root.getHeight()/2,0 ,0 );
-        startActivity(intent, options.toBundle());
-
+    protected int initLayout() {
+        return R.layout.activity_main;
     }
 
-    public static void setClickRipple(View view){
-        TypedValue typedValue = new TypedValue();
-        AppStart.getContext().getTheme().resolveAttribute(android.R.attr.selectableItemBackground, typedValue, true);
-        int[] attribute = new int[]{android.R.attr.selectableItemBackground};
-        TypedArray typedArray = AppStart.getContext().getTheme().obtainStyledAttributes(typedValue.resourceId, attribute);
-        view.setForeground(typedArray.getDrawable(0));
-    }
-
-    private boolean compareUser(List<AtBean>user1,List<AtBean>user2){
-        for (int i = 0; i < user1.size(); i++) {
-            for (int i1 = 0; i1 < user2.size(); i1++) {
-                if (user1.get(i).getId()==user2.get(i1).getId()){
-                    if(user1.get(i).getName()!=user2.get(i1).getName() || user1.get(i).getStartPos()!=user2.get(i1).getStartPos()){
-                        return false;
+    @Override
+    protected void initView() {
+        setToolbarShow(false);
+        mBottomTabBar.init(getSupportFragmentManager())
+                .setImgSize(30,30)
+                .setFontSize(10)
+                .setTabPadding(4,6,10)
+                .setChangeColor(Color.RED,Color.DKGRAY)
+                .addTabItem("常用UI", R.mipmap.ic_common_tab_index_select, R.mipmap.ic_common_tab_index_unselect, UiFragment.class)
+                .addTabItem("RxJava",R.mipmap.ic_common_tab_hot_select, R.mipmap.ic_common_tab_hot_unselect, RxJavaFragment.class)
+                .addTabItem("网络请求",R.mipmap.ic_common_tab_publish_select, R.mipmap.ic_common_tab_publish_unselect, NetWorkFragment.class)
+                .addTabItem("基类使用",R.mipmap.ic_common_tab_user_select, R.mipmap.ic_common_tab_user_unselect, MBaseFragment.class)
+                .isShowDivider(false)
+                .setOnTabChangeListener(new BottomTabBar.OnTabChangeListener() {
+                    @Override
+                    public void onTabChange(int position, String name, View view) {
+                        if(position==3){
+                            startActivity(new Intent(getBaseContext(), UseBaseActivity.class));
+                        }
                     }
-                }
-            }
-        }
-        return true;
+                });
+    }
+
+    @Override
+    protected void initData() {
+
     }
 
     private void huaweiPushInit() {

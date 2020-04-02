@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.baseActivity.BaseActivity;
+import com.example.atpeople.myapplication.base.BaseActivity;
 import com.example.atpeople.myapplication.callback.BaseCallBack;
 import com.example.atpeople.myapplication.ui.table.Table;
 import com.orhanobut.logger.Logger;

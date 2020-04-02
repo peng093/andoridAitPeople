@@ -1,4 +1,4 @@
-package com.example.atpeople.myapplication.baseActivity;
+package com.example.atpeople.myapplication.base;
 
 import android.app.Activity;
 
