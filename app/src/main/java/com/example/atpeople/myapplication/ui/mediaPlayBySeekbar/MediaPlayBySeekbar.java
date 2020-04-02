@@ -43,12 +43,7 @@ public class MediaPlayBySeekbar extends BaseActivity {
     protected void initView() {
         setTitle("测试滑动音频文件");
         // 回退按钮监听
-        setTopLeftButton(0, new OnClickListener() {
-            @Override
-            public void onClick() {
-                finish();
-            }
-        });
+        setTopLeftButton(0);
         mp = MediaPlayer.create(this, Uri.parse("android.resource://"+this.getPackageName()+"/"+R.raw.twins));
         //后面的参数必须是URI形式的，所以要把相应路径转换成URI
         play.setOnClickListener(new View.OnClickListener() {

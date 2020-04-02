@@ -105,4 +105,6 @@ dependencies {
     implementation "com.aaronhan:rtspclient:0.7"
     // 文字动画
     implementation 'com.romainpiel.shimmer:library:1.4.0@aar'
+    // 日志打印
+    implementation 'com.orhanobut:logger:2.2.0'
 }

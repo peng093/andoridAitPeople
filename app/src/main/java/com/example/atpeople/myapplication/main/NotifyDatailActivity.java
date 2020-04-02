@@ -18,12 +18,7 @@ public class NotifyDatailActivity extends BaseActivity {
     @Override
     protected void initView() {
         setTitle("通知详情");
-        setTopLeftButton(0, new OnClickListener() {
-            @Override
-            public void onClick() {
-                finish();
-            }
-        });
+        setTopLeftButton(0);
         setShowStatusBar(true);
     }
 

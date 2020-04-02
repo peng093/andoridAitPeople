@@ -23,15 +23,19 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.callback.AlertCallBack;
+import com.example.atpeople.myapplication.callback.EditAlertCallBack;
 
 import butterknife.ButterKnife;
 
@@ -40,8 +44,7 @@ import butterknife.ButterKnife;
  */
 public abstract class BaseActivity extends AppCompatActivity {
     protected final String TAG = this.getClass().getSimpleName();
-    private boolean isShowTitle = true;
-    private boolean isShowStatusBar = true;
+
     private boolean isAllowScreenRoate = true;
     private static Toast toast;
     public Context context;
@@ -54,7 +57,6 @@ public abstract class BaseActivity extends AppCompatActivity {
     private Bitmap bitmap;
     private String menuStr;
     //左边图标的点击事件
-    private OnClickListener onClickListenerTopLeft;
     private OnClickListener onClickListenerTopRight;
     //定义接口
     public interface OnClickListener {
@@ -77,9 +79,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         context = this;
         //activity管理
         ActivityCollector.addActivity(this);
-        if (!isShowTitle) {
-            requestWindowFeature(Window.FEATURE_NO_TITLE);
-        }
         // 默认显示状态栏
         setShowStatusBar(true);
         LayoutInflater.from(this).inflate(initLayout(),viewContent);
@@ -90,7 +89,6 @@ public abstract class BaseActivity extends AppCompatActivity {
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         }
-//        setTheme(R.style.tapActive);
         //初始化控件
         initView();
         //设置数据
@@ -113,15 +111,6 @@ public abstract class BaseActivity extends AppCompatActivity {
      * 设置数据
      */
     protected abstract void initData();
-
-    /**
-     * 设置是否显示标题栏
-     *
-     * @param showTitle true or false
-     */
-    public void setShowTitle(boolean showTitle) {
-        isShowTitle = showTitle;
-    }
 
     /**
      * 设置是否显示状态栏
@@ -217,38 +206,11 @@ public abstract class BaseActivity extends AppCompatActivity {
             Looper.loop();
         }
     }
-    /**
-     * 打印
-     * */
-    public void consoleLog(String msg) {
-        if (isApkInDebug()) {
-            Log.d(TAG, msg);
-        }
-    }
-    /**
-     * 隐藏软键盘
-     */
-    public void hideSoftInput() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        if (getCurrentFocus() != null && null != imm) {
-            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
-        }
-    }
-
-    /**
-     * 显示软键盘
-     */
-    public void showSoftInput() {
-        InputMethodManager imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-        if (getCurrentFocus() != null && null != imm) {
-            imm.showSoftInputFromInputMethod(getCurrentFocus().getWindowToken(), 0);
-        }
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
-            onClickListenerTopLeft.onClick();
+            this.finish();
         }else if(item.getItemId() == R.id.menu_1) {
             onClickListenerTopRight.onClick();
         }
@@ -279,43 +241,82 @@ public abstract class BaseActivity extends AppCompatActivity {
         return super.onPrepareOptionsMenu(menu);
     }
 
+    /**
+     * 设置标题 右侧标题及点击事件
+     *
+     * @param menuStr       the menu str
+     * @param rightListener the right listener
+     */
     protected void setTopRightButton(String menuStr,OnClickListener rightListener) {
         this.onClickListenerTopRight = rightListener;
         this.menuStr = menuStr;
     }
 
+    /**
+     * 设置标题 右侧图标及点击事件
+     *
+     * @param menuStr       the menu str
+     * @param menuId        the menu id
+     * @param rightListener the right listener
+     */
     protected void setTopRightButton(String menuStr,int menuId, OnClickListener rightListener) {
         this.menuStr = menuStr;
         this.menuId = menuId;
         this.onClickListenerTopRight = rightListener;
     }
+
+    /**
+     * 设置标题 右侧图标及点击事件
+     *
+     * @param menuStr       the menu str
+     * @param bitmap        the bitmap
+     * @param rightListener the right listener
+     */
     protected void setTopRightButton2(String menuStr, Bitmap bitmap, OnClickListener rightListener) {
         this.menuStr = menuStr;
         this.bitmap = bitmap;
         this.onClickListenerTopRight = rightListener;
     }
+
     /**
-     * 设置图标及点击回调
-     * */
-    protected void setTopLeftButton(int iconId,OnClickListener listener) {
+     * 设置页面返回按钮的图标
+     *
+     * @param iconId the icon id
+     */
+    protected void setTopLeftButton(int iconId) {
         if(iconId!=0){
             toolbar.setNavigationIcon(iconId);
         }
-        // 把传入的接口放到全局
-        this.onClickListenerTopLeft = listener;
     }
 
+    /**
+     * 设置当前页面标题
+     *
+     * @param title the title
+     */
     protected void setTitle(String title) {
         if (!TextUtils.isEmpty(title)) {
             mTitle.setText(title);
         }
     }
 
+    /**
+     * 隐藏通用的标题，用于特殊页面，自定义标题 默认显示
+     *
+     * @param toolbarShow the toolbar show
+     */
     protected void setToolbarShow(boolean toolbarShow) {
         toolbar.setVisibility(toolbarShow?View.VISIBLE:View.GONE);
     }
 
 
+    /**
+     * 普通弹窗 展示.
+     *
+     * @param title    the title
+     * @param content  the content
+     * @param callBack the call back
+     */
     protected void showNormalAlertDialog(String title, String content, final AlertCallBack callBack){
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle(title);
@@ -338,18 +339,47 @@ public abstract class BaseActivity extends AppCompatActivity {
         tmp.setCanceledOnTouchOutside(true);
         tmp.show();
     }
+
+    /**
+     * Show edit alert dialog.
+     *
+     * @param title       the title
+     * @param defaultContent 默认显示内容
+     * @param callBack    the call back
+     */
+    protected void showEditAlertDialog(String title, String defaultContent, final EditAlertCallBack callBack){
+        AlertDialog.Builder dialog = new AlertDialog.Builder(this);
+        dialog.setTitle(title);
+        final EditText editText=new EditText(this);
+        if(!TextUtils.isEmpty(defaultContent)){
+            editText.setText(defaultContent);
+            editText.setSelection(defaultContent.length());
+        }
+        dialog.setView(editText);
+        dialog.setNeutralButton("cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                callBack.cancle();
+            }
+        });
+        dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                callBack.sure(editText.getText().toString());
+            }
+        });
+        dialog.setCancelable(true);
+        AlertDialog tmp = dialog.create();
+        tmp.setCanceledOnTouchOutside(true);
+        tmp.show();
+    }
+
+
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //activity管理
+        // activity管理
         ActivityCollector.removeActivity(this);
-    }
-    public  boolean isApkInDebug() {
-        try {
-            ApplicationInfo info = getApplicationInfo();
-            return (info.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
-        } catch (Exception e) {
-            return false;
-        }
     }
 }

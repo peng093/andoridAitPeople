@@ -6,12 +6,13 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="colorControlHighlight">@color/colorOrange</item>
+        <item name="colorControlHighlight">@color/main_color</item>
     </style>
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
-        <item name="colorControlHighlight">@color/colorOrange</item>
+        <!-- 全局设置波纹点击效果  -->
+        <item name="colorControlHighlight">@color/main_color</item>
     </style>
 
     <!--点击粉色波纹主题-->
@@ -21,12 +22,6 @@
     <!--标题栏-->
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light"/>
 
-    <!-- 去掉顶部app名字-->
-    <style name="AppThemeNoTitle" parent="Theme.AppCompat.Light.NoActionBar">
-        <!-- Customize your theme here. -->
-        <!-- 这里全局设置的，点击波纹效果-->
-        <item name="colorControlHighlight">@color/colorOrange</item>
-    </style>
     <!--底部面板-->
     <style name="ActionBar" parent="ThemeOverlay.AppCompat.ActionBar">
         <item name="android:displayOptions">homeAsUp</item>

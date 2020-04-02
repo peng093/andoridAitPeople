@@ -69,12 +69,7 @@ public class GoogleCalendarActivity extends BaseActivity {
         int MM = CD.get(Calendar.MONTH) + 1;
         int DD = CD.get(Calendar.DATE);
         setTitle(YY + "/" + MM + "/" + DD);
-        setTopLeftButton(0, new OnClickListener() {
-            @Override
-            public void onClick() {
-                finish();
-            }
-        });
+        setTopLeftButton(0);
         int width = TextBitmap.dip2px(60);
         Bitmap bitmap = TextBitmap.getRectTextBitmap("5", R.mipmap.ic_today, width, width, Color.BLACK);
         setTopRightButton2("我的", bitmap, new OnClickListener() {

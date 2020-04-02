@@ -32,12 +32,7 @@ public class CombinationAnimation extends BaseActivity {
     @Override
     protected void initView() {
         setTitle("自定义组合动画");
-        setTopLeftButton(0, new OnClickListener() {
-            @Override
-            public void onClick() {
-                finish();
-            }
-        });
+        setTopLeftButton(0);
     }
 
     @Override
