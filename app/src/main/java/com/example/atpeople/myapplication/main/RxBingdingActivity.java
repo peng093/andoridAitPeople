@@ -15,7 +15,6 @@ import android.widget.LinearLayout;
 
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.rxbinding.Login;
-import com.example.atpeople.myapplication.rxbinding.click.ClickForAdapter;
 import com.example.atpeople.myapplication.util.BackgroundColorUtil;
 
 import butterknife.BindView;
@@ -49,7 +48,6 @@ public class RxBingdingActivity extends AppCompatActivity implements View.OnClic
         int radus=BackgroundColorUtil.dip2px(this,10);
         bg_color= BackgroundColorUtil.getRandomColorDrawable(radus,true,1);
         addDemo("Login", Login.class);
-        addDemo("ClickForAdapter", ClickForAdapter.class);
     }
 
     private void addDemo(String demoName, Class<? extends Activity> activityClass) {

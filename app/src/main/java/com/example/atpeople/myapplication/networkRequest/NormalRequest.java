@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.atpeople.myapplication.R;
+import com.example.atpeople.myapplication.baseActivity.BaseActivity;
 import com.kongzue.baseokhttp.HttpRequest;
 import com.kongzue.baseokhttp.listener.JsonResponseListener;
 import com.kongzue.baseokhttp.listener.OnDownloadListener;
@@ -28,7 +29,7 @@ import butterknife.ButterKnife;
 /**
  * Create by peng on 2019/8/21
  */
-public class NormalRequest extends AppCompatActivity {
+public class NormalRequest extends BaseActivity {
 
     @BindView(R.id.btn_http)
     Button btn_http;
@@ -47,19 +48,18 @@ public class NormalRequest extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_request);
-        ButterKnife.bind(this);
         context=this;
-        BaseOkHttp.DEBUGMODE = true;
-        BaseOkHttp.serviceUrl = "https://www.apiopen.top";
-        BaseOkHttp.overallHeader = new Parameter()
-                .add("Charset", "UTF-8")
-                .add("Content-Type", "application/json")
-                .add("Accept-Encoding", "gzip,deflate");
-        init();
+
     }
 
-    private void init() {
+    @Override
+    protected int initLayout() {
+        return R.layout.activity_request;
+    }
+
+    @Override
+    protected void initView() {
+        setTitle("普通网络请求");
         btn_http.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,5 +104,15 @@ public class NormalRequest extends AppCompatActivity {
                 );
             }
         });
+    }
+
+    @Override
+    protected void initData() {
+        BaseOkHttp.DEBUGMODE = true;
+        BaseOkHttp.serviceUrl = "https://www.apiopen.top";
+        BaseOkHttp.overallHeader = new Parameter()
+                .add("Charset", "UTF-8")
+                .add("Content-Type", "application/json")
+                .add("Accept-Encoding", "gzip,deflate");
     }
 }

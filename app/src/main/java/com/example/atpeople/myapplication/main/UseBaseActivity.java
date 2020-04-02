@@ -9,8 +9,7 @@ import android.widget.Button;
 
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.baseActivity.BaseActivity;
-import com.example.atpeople.myapplication.callback.AlertCallBack;
-import com.example.atpeople.myapplication.callback.EditAlertCallBack;
+import com.example.atpeople.myapplication.callback.BaseCallBack;
 import com.example.atpeople.myapplication.ui.table.Table;
 import com.orhanobut.logger.Logger;
 
@@ -52,14 +51,14 @@ public class UseBaseActivity extends BaseActivity {
         setTopRightButton("我的", new OnClickListener() {
             @Override
             public void onClick() {
-                showNormalAlertDialog("提示", "你点击了右上角的图标", new AlertCallBack() {
+                showNormalAlertDialog("提示", "你点击了右上角的图标", new BaseCallBack() {
                     @Override
-                    public void sure() {
+                    public void success(Object o) {
                         showToast("你点击了确定");
                     }
 
                     @Override
-                    public void cancle() {
+                    public void failed(Object o) {
                         showToast("你点击了取消");
                     }
                 });
@@ -90,14 +89,15 @@ public class UseBaseActivity extends BaseActivity {
         bt_edit_alert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showEditAlertDialog("请输入", "默认", new EditAlertCallBack() {
+                showEditAlertDialog("请输入", "默认", new BaseCallBack() {
                     @Override
-                    public void sure(String string) {
-                        Logger.d("输入内容=="+string);
+                    public void success(Object string) {
+                        String text=(String) string;
+                        Logger.d("输入内容=="+text);
                     }
 
                     @Override
-                    public void cancle() {
+                    public void failed(Object o) {
 
                     }
                 });

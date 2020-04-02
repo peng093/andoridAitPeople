@@ -67,7 +67,6 @@
         <activity android:name=".ui.launchWithVideo.LaunchWithVideo"></activity>
         <activity android:name=".ui.search.SearchActivity"></activity>
         <activity android:name=".rxbinding.Login"></activity>
-        <activity android:name=".rxbinding.click.ClickForAdapter"></activity>
         <activity android:name=".networkRequest.NormalRequest"></activity>
         <activity android:name=".ui.gesturepsw.GesturePswActivity"></activity>
         <activity android:name=".ui.table.Table"></activity>

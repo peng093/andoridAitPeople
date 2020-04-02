@@ -1,6 +1,7 @@
 package com.example.atpeople.myapplication.main;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -66,9 +67,7 @@ public class NetworkRequestActivity extends AppCompatActivity implements View.On
 
     @Override
     public void onClick(View view) {
-        AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
-        recreate();
-//        Class activityClass = (Class) view.getTag();
-//        startActivity(new Intent(this, activityClass));
+        Class activityClass = (Class) view.getTag();
+        startActivity(new Intent(this, activityClass));
     }
 }

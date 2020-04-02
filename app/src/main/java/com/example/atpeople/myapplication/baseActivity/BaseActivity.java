@@ -6,7 +6,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
-import android.content.pm.ApplicationInfo;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
@@ -18,24 +17,18 @@ import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
-import android.view.Window;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.callback.AlertCallBack;
-import com.example.atpeople.myapplication.callback.EditAlertCallBack;
+import com.example.atpeople.myapplication.callback.BaseCallBack;
 
 import butterknife.ButterKnife;
 
@@ -317,7 +310,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param content  the content
      * @param callBack the call back
      */
-    protected void showNormalAlertDialog(String title, String content, final AlertCallBack callBack){
+    protected void showNormalAlertDialog(String title, String content, final BaseCallBack callBack){
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle(title);
         dialog.setMessage(content);
@@ -325,13 +318,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         dialog.setNeutralButton("cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                callBack.cancle();
+                callBack.failed(null);
             }
         });
         dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                callBack.sure();
+                callBack.success(null);
             }
         });
         dialog.setCancelable(true);
@@ -347,7 +340,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param defaultContent 默认显示内容
      * @param callBack    the call back
      */
-    protected void showEditAlertDialog(String title, String defaultContent, final EditAlertCallBack callBack){
+    protected void showEditAlertDialog(String title, String defaultContent, final BaseCallBack callBack){
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle(title);
         final EditText editText=new EditText(this);
@@ -359,13 +352,13 @@ public abstract class BaseActivity extends AppCompatActivity {
         dialog.setNeutralButton("cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                callBack.cancle();
+                callBack.failed(null);
             }
         });
         dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                callBack.sure(editText.getText().toString());
+                callBack.success(editText.getText().toString());
             }
         });
         dialog.setCancelable(true);
