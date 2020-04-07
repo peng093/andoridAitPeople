@@ -2,9 +2,24 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     >
-    <com.hjm.bottomtabbar.BottomTabBar
-        android:id="@+id/bottom_tab_bar"
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:id="@+id/fl">
+    </FrameLayout>
+    <com.kongzue.tabbar.TabBarView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/tabbar"
+        android:layout_width="match_parent"
+        android:layout_height="55dp"
+        android:layout_gravity="bottom"
+        app:focusColor="#3e78ed"
+        app:iconPadding="2dp"
+        app:normalColor="#606060"
+        app:textSize="12dp"
+        app:tabPaddingVertical="5dp"
+        app:paddingNavigationBar="false"/>
 </LinearLayout>

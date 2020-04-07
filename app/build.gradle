@@ -108,5 +108,5 @@ dependencies {
     // 日志打印
     implementation 'com.orhanobut:logger:2.2.0'
     // 底部导航 插页
-    implementation 'com.hjm:BottomTabBar:1.2.2'
+    implementation 'com.kongzue.tabbar:tabbar:1.5.4'
 }

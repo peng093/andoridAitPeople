@@ -1,63 +1,55 @@
 package com.example.atpeople.myapplication.main;
 
-import android.app.Activity;
-import android.app.ActivityOptions;
 import android.content.Intent;
-import android.content.res.TypedArray;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.util.Log;
-import android.util.TypedValue;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.ScrollView;
 
-import com.example.atpeople.myapplication.AppStart;
+import android.net.Uri;
+
+import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.view.View;
+import android.widget.FrameLayout;
+
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.atPeople.model.AtBean;
 import com.example.atpeople.myapplication.base.BaseActivity;
 import com.example.atpeople.myapplication.main.fragment.MBaseFragment;
 import com.example.atpeople.myapplication.main.fragment.NetWorkFragment;
 import com.example.atpeople.myapplication.main.fragment.RxJavaFragment;
 import com.example.atpeople.myapplication.main.fragment.UiFragment;
-import com.example.atpeople.myapplication.util.BackgroundColorUtil;
-import com.example.atpeople.myapplication.util.TipHelper;
+import com.example.atpeople.myapplication.ui.paymentCode.PayFragment;
 import com.example.atpeople.myapplication.util.ToastUtil;
-import com.hjm.bottomtabbar.BottomTabBar;
 import com.huawei.hms.api.ConnectionResult;
 import com.huawei.hms.api.HuaweiApiClient;
 import com.huawei.hms.support.api.client.PendingResult;
 import com.huawei.hms.support.api.client.ResultCallback;
 import com.huawei.hms.support.api.push.HuaweiPush;
 import com.huawei.hms.support.api.push.TokenResult;
+import com.kongzue.tabbar.Tab;
+import com.kongzue.tabbar.TabBarView;
+import com.kongzue.tabbar.interfaces.OnTabChangeListener;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
-
 
 public class MainActivity extends BaseActivity {
     private static final String TAG = "MainActivity";
-    @BindView(R.id.bottom_tab_bar)
-    BottomTabBar mBottomTabBar;
+    @BindView(R.id.tabbar)
+    TabBarView tabbar;
+    @BindView(R.id.fl)
+    FrameLayout fl;
+
+    FragmentManager fm;
+    List<Fragment> fragments=new ArrayList<>();
 
     HuaweiApiClient client;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         huaweiPushInit();
-//        addDemo("UiActivity", UiActivity.class);
-//        addDemo("RxBingdingActivity", RxBingdingActivity.class);
-//        addDemo("NetworkRequestActivity", NetworkRequestActivity.class);
-//        addDemo("UseBaseActivity", UseBaseActivity.class);
     }
 
     @Override
@@ -67,30 +59,61 @@ public class MainActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        fm = getSupportFragmentManager();
         setToolbarShow(false);
-        mBottomTabBar.init(getSupportFragmentManager())
-                .setImgSize(30,30)
-                .setFontSize(10)
-                .setTabPadding(4,6,10)
-                .setChangeColor(Color.RED,Color.DKGRAY)
-                .addTabItem("常用UI", R.mipmap.ic_common_tab_index_select, R.mipmap.ic_common_tab_index_unselect, UiFragment.class)
-                .addTabItem("RxJava",R.mipmap.ic_common_tab_hot_select, R.mipmap.ic_common_tab_hot_unselect, RxJavaFragment.class)
-                .addTabItem("网络请求",R.mipmap.ic_common_tab_publish_select, R.mipmap.ic_common_tab_publish_unselect, NetWorkFragment.class)
-                .addTabItem("基类使用",R.mipmap.ic_common_tab_user_select, R.mipmap.ic_common_tab_user_unselect, MBaseFragment.class)
-                .isShowDivider(false)
-                .setOnTabChangeListener(new BottomTabBar.OnTabChangeListener() {
-                    @Override
-                    public void onTabChange(int position, String name, View view) {
-                        if(position==3){
-                            startActivity(new Intent(getBaseContext(), UseBaseActivity.class));
-                        }
-                    }
-                });
+        List<Tab> tabs = new ArrayList<>();
+        tabs.add(new Tab(this, "常用UI", R.mipmap.ic_common_tab_index_unselect).setMaxUnreadNum(99));
+        tabs.add(new Tab(this, "RxJava", R.mipmap.ic_common_tab_hot_unselect).setMaxUnreadNum(99));
+        tabs.add(new Tab(this, "网络请求", R.mipmap.ic_common_tab_publish_unselect).setMaxUnreadNum(99));
+        tabs.add(new Tab(this, "基类使用", R.mipmap.ic_common_tab_user_unselect).setMaxUnreadNum(99));
+        tabbar.setTab(tabs);
+        tabbar.setOnTabChangeListener(new OnTabChangeListener() {
+            @Override
+            public void onTabChanged(View v, int index) {
+                Log.i(">>>", "onTabChanged: " + index);
+                if(index==3){
+                    startActivity(new Intent(getBaseContext(), UseBaseActivity.class));
+                }else {
+                    setTabSelection(index);
+                }
+            }
+        });
+        // 默认选中第一个
+        tabbar.setNormalFocusIndex(0);
+        // 角标
+        tabbar.setUnreadNum(0, 123);
+        // fragmnet
+        fragments.add(new UiFragment());
+        fragments.add(new RxJavaFragment());
+        fragments.add(new NetWorkFragment());
+        fragments.add(new MBaseFragment());
+        setTabSelection(0);
     }
 
     @Override
     protected void initData() {
 
+    }
+
+    private void setTabSelection(int index){
+        FragmentTransaction ft = fm.beginTransaction();
+        hideAllFragment(ft);
+        if(!fragments.get(index).isAdded()){
+            ft.add(R.id.fl, fragments.get(index));
+            ft.show(fragments.get(index));
+        }else{
+            ft.show(fragments.get(index));
+        }
+        ft.commit();
+    }
+
+
+    private void hideAllFragment(FragmentTransaction ft){
+        for (Fragment fragment : fragments) {
+            if(fragment.isVisible()){
+                ft.hide(fragment);
+            }
+        }
     }
 
     private void huaweiPushInit() {
