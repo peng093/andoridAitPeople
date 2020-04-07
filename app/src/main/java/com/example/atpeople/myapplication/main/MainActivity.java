@@ -36,7 +36,6 @@ import java.util.List;
 import butterknife.BindView;
 
 public class MainActivity extends BaseActivity {
-    private static final String TAG = "MainActivity";
     @BindView(R.id.tabbar)
     TabBarView tabbar;
     @BindView(R.id.fl)
@@ -82,7 +81,7 @@ public class MainActivity extends BaseActivity {
         tabbar.setNormalFocusIndex(0);
         // 角标
         tabbar.setUnreadNum(0, 123);
-        // fragmnet
+        // fragmnets
         fragments.add(new UiFragment());
         fragments.add(new RxJavaFragment());
         fragments.add(new NetWorkFragment());
@@ -90,9 +89,15 @@ public class MainActivity extends BaseActivity {
         setTabSelection(0);
     }
 
+    // 声明枚举的类型
+    public enum MyColor{RED, BLUE, GREEN}
     @Override
     protected void initData() {
-
+        for (MyColor myColor : MyColor.values()){
+            Log.e("TAG","枚举对象--"+myColor);
+            Log.e("TAG","枚举对象的序数--"+myColor.ordinal());
+            Log.e("TAG","枚举对象的字符串--"+myColor.name());
+        }
     }
 
     private void setTabSelection(int index){
