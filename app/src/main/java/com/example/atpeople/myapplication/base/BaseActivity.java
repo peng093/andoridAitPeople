@@ -340,7 +340,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param defaultContent 默认显示内容
      * @param callBack    the call back
      */
-    protected void showEditAlertDialog(String title, String defaultContent, final BaseCallBack callBack){
+    protected <T> void showEditAlertDialog(String title, String defaultContent, final BaseCallBack<T> callBack){
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle(title);
         final EditText editText=new EditText(this);
@@ -358,7 +358,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         dialog.setPositiveButton("yes", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                callBack.success(editText.getText().toString());
+                callBack.success((T) editText.getText().toString());
             }
         });
         dialog.setCancelable(true);

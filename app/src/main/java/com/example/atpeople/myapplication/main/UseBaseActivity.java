@@ -89,15 +89,14 @@ public class UseBaseActivity extends BaseActivity {
         bt_edit_alert.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showEditAlertDialog("请输入", "默认", new BaseCallBack() {
+                showEditAlertDialog("请输入", "默认", new BaseCallBack<String>() {
                     @Override
-                    public void success(Object string) {
-                        String text=(String) string;
-                        Logger.d("输入内容=="+text);
+                    public void success(String string) {
+                        Logger.d("输入内容=="+string);
                     }
 
                     @Override
-                    public void failed(Object o) {
+                    public void failed(String o) {
 
                     }
                 });
