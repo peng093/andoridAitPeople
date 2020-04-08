@@ -20,5 +20,6 @@
     <color name="loading_dialog_bg">#4F000000</color>
     <color name="rippleColor">#FFCCCCCC</color>
     <color name="black">#000</color>
+    <color name="color_555555">#555555</color>
 
 </resources>

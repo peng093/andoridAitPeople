@@ -3,6 +3,7 @@ package com.example.atpeople.myapplication.base;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
@@ -21,9 +22,11 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -367,7 +370,23 @@ public abstract class BaseActivity extends AppCompatActivity {
         tmp.show();
     }
 
-
+    protected <T> void showCustomViewAlertDialog(View view, final BaseCallBack<T> callBack){
+        ImageView imageView=view.findViewById(R.id.tv_dialog_kefu_close);
+        final Dialog dialog = new Dialog(this);
+        dialog.setContentView(view);
+        dialog.setCancelable(true);
+        Window dialogWindow = dialog.getWindow();
+        // 设置弹窗背景透明
+        dialogWindow.setBackgroundDrawableResource(android.R.color.transparent);
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+        dialog.setCanceledOnTouchOutside(true);
+        dialog.show();
+    }
 
     @Override
     protected void onDestroy() {

@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.Layout;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
@@ -28,7 +30,8 @@ public class UseBaseActivity extends BaseActivity {
     Button bt_custom_title;
     @BindView(R.id.bt_edit_alert)
     Button bt_edit_alert;
-
+    @BindView(R.id.bt_custom_alert)
+    Button bt_custom_alert;
 
 
     @Override
@@ -102,6 +105,24 @@ public class UseBaseActivity extends BaseActivity {
                 });
             }
         });
+        bt_custom_alert.setOnClickListener(new OnSingleClickListener() {
+            @Override
+            public void onSingleClick(View view) {
+                View vw= LayoutInflater.from(getBaseContext()).inflate(R.layout.custom_alert_view, null);
+                showCustomViewAlertDialog(vw, new BaseCallBack() {
+                    @Override
+                    public void success(Object o) {
+
+                    }
+
+                    @Override
+                    public void failed(Object o) {
+
+                    }
+                });
+            }
+        });
+
     }
 
     @Override
