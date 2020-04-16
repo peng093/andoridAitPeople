@@ -41,7 +41,7 @@ import com.example.atpeople.myapplication.ui.table.Table;
 import com.example.atpeople.myapplication.ui.textAnimation.CombinationAnimation;
 import com.example.atpeople.myapplication.ui.textAnimation.TextAnimation;
 import com.example.atpeople.myapplication.ui.userInfo.UserInfo;
-import com.example.atpeople.myapplication.ui.webView.WebView;
+import com.example.atpeople.myapplication.ui.webView.MyWebView;
 import com.example.atpeople.myapplication.util.BackgroundColorUtil;
 import com.example.atpeople.myapplication.util.RemoveDuplicateUtil;
 import com.example.atpeople.myapplication.util.TestA;
@@ -97,7 +97,7 @@ public class UiFragment extends BaseFragment implements View.OnClickListener {
         addDemo("CardRecognition", CardRecognition.class);
         addDemo("MPAndroidChart", MPAndroidChart.class);
         addDemo("Notify", Notify.class);
-        addDemo("WebView", WebView.class);
+        addDemo("MyWebView", MyWebView.class);
         addDemo("Spinner", Spinner.class);
         addDemo("TextAnimation", TextAnimation.class);
         addDemo("LaunchWithVideo", LaunchWithVideo.class);

@@ -2,6 +2,7 @@ package com.example.atpeople.myapplication.main;
 
 import android.content.Intent;
 
+import android.net.TrafficStats;
 import android.net.Uri;
 
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import com.huawei.hms.support.api.push.TokenResult;
 import com.kongzue.tabbar.Tab;
 import com.kongzue.tabbar.TabBarView;
 import com.kongzue.tabbar.interfaces.OnTabChangeListener;
+import com.orhanobut.logger.Logger;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,6 +100,9 @@ public class MainActivity extends BaseActivity {
             Log.e("TAG","枚举对象的序数--"+myColor.ordinal());
             Log.e("TAG","枚举对象的字符串--"+myColor.name());
         }
+
+        Logger.d("从此次开机起gprs上传的总流量=="+TrafficStats.getMobileRxBytes());
+        Logger.d("从此次开机起gprs下载的总流量=="+TrafficStats.getMobileTxBytes());
     }
 
     private void setTabSelection(int index){

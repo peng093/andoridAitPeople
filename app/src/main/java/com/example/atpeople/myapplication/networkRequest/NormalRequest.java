@@ -106,11 +106,6 @@ public class NormalRequest extends BaseActivity {
 
     @Override
     protected void initData() {
-        BaseOkHttp.DEBUGMODE = true;
-        BaseOkHttp.serviceUrl = "https://www.apiopen.top";
-        BaseOkHttp.overallHeader = new Parameter()
-                .add("Charset", "UTF-8")
-                .add("Content-Type", "application/json")
-                .add("Accept-Encoding", "gzip,deflate");
+
     }
 }

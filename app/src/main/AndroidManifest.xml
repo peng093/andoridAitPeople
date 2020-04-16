@@ -57,7 +57,7 @@
         <activity android:name=".ui.chart.MPAndroidChart"></activity>
         <activity android:name=".ui.notify.Notify"></activity>
         <activity android:name=".ui.notify.OtherActivity"></activity>
-        <activity android:name=".ui.webView.WebView"></activity>
+        <activity android:name=".ui.webView.MyWebView"></activity>
         <activity android:name=".ui.betterSpinner.Spinner"></activity>
         <activity android:name=".ui.userInfo.UserInfo"></activity>
         <activity android:name=".ui.textAnimation.TextAnimation"></activity>
