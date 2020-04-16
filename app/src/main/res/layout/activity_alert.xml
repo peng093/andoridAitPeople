@@ -7,6 +7,9 @@
         <variable
             name="activityalert"
             type="com.example.atpeople.myapplication.ui.activityAlert.MainViewModel"/>
+        <variable
+            name="data2"
+            type="com.example.atpeople.myapplication.ui.activityAlert.TestBean"/>
     </data>
 
     <LinearLayout
@@ -36,7 +39,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="30dp"
-                android:text="@{activityalert.content}"
+                android:text='@{""+data2.code}'
                 android:textAlignment="center" />
 
             <LinearLayout
