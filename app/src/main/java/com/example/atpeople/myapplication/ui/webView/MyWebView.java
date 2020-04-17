@@ -2,8 +2,10 @@ package com.example.atpeople.myapplication.ui.webView;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -14,6 +16,7 @@ import com.kongzue.baseokhttp.HttpRequest;
 import com.kongzue.baseokhttp.listener.JsonResponseListener;
 import com.kongzue.baseokhttp.util.JsonMap;
 import com.kongzue.baseokhttp.util.Parameter;
+import com.orhanobut.logger.Logger;
 
 /**
  * Create by peng on 2019/8/2
@@ -30,10 +33,11 @@ public class MyWebView extends AppCompatActivity {
     }
 
     private void initWebView() {
-        mContentWv.getSettings().setJavaScriptEnabled(true);
         WebSettings settings = mContentWv.getSettings();
         settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
-//        //支持js
+        // 设置后才可以发送 postMessage事件通知
+        settings.setSupportMultipleWindows(true);
+        //支持js
         settings.setJavaScriptEnabled(true);
         // 设置允许JS弹窗
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
@@ -43,13 +47,11 @@ public class MyWebView extends AppCompatActivity {
         WebView.setWebContentsDebuggingEnabled(true);
 //        mContentWv.loadUrl("https://www.baidu.com/");
         mContentWv.loadUrl("file:///android_asset/ochart/index.html");
-
+        mContentWv.addJavascriptInterface(new WebAppInterface(), "Android");
         mContentWv.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
-                // 加载完成后,发送请求
-                // sendPost();
-                triggerEvnet("androidMsg","hahha6666");
+
             }
         });
 
@@ -75,25 +77,28 @@ public class MyWebView extends AppCompatActivity {
             public void onResponse(JsonMap main, Exception error) {
                 if (error == null) {
                     String data=main.getString("data");
-                    // 触发自定义事件,并传入参数,参数格式如下
-                    // { origin: 'ochart-iframe', method: method, data: data }
-                    final String param="{origin: 'ochart-iframe',method: 'ochart_init',data:"+data+"}";
-                    triggerEvnet("message",param);
+                    Log.e("kkk", data);
                 } else {
                     Toast.makeText(getBaseContext(), "请求失败", Toast.LENGTH_SHORT).show();
                 }
             }
         });
+        String token="b9b7ca83c4bf652484715e61ac38bdff";
+        int id=4200;
+        mContentWv.loadUrl("javascript:showInfoFromJava('" + id + "','" + token + "')");
     }
 
-    private void triggerEvnet(String eventName, String detail){
-        if(eventName==null || eventName.length()==0){
-            return;
-        }
-        if(detail==null || detail.length()==0){
-            detail = "{}";
-        }
-        mContentWv.loadUrl("javascript:showInfoFromJava('" + eventName + "')");
-    }
+    public class WebAppInterface{
+        @JavascriptInterface
+        public void requestData() {
+            Logger.d("被js调用");
+            runOnUiThread(new Runnable() {
+                @Override
+                public void run() {
+                    sendPost();
+                }
+            });
 
+        }
+    }
 }

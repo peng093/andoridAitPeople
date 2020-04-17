@@ -51,7 +51,7 @@
 <script src="src/settings.js" charset="utf-8"></script>
 <script src="vconsole.min.js"></script>
 <script src="main.js" charset="utf-8"></script>
-
+<script src="data.js" charset="utf-8"></script>
 <script type="text/javascript">
 (function () {
     // open web debugger console
@@ -87,21 +87,25 @@
 })();
 </script>
 <script>
-  //  window.addEventListener("message",function(e){
-  //           console.log("在html中触发了")
-  //           console.log(JSON.stringify(e.data))
-  //  })
-
-  function showInfoFromJava(param){
-      console.log("arg=="+param)
-      // var myevent = new CustomEvent(param, {detail:{data:"555"}});
-      // window.dispatchEvent(myevent)
+  
+  window.addEventListener("message", function (e) {
+    var d = e.data
+    console.log("在html触发了"+d.method)
+    if (d.origin !== 'ochart-iframe') return;
+      if (d.method == "inited") {
+        // 调用安卓的方法
+        console.log("调用安卓方法")
+        window.Android.requestData();
+      }
+  })
+  function showInfoFromJava(accId,mToken){
+    // 循环读取子组件是否完成初始化
       window.postMessage({
-        origin: 'androidMsg',
-        method: "androidMsg",
-        data: param
+        origin:'ochart-iframe',
+        method:"androidMsg",
+        data:data
       }, "*");
-    }
+}
 </script>
 </body>
 </html>
