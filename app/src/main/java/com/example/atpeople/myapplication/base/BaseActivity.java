@@ -33,6 +33,9 @@ import android.widget.Toast;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.callback.BaseCallBack;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import butterknife.ButterKnife;
 
 /**
@@ -372,18 +375,39 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     protected <T> void showCustomViewAlertDialog(View view, final BaseCallBack<T> callBack){
         ImageView imageView=view.findViewById(R.id.tv_dialog_kefu_close);
+        ImageView weixin_1=view.findViewById(R.id.iv_feidao_kefu_weichat_copy);
+        ImageView weixin_2=view.findViewById(R.id.iv_feidao_kefu_weichat_copy_2);
+        ImageView qq=view.findViewById(R.id.iv_feidao_kefu_qq_copy);
+        List<ImageView> list=new ArrayList<>();
+        list.add(imageView);
+        list.add(weixin_1);
+        list.add(weixin_2);
+        list.add(qq);
         final Dialog dialog = new Dialog(this);
         dialog.setContentView(view);
         dialog.setCancelable(true);
         Window dialogWindow = dialog.getWindow();
         // 设置弹窗背景透明
         dialogWindow.setBackgroundDrawableResource(android.R.color.transparent);
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialog.dismiss();
-            }
-        });
+
+        for (final ImageView iv : list) {
+            iv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    switch (iv.getId()){
+                        case R.id.tv_dialog_kefu_close:
+                            dialog.dismiss();
+                            break;
+                        case R.id.iv_feidao_kefu_weichat_copy:
+                        case R.id.iv_feidao_kefu_weichat_copy_2:
+                        case R.id.iv_feidao_kefu_qq_copy:
+                            showToast("复制成功");
+                            dialog.dismiss();
+                            break;
+                    }
+                }
+            });
+        }
         dialog.setCanceledOnTouchOutside(true);
         dialog.show();
     }

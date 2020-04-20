@@ -109,4 +109,7 @@ dependencies {
     implementation 'com.orhanobut:logger:2.2.0'
     // 底部导航 插页
     implementation 'com.kongzue.tabbar:tabbar:1.5.4'
+    // 扫一扫
+    implementation project(path: ':zxinglibrary')
+
 }

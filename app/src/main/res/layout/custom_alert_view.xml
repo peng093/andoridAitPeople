@@ -3,7 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:theme="@style/AppTheme.NoActionBar"
+    >
 
     <View
         android:layout_width="1dp"
@@ -66,7 +68,7 @@
                 <ImageView
                     android:id="@+id/iv_feidao_kefu_weichat_copy"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="39dp"
                     android:scaleType="centerInside"
                     android:src="@mipmap/icon_kefu_copy" />
             </LinearLayout>

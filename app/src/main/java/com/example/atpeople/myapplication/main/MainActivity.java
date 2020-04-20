@@ -125,7 +125,12 @@ public class MainActivity extends BaseActivity {
             }
         }
     }
-
+    /**
+     * @Author Peng
+     * @Date 2020/4/17 17:24
+     * @Describe 华为开发者平台 发送通知调试 https://developer.huawei.com
+     * 我的应用==>推送服务==>运营中进行编辑 发送推送
+     */
     private void huaweiPushInit() {
         client = new HuaweiApiClient.Builder(this)
                 .addApi(HuaweiPush.PUSH_API)
