@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.util.SharedPreferencesUtil;
+import com.example.atpeople.myapplication.util.SPUtil;
 import com.example.atpeople.myapplication.util.ToastUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -62,7 +62,7 @@ public class SearchActivity extends AppCompatActivity {
 
         //测试数据
         String testData = "活着wy1234567890wyISBNwy中华人民共和国wy唉wysfsfsfswy1wy搜索wy尴尬啦wy活着啊";
-        SharedPreferencesUtil.putString(context, "search_history", testData);
+        SPUtil.getInstance().putString("search_history", testData);
 
         initUI();
         initHistory();
@@ -86,7 +86,7 @@ public class SearchActivity extends AppCompatActivity {
                 break;
             case R.id.tv_clear:
                 // 清除历史记录
-                SharedPreferencesUtil.putString(context, "search_history", "");
+                SPUtil.getInstance().putString( "search_history", "");
                 initHistory();
                 break;
             case R.id.tv_select:
@@ -134,7 +134,7 @@ public class SearchActivity extends AppCompatActivity {
      */
     private List<String> readHistory() {
         List<String> readHistoryList = new ArrayList<>();
-        String search_history = SharedPreferencesUtil.getString(context, "search_history", null);
+        String search_history = SPUtil.getInstance().getString("search_history", null);
 
         //将String转为List
         if (!TextUtils.isEmpty(search_history)) {
@@ -179,7 +179,7 @@ public class SearchActivity extends AppCompatActivity {
         for (int i = 0; i < readHistoryList.size(); i++) {
             writeHistory += readHistoryList.get(i) + "wy";
         }
-        SharedPreferencesUtil.putString(context, "search_history", writeHistory);
+        SPUtil.getInstance().putString( "search_history", writeHistory);
     }
 
     /**
