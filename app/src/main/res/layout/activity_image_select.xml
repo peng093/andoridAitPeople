@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        xmlns:fresco="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:padding="@dimen/dp_10">
+        <Button
+            android:id="@+id/bt_open"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="打开相册"
+            >
+        </Button>
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="原图"
+            >
+        </TextView>
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sv_1"
+            android:layout_width="320dp"
+            android:layout_height="160dp"
+            fresco:actualImageScaleType="focusCrop"
+            />
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="鲁班压缩"
+            >
+        </TextView>
+        <com.facebook.drawee.view.SimpleDraweeView
+            android:id="@+id/sv_2"
+            android:layout_width="320dp"
+            android:layout_height="160dp"
+            fresco:actualImageScaleType="focusCrop"
+            />
+    </LinearLayout>
+</ScrollView>

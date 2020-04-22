@@ -5,5 +5,5 @@ package com.example.atpeople.myapplication.callback;
  */
 public interface BaseCallBack<T>{
     void success(T t);
-    void failed(T t);
+    void failed(Throwable e);
 }

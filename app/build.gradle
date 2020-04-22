@@ -1,5 +1,5 @@
 apply plugin: 'com.android.application'
-
+apply plugin: 'com.getkeepsafe.dexcount'
 android {
     compileSdkVersion 28
     defaultConfig {
@@ -38,6 +38,10 @@ android {
     }
     packagingOptions {
         exclude 'META-INF/proguard/androidx-annotations.pro'
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -93,6 +97,7 @@ dependencies {
     implementation 'com.hyman:flowlayout-lib:1.1.2'
     // 网络请求框架
     implementation 'com.kongzue.baseokhttp_v3:baseokhttp_v3:3.1.2'
+    // 手势图案解锁
     implementation project(':gesturepswlib')
     // 粒子动画
     implementation 'yasic.library.ParticleTextView:particletextview:0.0.3'
@@ -111,5 +116,8 @@ dependencies {
     implementation 'com.kongzue.tabbar:tabbar:1.5.4'
     // 扫一扫
     implementation project(path: ':zxinglibrary')
-
+    // 图片选择器
+    implementation project(path: ':library')
+    // 鲁班压缩
+    implementation 'top.zibin:Luban:1.1.8'
 }

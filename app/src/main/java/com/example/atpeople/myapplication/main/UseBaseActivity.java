@@ -61,7 +61,7 @@ public class UseBaseActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void failed(Object o) {
+                    public void failed(Throwable e) {
                         showToast("你点击了取消");
                     }
                 });
@@ -99,7 +99,7 @@ public class UseBaseActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void failed(String o) {
+                    public void failed(Throwable e) {
 
                     }
                 });
@@ -116,7 +116,7 @@ public class UseBaseActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void failed(Object o) {
+                    public void failed(Throwable e) {
 
                     }
                 });

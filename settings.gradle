@@ -1,1 +1,1 @@
-include ':app', ':gesturepswlib', ':zxinglibrary'
+include ':app', ':gesturepswlib', ':zxinglibrary', ':library'

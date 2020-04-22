@@ -82,7 +82,18 @@
         <activity android:name=".ui.SendSmsActivity"></activity>
         <activity android:name=".ui.calendar.GoogleCalendarActivity" />
         <activity android:name=".ui.ScanQRCode" />
-
+        <activity android:name=".ui.ImageSelectActivity"/>
+        <!--图片选择器star-->
+        <activity
+            android:name="cn.finalteam.rxgalleryfinal.ui.activity.MediaActivity"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            />
+        <activity
+            android:name="com.yalantis.ucrop.UCropActivity"
+            android:screenOrientation="portrait"
+            />
+        <!--图片选择器end-->
         <activity android:name="com.example.atpeople.myapplication.main.NotifyDatailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
