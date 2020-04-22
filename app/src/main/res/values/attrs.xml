@@ -24,4 +24,12 @@
         <attr name="pv_spread_anim_time" format="integer"></attr>
         <attr name="pv_host_text_anim_time" format="integer"></attr>
     </declare-styleable>
+    <!-- 手势解锁自定义属性   -->
+    <declare-styleable name="GestureLockView">
+        <attr name="pressedColor" format="color"/>
+        <attr name="defaultColor" format="color"/>
+        <attr name="errorColor" format="color"/>
+        <attr name="correctColor" format="color"/>
+        <attr name="radius_gesture" format="dimension"/>
+    </declare-styleable>
 </resources>

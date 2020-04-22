@@ -83,6 +83,7 @@
         <activity android:name=".ui.calendar.GoogleCalendarActivity" />
         <activity android:name=".ui.ScanQRCode" />
         <activity android:name=".ui.ImageSelectActivity"/>
+        <activity android:name=".GestureLockActivity"/>
         <!--图片选择器star-->
         <activity
             android:name="cn.finalteam.rxgalleryfinal.ui.activity.MediaActivity"

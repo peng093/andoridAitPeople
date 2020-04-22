@@ -66,7 +66,7 @@ public class LaunchActivity extends AppCompatActivity {
 
                     @Override
                     public void onAnimationEnd(Animator animation) {
-                        Intent intent = new Intent(LaunchActivity.this, MainActivity.class);
+                        Intent intent = new Intent(LaunchActivity.this, GestureLockActivity.class);
                         startActivity(intent);
                         finish();
                     }
