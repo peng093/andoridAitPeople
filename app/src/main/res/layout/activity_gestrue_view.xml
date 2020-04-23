@@ -22,7 +22,7 @@
         app:defaultColor="#9B9B9B"
         app:pressedColor="@color/main_color"
         app:errorColor="@color/colorRed"
-        app:correctColor="#0329FC"
+        app:correctColor="@color/material_green_300"
         >
     </com.example.atpeople.myapplication.customview.GestureLockView>
 </LinearLayout>

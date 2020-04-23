@@ -18,7 +18,7 @@ public class SPUtil {
     private SPUtil() {
         sp= AppStart.getContext().getSharedPreferences("config", Context.MODE_PRIVATE);
     }
-
+    /** 获取当前类的单一实例对象*/
     public static final SPUtil getInstance() {
         return SingletonHolder.INSTANCE;
     }

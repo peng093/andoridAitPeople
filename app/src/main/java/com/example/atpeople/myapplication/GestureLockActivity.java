@@ -34,7 +34,10 @@ public class GestureLockActivity extends BaseActivity {
             tv_top.setText("请创建手势密");
         }else {
             tv_top.setText("请绘制正确的手势");
+            // 设置正确密码,方便显示对应的颜色
+            gestureLockView.setCorrectValue(gestureLock_psw);
         }
+
         // 获取本地有没有保留的密码 有的话,则是验证
         gestureLockView.setLockValueCallBack(new GestureLockView.LockValueCallBack() {
             @Override

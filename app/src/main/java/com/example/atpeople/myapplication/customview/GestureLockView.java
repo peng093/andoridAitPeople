@@ -3,6 +3,7 @@ package com.example.atpeople.myapplication.customview;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Handler;
 import android.util.AttributeSet;
@@ -16,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestureLockView extends View {
-    private int mRadius = 100;
+    private int mRadius = 120;
     private Paint mLinePaint;
     private Paint mOuterPaint;
     private Paint mInnerPaint;
@@ -136,14 +137,14 @@ public class GestureLockView extends View {
                 mOuterPaint.setColor(mCorrectColor);
                 mInnerPaint.setColor(mCorrectColor);
             }
-            //画外圆
+            // 画外圆
             canvas.drawCircle(point.centerX, point.centerY, mRadius, mOuterPaint);
-            //画内圆
-            canvas.drawCircle(point.centerX, point.centerY, mRadius / 3, mInnerPaint);
+            // 画内圆--内圆应该是绘制到该点后才显示出来
+            // canvas.drawCircle(point.centerX, point.centerY, mRadius / 3, mInnerPaint);
         }
 
 
-        //画线
+        // 画线
         if(mPressedPointList.size() > 0){
             Point point = mPressedPointList.get(mPressedPointList.size() - 1);
             //抬起的时候不需要再画多出来的直线
@@ -155,6 +156,9 @@ public class GestureLockView extends View {
                 canvas.drawLine(mPressedPointList.get(i).centerX,mPressedPointList.get(i).centerY,
                         mPressedPointList.get(i+1).centerX,mPressedPointList.get(i+1).centerY,mLinePaint);
             }
+            drawCircle(0,canvas);
+            // 显示小圆--画线和小圆应该是同时出现
+            drawCircle(1,canvas);
         }
 
     }
@@ -185,6 +189,7 @@ public class GestureLockView extends View {
                         float centerY1 = Math.abs(lastPoint.centerY + point.centerY) / 2;
                         centerPoint= judgeInCircle(centerX1, centerY1);
                     }else {
+
                         float centerX1 = Math.abs(point.centerX) / 2;
                         float centerY1 = Math.abs(point.centerY) / 2;
                         centerPoint= judgeInCircle(centerX1, centerY1);
@@ -204,6 +209,38 @@ public class GestureLockView extends View {
         }
         invalidate();
         return true;
+    }
+
+
+    private void drawCircle(int type,Canvas canvas){
+        // 按压点画圆
+        for(Point point : mPressedPointList){
+            //根据不同的状态 设置不同的画笔颜色
+            if(point.status == STATUS_PRESSED){
+                mOuterPaint.setColor(mPressedColor);
+                mInnerPaint.setColor(mPressedColor);
+            }else if(point.status == STATUS_DEFAULT){
+                mOuterPaint.setColor(mNormalColor);
+                mInnerPaint.setColor(mNormalColor);
+            }else if(point.status == STATUS_ERROR){
+                mOuterPaint.setColor(mErrorColor);
+                mInnerPaint.setColor(mErrorColor);
+            }else if(point.status == STATUS_CORRECT){
+                mOuterPaint.setColor(mCorrectColor);
+                mInnerPaint.setColor(mCorrectColor);
+            }
+            // 画外圆
+            if(type==0){
+                // 当按压的时候,外圆应该显示填充效果
+                mOuterPaint.setStyle(Paint.Style.FILL);
+                mOuterPaint.setAlpha(100);
+                canvas.drawCircle(point.centerX, point.centerY, mRadius, mOuterPaint);
+            }else {
+                 //画内圆--内圆应该是绘制到该点后才显示出来
+                mInnerPaint.setColor(Color.WHITE);
+                canvas.drawCircle(point.centerX, point.centerY, mRadius / 3, mInnerPaint);
+            }
+        }
     }
 
     /**
