@@ -18,7 +18,7 @@ import com.alibaba.fastjson.JSON;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.customview.LoadingDialog;
 import com.example.atpeople.myapplication.ui.camera.SmartsCamera;
-import com.example.atpeople.myapplication.util.Base64Convert;
+import com.example.atpeople.myapplication.util.Base64Util;
 import com.example.atpeople.myapplication.util.GsonUtil;
 import com.example.atpeople.myapplication.youTuApi.YouTuApi;
 import com.example.atpeople.myapplication.youTuApi.model.BusinessCardBean;
@@ -179,7 +179,7 @@ public class CardRecognition extends AppCompatActivity {
                 public void run() {
                     try {
                         //St
-                        String base64=Base64Convert.bitmapToBase64(bitmap);
+                        String base64= Base64Util.bitmapToBase64(bitmap);
                         youTuApi.nameCardOcr(base64);
                     } catch (Exception e) {
                         e.printStackTrace();

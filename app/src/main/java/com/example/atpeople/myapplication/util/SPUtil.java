@@ -27,8 +27,6 @@ public class SPUtil {
 
     /**
      * 写入Boolean变量至sharedPreferences中
-     *
-     * @param context 上下文环境
      * @param key     存储节点名称
      * @param value   存储节点的值
      */
@@ -38,8 +36,6 @@ public class SPUtil {
 
     /**
      * 读取boolean标识从sharedPreferences中
-     *
-     * @param context 上下文环境
      * @param key     存储节点名称
      * @param value   没有此节点的默认值
      * @return 默认值或者此节点读取到的结果
@@ -50,8 +46,6 @@ public class SPUtil {
 
     /**
      * 写入String变量至sharedPreferences中
-     *
-     * @param context 上下文环境
      * @param key     存储节点名称
      * @param value   存储节点的值String
      */
@@ -62,8 +56,6 @@ public class SPUtil {
 
     /**
      * 读取String标识从sharedPreferences中
-     *
-     * @param context  上下文环境
      * @param key      存储节点名称
      * @param defValue 没有此节点的默认值
      * @return 返回默认值或者此节点读取到的结果
@@ -74,8 +66,6 @@ public class SPUtil {
 
     /**
      * 写入int变量至sharedPreferences中
-     *
-     * @param context 上下文环境
      * @param key     存储节点名称
      * @param value   存储节点的值String
      */
@@ -86,8 +76,6 @@ public class SPUtil {
 
     /**
      * 读取int标识从sharedPreferences中
-     *
-     * @param context  上下文环境
      * @param key      存储节点名称
      * @param defValue 没有此节点的默认值
      * @return 返回默认值或者此节点读取到的结果
@@ -98,8 +86,6 @@ public class SPUtil {
 
     /**
      * 从sharedPreferences中移除指定节点
-     *
-     * @param context 上下文环境
      * @param key     需要移除节点的名称
      */
     public void remove(String key) {
