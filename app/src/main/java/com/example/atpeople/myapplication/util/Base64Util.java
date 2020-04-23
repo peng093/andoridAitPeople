@@ -14,7 +14,7 @@ import java.util.List;
 
 public class Base64Util {
     /**
-     * Encode base 64 file string.
+     * 通过文件路径 将文件转base64字符串
      *
      * @param path the path
      * @return the string

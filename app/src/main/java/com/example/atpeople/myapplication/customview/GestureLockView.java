@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestureLockView extends View {
-    private int mRadius = 120;
+    private int mRadius = 110;
     private Paint mLinePaint;
     private Paint mOuterPaint;
     private Paint mInnerPaint;
@@ -35,7 +35,7 @@ public class GestureLockView extends View {
     private static final int STATUS_ERROR = 2;
     private static final int STATUS_PRESSED = 3;
     //设置默认初始密码
-    private String mNormalPassword = "012";
+    private String mNormalPassword = "";
     //九个空格代表的密码
     private String[] mLockNormalValue = {"0","1","2","3","4","5","6","7","8"};
     public GestureLockView(Context context) {
@@ -259,21 +259,28 @@ public class GestureLockView extends View {
      * 显示结果
      */
     private void showResult(){
-        int status;
+        // 默认 创建手势是成功状态
+        int status=1;
         String result = "";
         for(Point point : mPressedPointList){
             result += point.psw;
         }
-        if(result.equals(mNormalPassword)){
-            status = 1;
-            mLinePaint.setColor(mCorrectColor);
-        }else {
-            status = 2;
-            mLinePaint.setColor(mErrorColor);
+        // 这里有必要判断一下,是否有密码==开始设置密码时,并没有对错之分,
+        // 所以验证密码时才需要显示对应颜色
+        if(mNormalPassword.length()>0){
+            if(result.equals(mNormalPassword)){
+                status = 1;
+                mLinePaint.setColor(mCorrectColor);
+            }else {
+                status = 2;
+                mLinePaint.setColor(mErrorColor);
+            }
         }
+        // 手抬起来后,把密码回调
         if(this.lockValueCallBack!=null){
             this.lockValueCallBack.valueCallBack(result);
         }
+        // 默认 创建手势是成功状态
         for(Point point : mPointList){
             if(point.status == STATUS_PRESSED) {
                 if (status == 1) {
