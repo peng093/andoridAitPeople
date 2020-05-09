@@ -50,6 +50,7 @@ public class GestureLockActivity extends BaseActivity {
                 if(gestureLock_psw==null){
                     if(firtt.length()==0){
                         firtt=value;
+                        tv_top.setText("请再次绘制手势");
                     }else {
                         if(!firtt.equals(value)){
                             tv_top.setText("与首次绘制不一样,请重新绘制");

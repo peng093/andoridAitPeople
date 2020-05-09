@@ -1,5 +1,6 @@
 package com.example.atpeople.myapplication.main;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -9,14 +10,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 
+import com.alibaba.fastjson.JSON;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.base.BaseActivity;
 import com.example.atpeople.myapplication.callback.BaseCallBack;
+import com.example.atpeople.myapplication.callback.PermissionCallback;
 import com.example.atpeople.myapplication.ui.table.Table;
 import com.orhanobut.logger.Logger;
 
 
+import java.util.List;
+
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * Create by peng on 2019/10/12
@@ -123,6 +129,32 @@ public class UseBaseActivity extends BaseActivity {
             }
         });
 
+    }
+
+    @OnClick({R.id.bt_request_permission})
+    public void onViewClick(View view){
+        switch (view.getId()){
+            case R.id.bt_request_permission:
+                String[] pers={Manifest.permission.CAMERA,
+                        Manifest.permission.RECORD_AUDIO,
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.READ_PHONE_STATE,
+                        Manifest.permission.READ_EXTERNAL_STORAGE,
+                        Manifest.permission.WRITE_EXTERNAL_STORAGE
+                };
+                requestPerission(pers, new PermissionCallback() {
+                    @Override
+                    public void onGranted() {
+                        showToast("同意获取权限");
+                    }
+
+                    @Override
+                    public void onDenied(List<String> deniedPermissions) {
+                        Logger.e("拒绝的权限=="+ JSON.toJSONString(deniedPermissions));
+                    }
+                });
+                break;
+        }
     }
 
     @Override

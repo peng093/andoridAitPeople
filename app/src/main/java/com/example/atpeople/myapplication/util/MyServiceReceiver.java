@@ -15,11 +15,6 @@ public class MyServiceReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         try {
-            //android.content.BroadcastReceiver.getResultCode()方法
-//                public static final int RESULT_ERROR_GENERIC_FAILURE = 1;
-//                public static final int RESULT_ERROR_NO_SERVICE = 4;
-//                public static final int RESULT_ERROR_NULL_PDU = 3;
-//                public static final int RESULT_ERROR_RADIO_OFF = 2;
             switch (getResultCode()){
                 case Activity.RESULT_OK:
                     Log.e(TAG, "短信发送成功");
