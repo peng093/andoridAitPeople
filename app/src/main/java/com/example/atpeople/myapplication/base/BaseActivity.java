@@ -430,7 +430,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 
     /**
      * Request perission.
-     *
+     * 如需要申请华为手机 统一授权(仅限企业账号),请参考 https://developer.huawei.com/consumer/cn/doc/30701
      * @param permissions the permissions
      * @param cb    the callback
      */
