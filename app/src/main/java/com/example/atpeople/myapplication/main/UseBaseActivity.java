@@ -135,6 +135,7 @@ public class UseBaseActivity extends BaseActivity {
     public void onViewClick(View view){
         switch (view.getId()){
             case R.id.bt_request_permission:
+                // 申请权限的时候,一般都是需要用到才申请,所以不建议一次性申请
                 String[] pers={Manifest.permission.CAMERA,
                         Manifest.permission.RECORD_AUDIO,
                         Manifest.permission.ACCESS_FINE_LOCATION,

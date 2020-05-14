@@ -46,7 +46,7 @@ public class MyWebView extends AppCompatActivity {
 
     private void initWebView() {
         WebSettings settings = mContentWv.getSettings();
-        settings.setCacheMode(WebSettings.LOAD_NO_CACHE);
+        settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         // 设置后才可以发送 postMessage事件通知
         settings.setSupportMultipleWindows(true);
         //支持js
@@ -109,6 +109,7 @@ public class MyWebView extends AppCompatActivity {
             public void onResponse(String response, Exception error) {
                 JsonObject jsonObject = (JsonObject) new JsonParser().parse(response).getAsJsonObject();
                 String json=jsonObject.get("data").toString();
+                // Logger.e(json);
                 String base64Sign = null;
                 try {
                     base64Sign = Base64.encodeToString(json.getBytes("utf-8"),Base64.NO_WRAP);
@@ -125,15 +126,31 @@ public class MyWebView extends AppCompatActivity {
 
     public class WebAppInterface{
         @JavascriptInterface
-        public void requestData() {
-            Logger.d("被js调用");
-            runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                     sendPost();
-                }
-            });
-
+        public void eventFucntion(String type,String jsonData) {
+            switch(type){
+                case "coco_component_inited":
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            sendPost();
+                        }
+                    });
+                    break;
+                case "o_gen":
+                    Logger.e("点击==>"+type+",jsonData=="+jsonData);
+                    break;
+                case "refresh_ochart":
+                    Logger.e("点击==>"+type);
+                    break;
+                case "g_at":
+                    Logger.e("点击==>"+type);
+                    break;
+                case "add_contact":
+                    Logger.e("点击==>"+type);
+                    break;
+                    default:
+                        break;
+            }
         }
     }
 }

@@ -65,12 +65,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     private String menuStr;
     //左边图标的点击事件
     private OnClickListener onClickListenerTopRight;
+
     //定义接口
     public interface OnClickListener {
         void onClick();
     }
+
     private PermissionCallback cb;
     private AlertDialog dialog;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -89,7 +92,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         ActivityCollector.addActivity(this);
         // 默认显示状态栏
         setShowStatusBar(true);
-        LayoutInflater.from(this).inflate(initLayout(),viewContent);
+        LayoutInflater.from(this).inflate(initLayout(), viewContent);
         ButterKnife.bind(this);
         //设置屏幕是否可旋转
         if (!isAllowScreenRoate) {
@@ -129,23 +132,25 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (!showStatusBar) {
             // 隐藏状态栏
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        }else {
+        } else {
             // 显示状态栏及背景色
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
-            getWindow().setStatusBarColor(getResources().getColor(R.color.main_color,null));
+            getWindow().setStatusBarColor(getResources().getColor(R.color.main_color, null));
         }
     }
-    public  void setStatusBarFontColor(Activity activity, int fontColor){
+
+    public void setStatusBarFontColor(Activity activity, int fontColor) {
         if (Build.VERSION.SDK_INT >= 21) {
             View decorView = activity.getWindow().getDecorView();
-            if(fontColor==Color.WHITE){
+            if (fontColor == Color.WHITE) {
                 decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_STABLE);
-            }else {
+            } else {
                 // 灰色字体
                 decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
             }
         }
     }
+
     /**
      * 是否允许屏幕旋转
      *
@@ -219,7 +224,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == android.R.id.home) {
             this.finish();
-        }else if(item.getItemId() == R.id.menu_1) {
+        } else if (item.getItemId() == R.id.menu_1) {
             onClickListenerTopRight.onClick();
         }
         //自己处理点击事件
@@ -229,7 +234,7 @@ public abstract class BaseActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         if (menuId != 0 || !TextUtils.isEmpty(menuStr)) {
-            getMenuInflater().inflate(R.menu.menu_activity_base_top_bar,menu);
+            getMenuInflater().inflate(R.menu.menu_activity_base_top_bar, menu);
         }
         return true;
     }
@@ -239,8 +244,8 @@ public abstract class BaseActivity extends AppCompatActivity {
         if (menuId != 0) {
             menu.findItem(R.id.menu_1).setIcon(menuId);
         }
-        if(bitmap!=null){
-            Drawable drawable = new BitmapDrawable(null,bitmap);
+        if (bitmap != null) {
+            Drawable drawable = new BitmapDrawable(null, bitmap);
             menu.findItem(R.id.menu_1).setIcon(drawable);
         }
         if (!TextUtils.isEmpty(menuStr)) {
@@ -255,7 +260,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param menuStr       the menu str
      * @param rightListener the right listener
      */
-    protected void setTopRightButton(String menuStr,OnClickListener rightListener) {
+    protected void setTopRightButton(String menuStr, OnClickListener rightListener) {
         this.onClickListenerTopRight = rightListener;
         this.menuStr = menuStr;
     }
@@ -267,7 +272,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param menuId        the menu id
      * @param rightListener the right listener
      */
-    protected void setTopRightButton(String menuStr,int menuId, OnClickListener rightListener) {
+    protected void setTopRightButton(String menuStr, int menuId, OnClickListener rightListener) {
         this.menuStr = menuStr;
         this.menuId = menuId;
         this.onClickListenerTopRight = rightListener;
@@ -292,7 +297,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param iconId the icon id
      */
     protected void setTopLeftButton(int iconId) {
-        if(iconId!=0){
+        if (iconId != 0) {
             toolbar.setNavigationIcon(iconId);
         }
     }
@@ -314,7 +319,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param toolbarShow the toolbar show
      */
     protected void setToolbarShow(boolean toolbarShow) {
-        toolbar.setVisibility(toolbarShow?View.VISIBLE:View.GONE);
+        toolbar.setVisibility(toolbarShow ? View.VISIBLE : View.GONE);
     }
 
 
@@ -325,7 +330,7 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param content  the content
      * @param callBack the call back
      */
-    protected void showNormalAlertDialog(String title, String content, final BaseCallBack callBack){
+    protected void showNormalAlertDialog(String title, String content, final BaseCallBack callBack) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle(title);
         dialog.setMessage(content);
@@ -351,15 +356,15 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * Show edit alert dialog.
      *
-     * @param title       the title
+     * @param title          the title
      * @param defaultContent 默认显示内容
-     * @param callBack    the call back
+     * @param callBack       the call back
      */
-    protected <T> void showEditAlertDialog(String title, String defaultContent, final BaseCallBack<T> callBack){
+    protected <T> void showEditAlertDialog(String title, String defaultContent, final BaseCallBack<T> callBack) {
         AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle(title);
-        final EditText editText=new EditText(this);
-        if(!TextUtils.isEmpty(defaultContent)){
+        final EditText editText = new EditText(this);
+        if (!TextUtils.isEmpty(defaultContent)) {
             editText.setText(defaultContent);
             editText.setSelection(defaultContent.length());
         }
@@ -389,12 +394,12 @@ public abstract class BaseActivity extends AppCompatActivity {
      * @param view     the view
      * @param callBack the call back
      */
-    protected <T> void showCustomViewAlertDialog(View view, final BaseCallBack<T> callBack){
-        ImageView imageView=view.findViewById(R.id.tv_dialog_kefu_close);
-        ImageView weixin_1=view.findViewById(R.id.iv_feidao_kefu_weichat_copy);
-        ImageView weixin_2=view.findViewById(R.id.iv_feidao_kefu_weichat_copy_2);
-        ImageView qq=view.findViewById(R.id.iv_feidao_kefu_qq_copy);
-        List<ImageView> list=new ArrayList<>();
+    protected <T> void showCustomViewAlertDialog(View view, final BaseCallBack<T> callBack) {
+        ImageView imageView = view.findViewById(R.id.tv_dialog_kefu_close);
+        ImageView weixin_1 = view.findViewById(R.id.iv_feidao_kefu_weichat_copy);
+        ImageView weixin_2 = view.findViewById(R.id.iv_feidao_kefu_weichat_copy_2);
+        ImageView qq = view.findViewById(R.id.iv_feidao_kefu_qq_copy);
+        List<ImageView> list = new ArrayList<>();
         list.add(imageView);
         list.add(weixin_1);
         list.add(weixin_2);
@@ -410,7 +415,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             iv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    switch (iv.getId()){
+                    switch (iv.getId()) {
                         case R.id.tv_dialog_kefu_close:
                             dialog.dismiss();
                             break;
@@ -431,10 +436,11 @@ public abstract class BaseActivity extends AppCompatActivity {
     /**
      * Request perission.
      * 如需要申请华为手机 统一授权(仅限企业账号),请参考 https://developer.huawei.com/consumer/cn/doc/30701
+     *
      * @param permissions the permissions
-     * @param cb    the callback
+     * @param cb          the callback
      */
-    protected void requestPerission(String[] permissions, PermissionCallback callback){
+    protected void requestPerission(String[] permissions, PermissionCallback callback) {
         cb = callback;
         List<String> permissionList = new ArrayList<>();
         //1、 哪些权限需要申请
@@ -477,7 +483,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                         showTipsDialog();
                     }
                 }
-            }else {
+            } else {
                 cb.onGranted();
             }
         } else {
@@ -485,6 +491,7 @@ public abstract class BaseActivity extends AppCompatActivity {
             cb.onGranted();
         }
     }
+
     private void showTipsDialog() {
         // 跳转到应用设置界面
         dialog = new AlertDialog.Builder(this)
@@ -509,6 +516,7 @@ public abstract class BaseActivity extends AppCompatActivity {
                     }
                 }).setCancelable(false).show();
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();

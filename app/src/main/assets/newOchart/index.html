@@ -53,6 +53,7 @@
   <script src="src/settings.js" charset="utf-8"></script>
   <script src="vconsole.min.js"></script>
   <script src="main.js" charset="utf-8"></script>
+  <script src="msg.js" charset="utf-8"></script>
   <script type="text/javascript">
     (function () {
       // open web debugger console
@@ -86,40 +87,6 @@
         }
       });
     })();
-  </script>
-  <script>
-    // 监听coco组件完成初始化 
-    window.addEventListener("message", function (e) {
-      var d = e.data
-      console.log("在html触发了" + d.method)
-      if (d.origin !== 'ochart-iframe') return;
-      if (d.method == "coco_component_inited") {
-        // 调用安卓的方法
-        // console.log("调用安卓方法")
-        window.Android.requestData();
-      }
-    })
-    // 接收安卓发来的数据
-    function showInfoFromJava(param) {
-      let jsonStr = decode(param)
-      console.log("解码后的长度===" + jsonStr.length)
-      let obj = JSON.parse(jsonStr)
-      // 发送初始化数据
-      window.postMessage({
-        origin: 'ochart-iframe',
-        method: "data_from_android",
-        data: obj
-      }, "*");
-    }
-
-    // base64转字符串
-    function decode(base64) {
-      // 对base64转编码
-      var decode = atob(base64);
-      // 编码转字符串
-      var str = decodeURIComponent(decode);
-      return str;
-    }
   </script>
 </body>
 
