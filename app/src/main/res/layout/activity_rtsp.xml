@@ -25,4 +25,10 @@
         android:layout_height="wrap_content"
         android:text="测试发送内容"
         />
+    <Button
+        android:id="@+id/bt_read"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="读取手机短信列表"
+        />
 </LinearLayout>
