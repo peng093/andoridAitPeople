@@ -49,7 +49,7 @@ public class MyWebView extends AppCompatActivity {
         settings.setCacheMode(WebSettings.LOAD_DEFAULT);
         // 设置后才可以发送 postMessage事件通知
         settings.setSupportMultipleWindows(true);
-        //支持js
+        // 支持js
         settings.setJavaScriptEnabled(true);
         // 设置允许JS弹窗
         settings.setJavaScriptCanOpenWindowsAutomatically(true);
@@ -78,7 +78,8 @@ public class MyWebView extends AppCompatActivity {
         }
 
 //        mContentWv.loadUrl("https://www.baidu.com/");
-        mContentWv.loadUrl("file:///android_asset/newOchart/index.html");
+//        mContentWv.loadUrl("file:///android_asset/newOchart/index.html");
+        mContentWv.loadUrl("file:///android_asset/touchDemo/index.html");
         mContentWv.addJavascriptInterface(new WebAppInterface(), "Android");
         mContentWv.setWebViewClient(new WebViewClient() {
             @Override

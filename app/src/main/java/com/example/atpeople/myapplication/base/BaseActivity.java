@@ -335,7 +335,7 @@ public abstract class BaseActivity extends AppCompatActivity {
         dialog.setTitle(title);
         dialog.setMessage(content);
 
-        dialog.setNeutralButton("cancel", new DialogInterface.OnClickListener() {
+        dialog.setNegativeButton("cancel", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 callBack.failed(null);
