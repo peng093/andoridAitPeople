@@ -66,8 +66,8 @@ public class Table extends BaseActivity {
                 }
                 break;
             case R.id.helpFeedback:
-                NoBug testobj = new NoBug();
-                checkMethod(testobj);
+//                NoBug testobj = new NoBug();
+//                checkMethod(testobj);
                 break;
             case R.id.novice:
                 break;

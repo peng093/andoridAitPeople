@@ -36,6 +36,7 @@
     <uses-permission android:name="android.permission.HARDWARE_TEST"
         tools:ignore="ProtectedPermissions" />
     <application
+        android:debuggable="true"
         android:name=".AppStart"
         android:allowBackup="true"
         android:icon="@mipmap/logo_192"
@@ -43,7 +44,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:theme"
-        >
+        tools:ignore="HardcodedDebugMode">
         <activity android:name=".LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -87,6 +88,7 @@
         <activity android:name=".ui.ScanQRCode" />
         <activity android:name=".ui.ImageSelectActivity"/>
         <activity android:name=".GestureLockActivity"/>
+        <activity android:name=".ui.BgView"/>
         <!--图片选择器star-->
         <activity
             android:name="cn.finalteam.rxgalleryfinal.ui.activity.MediaActivity"
@@ -143,12 +145,12 @@
             </intent-filter>
         </receiver>
         <!-- 监听通知栏消息广播-->
-        <receiver android:name="com.huawei.hms.support.api.push.PushEventReceiver">
-            <intent-filter>
-                <!-- 接收通道发来的通知栏消息，兼容老版本PUSH -->
-                <action android:name="com.huawei.intent.action.PUSH" />
-            </intent-filter>
-        </receiver>
+<!--        <receiver android:name="com.huawei.hms.support.api.push.PushEventReceiver">-->
+<!--            <intent-filter>-->
+<!--                &lt;!&ndash; 接收通道发来的通知栏消息，兼容老版本PUSH &ndash;&gt;-->
+<!--                <action android:name="com.huawei.intent.action.PUSH" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
         <!--*********************华为推送***End*********************-->
     </application>
 

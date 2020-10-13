@@ -32,4 +32,12 @@
         <attr name="correctColor" format="color"/>
         <attr name="radius_gesture" format="dimension"/>
     </declare-styleable>
+    <!-- 自定义textview   -->
+    <declare-styleable name="ColorTextView">
+        <attr name="ctvText" format="string" />
+        <attr name="ctvBackground" format="color"/>
+        <attr name="ctvTextSize" format="dimension"/>
+        <attr name="ctvTextColor" format="color"/>
+        <attr name="ctvCornerSize" format="integer"/>
+    </declare-styleable>
 </resources>
