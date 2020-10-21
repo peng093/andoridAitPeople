@@ -36,7 +36,6 @@
     <uses-permission android:name="android.permission.HARDWARE_TEST"
         tools:ignore="ProtectedPermissions" />
     <application
-        android:debuggable="true"
         android:name=".AppStart"
         android:allowBackup="true"
         android:icon="@mipmap/logo_192"
@@ -44,11 +43,10 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar"
         tools:replace="android:theme"
-        tools:ignore="HardcodedDebugMode">
+        >
         <activity android:name=".LaunchActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -88,7 +86,6 @@
         <activity android:name=".ui.ScanQRCode" />
         <activity android:name=".ui.ImageSelectActivity"/>
         <activity android:name=".GestureLockActivity"/>
-        <activity android:name=".ui.BgView"/>
         <!--图片选择器star-->
         <activity
             android:name="cn.finalteam.rxgalleryfinal.ui.activity.MediaActivity"

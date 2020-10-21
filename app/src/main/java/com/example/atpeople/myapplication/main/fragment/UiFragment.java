@@ -19,7 +19,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atPeople.AitPeople;
 import com.example.atpeople.myapplication.base.BaseFragment;
-import com.example.atpeople.myapplication.ui.BgView;
 import com.example.atpeople.myapplication.ui.ImageSelectActivity;
 import com.example.atpeople.myapplication.ui.ScanQRCode;
 import com.example.atpeople.myapplication.ui.SendSmsActivity;
@@ -115,7 +114,7 @@ public class UiFragment extends BaseFragment implements View.OnClickListener {
         addDemo("Rtsp", SendSmsActivity.class);
         addDemo("扫一扫", ScanQRCode.class);
         addDemo("图片选择器,压缩对比", ImageSelectActivity.class);
-        addDemo("自定义view背景色", BgView.class);
+
         initFloatMenu();
     }
 
@@ -152,13 +151,13 @@ public class UiFragment extends BaseFragment implements View.OnClickListener {
         list3.add(new TestB("BB",18));
         list3.add(new TestB("PPP",20));
 
-        List<TestA> list_name = RemoveDuplicateUtil.replese("name", list);
-        List<TestA> list_age = RemoveDuplicateUtil.replese("age", list2);
-        List<TestB> list_text = RemoveDuplicateUtil.replese("text", list3);
+//        List<TestA> list_name = RemoveDuplicateUtil.replese("name", list);
+//        List<TestA> list_age = RemoveDuplicateUtil.replese("age", list2);
+//        List<TestB> list_text = RemoveDuplicateUtil.replese("text", list3);
 
-        Log.e("list_name",""+ JSONArray.toJSON(list_name));
-        Log.e("list_age", ""+JSONArray.toJSON(list_age));
-        Log.e("list_text", ""+JSONArray.toJSON(list_text));
+//        Log.e("list_name",""+ JSONArray.toJSON(list_name));
+//        Log.e("list_age", ""+JSONArray.toJSON(list_age));
+//        Log.e("list_text", ""+JSONArray.toJSON(list_text));
     }
 
     /**

@@ -91,18 +91,9 @@ public class MainActivity extends BaseActivity {
         setTabSelection(0);
     }
 
-    // 声明枚举的类型
-    public enum MyColor{RED, BLUE, GREEN}
     @Override
     protected void initData() {
-        for (MyColor myColor : MyColor.values()){
-            Log.e("TAG","枚举对象--"+myColor);
-            Log.e("TAG","枚举对象的序数--"+myColor.ordinal());
-            Log.e("TAG","枚举对象的字符串--"+myColor.name());
-        }
 
-        Logger.d("从此次开机起gprs上传的总流量=="+TrafficStats.getMobileRxBytes());
-        Logger.d("从此次开机起gprs下载的总流量=="+TrafficStats.getMobileTxBytes());
     }
 
     private void setTabSelection(int index){
