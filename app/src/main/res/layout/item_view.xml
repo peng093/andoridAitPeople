@@ -17,7 +17,6 @@
         android:layout_marginTop="8dp"
         android:scaleType="centerCrop"
         android:src="@drawable/tb_bigicon" />
-    AndroidCodeGenerator
 
     <TextView
         android:id="@+id/title_textview"
