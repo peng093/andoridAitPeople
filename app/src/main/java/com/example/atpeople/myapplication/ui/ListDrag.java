@@ -32,6 +32,7 @@ import com.example.atpeople.myapplication.ui.notify.model.NotifyBean;
 import com.example.atpeople.myapplication.util.FilePathUtil;
 import com.example.atpeople.myapplication.util.NotifyUtil;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -71,11 +72,13 @@ public class ListDrag extends BaseActivity {
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-                intent.setType("*/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
-                intent.addCategory(Intent.CATEGORY_OPENABLE);
-                startActivityForResult(intent,1);
-
+//                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+//                intent.setType("*/*");//设置类型，我这里是任意类型，任意后缀的可以这样写。
+//                intent.addCategory(Intent.CATEGORY_OPENABLE);
+//                startActivityForResult(intent,1);
+                String path=Environment.getExternalStorageDirectory()+File.separator+360;
+                List<String> fileList=getFilesAllName(path);
+                Log.e(TAG, "fileList: "+fileList.toString());
             }
         });
 
@@ -114,7 +117,16 @@ public class ListDrag extends BaseActivity {
         // 关联RecyclerView
         itemTouchHelper.attachToRecyclerView(rec_list);
     }
-
+    public static List<String> getFilesAllName(String path) {
+        File file=new File(path);
+        File[] files=file.listFiles();
+        if (files == null){Log.e("error","空目录");return null;}
+        List<String> s = new ArrayList<>();
+        for(int i =0;i<files.length;i++){
+            s.add(files[i].getAbsolutePath());
+        }
+        return s;
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
