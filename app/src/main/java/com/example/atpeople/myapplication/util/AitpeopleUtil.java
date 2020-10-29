@@ -61,7 +61,7 @@ public class AitpeopleUtil {
                     intent.putExtra("id", atBean.getId());
                     activity.startActivity(intent);
                 }
-            });
+            },Color.RED);
             spannableStr.setSpan(clickableSpan, atBean.getStartPos(), atBean.getEndPos(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
             // color
             spannableStr.setSpan(new ForegroundColorSpan(atBean.getName().startsWith("@")?
@@ -76,18 +76,19 @@ public class AitpeopleUtil {
      * @Date 2019/7/5 9:21
      * @Describe 去掉缺省的下划线
      */
-    private static class Clickable extends ClickableSpan implements View.OnClickListener {
+    public static class Clickable extends ClickableSpan implements View.OnClickListener {
         private View.OnClickListener mListener;
-
-        private Clickable(View.OnClickListener mListener) {
+        int color;
+        public Clickable(View.OnClickListener mListener,int _color) {
             this.mListener = mListener;
+            this.color=_color==0?Color.BLUE : _color;
         }
 
         //设置显示样式
         @Override
         public void updateDrawState(TextPaint ds) {
             super.updateDrawState(ds);
-            //ds.setColor(ContextCompat.getColor(context, R.color.colorPrimary));//设置颜色
+            ds.setColor(color);//设置颜色
             ds.setUnderlineText(false);//设置下划线
         }
 

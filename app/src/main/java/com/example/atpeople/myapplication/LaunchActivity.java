@@ -44,6 +44,8 @@ public class LaunchActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // 启动报错  Rejecting re-init on previously-failed class java.lang.Class，api跟手机支持不匹配
+        // 建议换成全部换成 27，包括 implementation的实现也是27
         setContentView(R.layout.activity_launch);
         ButterKnife.bind(this);
         initWebView();
