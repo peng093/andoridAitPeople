@@ -17,6 +17,7 @@ import android.text.SpannableString;
 import android.text.method.LinkMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,7 +32,12 @@ import com.example.atpeople.myapplication.util.FilePathUtil;
 import com.example.atpeople.myapplication.util.NotifyUtil;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -47,16 +53,22 @@ public class ListDrag extends BaseActivity {
     RecyclerView rec_list;
     @BindView(R.id.tv_path)
     TextView tv_path;
+    @BindView(R.id.bt_button)
+    Button bt_button;
 
 
     String path = "";
-
+    List<FileBean> fileList;
 
     // 定义正则表达式
-    private static final String AT = "@[\u4e00-\u9fa5\\w]+";// @人
-    private static final String TOPIC = "#[\u4e00-\u9fa5\\w]+#";// ##话题
-    private static final String EMOJI = "\\[[\u4e00-\u9fa5\\w]+\\]";// 表情
-    private static final String URL = "http://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";// url
+    /** @人*/
+    private static final String AT = "@[\u4e00-\u9fa5\\w]+";
+    /** ##话题*/
+    private static final String TOPIC = "#[\u4e00-\u9fa5\\w]+#";
+    // 表情
+    private static final String EMOJI = "\\[[\u4e00-\u9fa5\\w]+\\]";
+    // url
+    private static final String URL = "http://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
 
     @Override
     protected int initLayout() {
@@ -66,7 +78,7 @@ public class ListDrag extends BaseActivity {
     @Override
     protected void initView() {
         rec_list.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        String text = "@张三 hahhah@李四#你好##合帮# 呵呵https://www.cocos.com/docs";
+        String text = "@张三 hahhah@李四#你好##合帮# 呵呵 http://www.cocos.com/docs ";
         String REGEX = "(" + AT + ")" + "|" + "(" + TOPIC + ")" + "|" + "(" + EMOJI + ")" + "|" + "(" + URL + ")";
         SpannableString spannableString = new SpannableString(text);
         Pattern pattern = Pattern.compile(REGEX);
@@ -111,69 +123,40 @@ public class ListDrag extends BaseActivity {
 
     @Override
     protected void initData() {
-        NotifyAdapter adapter = new NotifyAdapter(new ArrayList<>(), this);
+        FilesListAdapter adapter = new FilesListAdapter(new ArrayList<>());
         rec_list.setAdapter(adapter);
         // 设置数据源
-        List<NotifyBean> list = NotifyUtil.initDatas();
-        list.addAll(NotifyUtil.initDatas());
-        adapter.setNewData(list);
         adapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(BaseQuickAdapter adapter, View view, int position) {
-                String path = Environment.getExternalStorageDirectory() + File.separator + 360;
-                List<String> fileList = getFilesAllName(path);
-                Log.e(TAG, "fileList: " + fileList.toString());
+                Log.e(TAG, "fileList: " + fileList.get(position).getAbsolutePath());
             }
         });
-
-        ItemDragHelperCallBack callBack = new ItemDragHelperCallBack(new ItemDragHelperCallBack.OnItemDragListener() {
-            @Override
-            public void onItemMove(int startPos, int endPos) {
-                Collections.swap(list, startPos, endPos);
-                adapter.notifyItemMoved(startPos, endPos);
-            }
-
-            @Override
-            public void onItemMoveStartAndEnd(RecyclerView.ViewHolder viewHolder, int status) {
-                Log.e(TAG, "viewHolder: " + viewHolder);
-                if (status != ItemTouchHelper.ACTION_STATE_IDLE) {
-                    viewHolder.itemView.setScaleX(1.1f);
-                    viewHolder.itemView.setScaleY(1.1f);
-                    viewHolder.itemView.setBackgroundColor(getResources().getColor(R.color.main_color, null));
-                    // 获取系统震动服务
-                    Vibrator vib = (Vibrator) getSystemService(Service.VIBRATOR_SERVICE);
-                    vib.vibrate(150);
-                    return;
-                }
-            }
-
-            @Override
-            public void clearView(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder) {
-                // 完成移动，选中的改变样式
-                viewHolder.itemView.setScaleX(1f);
-                viewHolder.itemView.setScaleY(1f);
-                viewHolder.itemView.setBackground(null);
-            }
+        bt_button.setOnClickListener(v -> {
+            String path = Environment.getExternalStorageDirectory() + File.separator + 360;
+            fileList= getFilesAllName(path);
+            adapter.setNewData(fileList);
         });
-
-        // 增加长按拖动功能
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callBack);
-        // 关联RecyclerView
-        itemTouchHelper.attachToRecyclerView(rec_list);
     }
 
-    public static List<String> getFilesAllName(String path) {
+    public static List<FileBean> getFilesAllName(String path) {
         File file = new File(path);
         File[] files = file.listFiles();
         if (files == null) {
             Log.e("error", "空目录");
             return null;
         }
-        List<String> s = new ArrayList<>();
+        List<FileBean> fileBeanList = new ArrayList<>();
         for (int i = 0; i < files.length; i++) {
-            s.add(files[i].getAbsolutePath());
+            FileBean fileBean=new FileBean();
+            fileBean.setName(files[i].getName());
+            fileBean.setAbsolutePath(files[i].getAbsolutePath());
+            File file1=new File(files[i].getAbsolutePath());
+            fileBean.setLastModifiedTime(getFileLastModifiedTime(file1));
+            fileBean.setSize(FormetFileSize(getFileSize(file1)));
+            fileBeanList.add(fileBean);
         }
-        return s;
+        return fileBeanList;
     }
 
     @Override
@@ -201,5 +184,66 @@ public class ListDrag extends BaseActivity {
         }
     }
 
+    private static final String mformatType = "yyyy/MM/dd HH:mm:ss";
 
+    /**
+     * 获取文件最后改动时间
+     * @param file
+     * @return
+     */
+    public static String getFileLastModifiedTime(File file) {
+        Calendar cal = Calendar.getInstance();
+        long time = file.lastModified();
+        SimpleDateFormat formatter = new SimpleDateFormat(mformatType);
+        cal.setTimeInMillis(time);
+
+        // 输出：修改时间[2] 2009-08-17 10:32:38
+        return formatter.format(cal.getTime());
+    }
+    /**
+     　　* 获取指定文件大小
+     　　* @param f
+     　　* @return
+     　　* @throws Exception
+     */
+    public static long getFileSize(File file){
+        long size = 0;
+        if (file.exists()){
+            FileInputStream fis = null;
+            try {
+                fis = new FileInputStream(file);
+                size = fis.available();
+                fis.close();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return size;
+    }
+    /**
+     　　* 转换文件大小
+     　　* @param fileS
+     　　* @return
+     */
+    public static String FormetFileSize(long fileS) {
+        DecimalFormat df = new DecimalFormat("#.00");
+        String fileSizeString = "";
+        String wrongSize="0B";
+        if(fileS==0){
+            return wrongSize;
+        }
+        if (fileS < 1024){
+            fileSizeString = df.format((double) fileS) + "B";
+        }
+        else if (fileS < 1048576){
+            fileSizeString = df.format((double) fileS / 1024) + "KB";
+        }
+        else if (fileS < 1073741824){
+            fileSizeString = df.format((double) fileS / 1048576) + "MB";
+        }
+        else{
+            fileSizeString = df.format((double) fileS / 1073741824) + "GB";
+        }
+        return fileSizeString;
+    }
 }

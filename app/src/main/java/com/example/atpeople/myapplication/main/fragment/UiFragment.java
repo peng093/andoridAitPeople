@@ -137,28 +137,6 @@ public class UiFragment extends BaseFragment implements View.OnClickListener {
     public void onClick(View view) {
         Class activityClass = (Class) view.getTag();
         startActivity(new Intent(getContext(), activityClass));
-
-        List<TestA> list=new ArrayList<>();
-        list.add(new TestA("AA",18));
-        list.add(new TestA("AA",18));
-        list.add(new TestA("BB",18));
-        List<TestA>list2=new ArrayList<>();
-        list2.add(new TestA("AA",18));
-        list2.add(new TestA("BB",18));
-        list2.add(new TestA("CC",20));
-
-        List<TestB>list3=new ArrayList<>();
-        list3.add(new TestB("PPP",18));
-        list3.add(new TestB("BB",18));
-        list3.add(new TestB("PPP",20));
-
-//        List<TestA> list_name = RemoveDuplicateUtil.replese("name", list);
-//        List<TestA> list_age = RemoveDuplicateUtil.replese("age", list2);
-//        List<TestB> list_text = RemoveDuplicateUtil.replese("text", list3);
-
-//        Log.e("list_name",""+ JSONArray.toJSON(list_name));
-//        Log.e("list_age", ""+JSONArray.toJSON(list_age));
-//        Log.e("list_text", ""+JSONArray.toJSON(list_text));
     }
 
     /**

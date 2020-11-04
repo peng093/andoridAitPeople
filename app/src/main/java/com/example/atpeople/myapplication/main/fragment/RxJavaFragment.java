@@ -34,7 +34,7 @@ public class RxJavaFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     protected void initView() {
-        int radus= BackgroundColorUtil.dip2px(getContext(),10);
+        int radus= BackgroundColorUtil.dip2px(getActivity().getApplicationContext(),10);
         bg_color= BackgroundColorUtil.getRandomColorDrawable(radus,true,1);
         addDemo("Login", Login.class);
     }
@@ -45,9 +45,9 @@ public class RxJavaFragment extends BaseFragment implements View.OnClickListener
     }
 
     private void addDemo(String demoName, Class<? extends Activity> activityClass) {
-        Button b = new Button(getContext());
+        Button b = new Button(getActivity().getApplicationContext());
         LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layoutParams.setMargins(0,BackgroundColorUtil.dip2px(getContext(),10),0,0);
+        layoutParams.setMargins(0,BackgroundColorUtil.dip2px(getActivity().getApplicationContext(),10),0,0);
         b.setLayoutParams(layoutParams);
         b.setText(demoName);
         b.setTag(activityClass);
@@ -61,6 +61,6 @@ public class RxJavaFragment extends BaseFragment implements View.OnClickListener
     @Override
     public void onClick(View view) {
         Class activityClass = (Class) view.getTag();
-        startActivity(new Intent(getContext(), activityClass));
+        startActivity(new Intent(getActivity().getApplicationContext(), activityClass));
     }
 }

@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.alibaba.fastjson.JSONObject;
+import com.example.atpeople.myapplication.AppStart;
 import com.example.atpeople.myapplication.R;
 import com.example.atpeople.myapplication.atPeople.model.AtBean;
 import com.example.atpeople.myapplication.ui.ActivityAlert;
@@ -61,7 +62,6 @@ public class AitPeople extends AppCompatActivity {
     private final String mMentionTextFormat = "{[%s, %s]}";
     static List<AtBean> aitList = new ArrayList<>();
 
-    public static AitPeople instance;
 
     private String msg ="在Android开发中，有许多信息展示需要通过TextView来展现有许多" +
             "信息展示需要通过TextView来展现有许多信息展示需要通过TextView来展现有许多信" +
@@ -75,7 +75,6 @@ public class AitPeople extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.ait_poeple);
         ButterKnife.bind(this);
-        instance = this;
         bt_haha.setBackgroundColor(R.color.material_red_900);
         initData();
     }
@@ -132,7 +131,7 @@ public class AitPeople extends AppCompatActivity {
 
         SpannableString spanText = new SpannableString(name);
         // 把带有@的字符串,赋值到控件上
-        TextView textView = new TextView(instance);
+        TextView textView = new TextView(AppStart.getContext());
         textView.setText(name + " ");
         textView.setTextColor(Color.RED);
         // 再把带有@内容的控件创建一个ViewSpan(就是把文字转成整体图像)
@@ -142,7 +141,7 @@ public class AitPeople extends AppCompatActivity {
         ClickableSpan clickableSpan = new ClickableSpan() {
             @Override
             public void onClick(View widget) {
-                Toast.makeText(instance, "id:" + id, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AppStart.getContext(), "id:" + id, Toast.LENGTH_SHORT).show();
             }
         };
         spanText.setSpan(clickableSpan, 0, spanText.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);

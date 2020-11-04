@@ -7,10 +7,15 @@
         android:padding="@dimen/dp_10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <Button
+        android:id="@+id/bt_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gets all file paths for the folder"
+        />
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rec_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-
     </android.support.v7.widget.RecyclerView>
 </LinearLayout>
