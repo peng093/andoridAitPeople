@@ -48,10 +48,9 @@ public class AitPeople extends AppCompatActivity {
     Button bt_haha;
     @BindView(R.id.tv_folding)
     TextView tv_folding;
-    // <<左移运算，>>右移bai运算 首先把1转为二进制数字,二进制数字向左移动2或3位，后面补0 最后将得到的二进制数字转回对应类型的十进制数
+    // <<左移运算，>>右移运算 首先把1转为二进制数字,二进制数字向左移动2或3位，后面补0 最后将得到的二进制数字转回对应类型的十进制数
     public static final int REQUEST_USER_APPEND = 1 << 2;   // 1 << 2=4
     public static final int REQUEST_TAG_APPEND = 1 << 3;    // 1 << 3=8
-
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -115,37 +114,10 @@ public class AitPeople extends AppCompatActivity {
         });
     }
 
-    /**
-     * 每删除一个字符，都要遍历缓存队列，判断是否是删除了队列中的数据
-     * 如果删除是文字块前面的文字，对于后面的文字块要往前移位
-     * 如果是删除文字块，则把文字块在缓存列表删除后，对于后面的文字块要往前移位
-     * @param start
-     * @param end
-     * @param offset
-     */
-    private void whenDelText(int start, int end,int offset){
-        Iterator iterator = et_view.mRangeManager.iterator();
-        while (iterator.hasNext()) {
-            Range range = (Range) iterator.next();
-            // 判断起始位置是否包裹了文字块，如果包裹了，则把文字块相关信息在内存列表删除
-            if (range.isWrapped(start, end)) {
-                iterator.remove();
-                continue;
-            }
-            // 将end之后的span，挪动offset个位置
-            if (range.getFrom() >= end) {
-                range.setOffset(offset);
-            }
-        }
-    }
-
     @OnClick({R.id.bt_add})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.bt_add:
-//                String formatStr = getUploadFormatText();
-//                Log.e(TAG, "formatStr: " + formatStr);
-//                et_view.getText().delete(3,9);
                 break;
         }
     }
@@ -171,7 +143,6 @@ public class AitPeople extends AppCompatActivity {
 
     /**
      * 把选中用户或话题 插入输入框
-     *
      * @param insertData
      */
     private void insertText(InsertData insertData) {
@@ -195,8 +166,32 @@ public class AitPeople extends AppCompatActivity {
     }
 
     /**
+     * 每删除一个字符，都要遍历缓存队列，判断是否是删除了队列中的数据
+     * 如果删除是文字块前面的文字，对于后面的文字块要往前移位
+     * 如果是删除文字块，则把文字块在缓存列表删除后，对于后面的文字块要往前移位
+     * @param start
+     * @param end
+     * @param offset
+     */
+    private void whenDelText(int start, int end,int offset){
+        Iterator iterator = et_view.mRangeManager.iterator();
+        while (iterator.hasNext()) {
+            Range range = (Range) iterator.next();
+            // 判断起始位置是否包裹了文字块，如果包裹了，则把文字块相关信息在内存列表删除
+            if (range.isWrapped(start, end)) {
+                iterator.remove();
+                continue;
+            }
+            // 将end之后的span，挪动offset个位置
+            if (range.getFrom() >= end) {
+                range.setOffset(offset);
+            }
+        }
+    }
+
+    /**
      * 获取上传给服务端的格式化数据
-     * @return
+     * @return String
      */
     private String getUploadFormatText() {
         String text = et_view.getText().toString();
