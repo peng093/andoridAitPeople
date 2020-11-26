@@ -9,8 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.atPeople.model.Topic;
-import com.example.atpeople.myapplication.atPeople.model.User;
+import com.example.atpeople.myapplication.atPeople.model.TopicBean;
 import com.example.atpeople.myapplication.base.BaseActivity;
 
 import java.util.ArrayList;
@@ -40,36 +39,36 @@ public class TopicList extends BaseActivity {
         topicAdapter = new TopicList.TopicAdapter(new ArrayList<>());
         recycler.setAdapter(topicAdapter);
         topicAdapter.setOnItemClickListener((adapter, view, position) -> {
-            List<Topic> data = topicAdapter.getData();
-            Topic topic = data.get(position);
-            setResult(topic);
+            List<TopicBean> data = topicAdapter.getData();
+            TopicBean topicBean = data.get(position);
+            setResult(topicBean);
         });
     }
 
     @Override
     protected void initData() {
-        List<Topic> result = new ArrayList<>();
+        List<TopicBean> result = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
-            Topic topic = new Topic(i, "topic"+i);
-            result.add(topic);
+            TopicBean topicBean = new TopicBean(i, "topic"+i);
+            result.add(topicBean);
         }
         topicAdapter.setNewData(result);
     }
 
-    public class TopicAdapter extends BaseQuickAdapter<Topic, BaseViewHolder> {
-        public TopicAdapter(@Nullable List<Topic> data) {
+    public class TopicAdapter extends BaseQuickAdapter<TopicBean, BaseViewHolder> {
+        public TopicAdapter(@Nullable List<TopicBean> data) {
             super(R.layout.user_item, data);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, Topic item) {
+        protected void convert(BaseViewHolder helper, TopicBean item) {
             helper.setText(R.id.user_name,item.getTopic());
         }
     }
 
-    private void setResult(Topic topic) {
+    private void setResult(TopicBean topicBean) {
         Intent intent = getIntent();
-        intent.putExtra(RESULT_TOPIC, topic);
+        intent.putExtra(RESULT_TOPIC, topicBean);
         setResult(RESULT_OK, intent);
         finish();
     }

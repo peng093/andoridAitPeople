@@ -5,12 +5,11 @@ import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.atPeople.model.User;
+import com.example.atpeople.myapplication.atPeople.model.UserBean;
 import com.example.atpeople.myapplication.base.BaseActivity;
 
 import java.util.ArrayList;
@@ -39,37 +38,37 @@ public class UserList extends BaseActivity {
         mUserAdapter = new UserAdapter(new ArrayList<>());
         recycler.setAdapter(mUserAdapter);
         mUserAdapter.setOnItemClickListener((adapter, view, position) -> {
-            List<User> data = mUserAdapter.getData();
-            User user = data.get(position);
-            setResult(user);
+            List<UserBean> data = mUserAdapter.getData();
+            UserBean userBean = data.get(position);
+            setResult(userBean);
         });
     }
 
     @Override
     protected void initData() {
-        List<User> result = new ArrayList<>();
+        List<UserBean> result = new ArrayList<>();
         for (int i = 0; i < 50; i++) {
-            User user = new User(i, "name"+i,i % 2 == 0 ? "男" : "女");
-            result.add(user);
+            UserBean userBean = new UserBean(i, "name"+i,i % 2 == 0 ? "男" : "女");
+            result.add(userBean);
         }
         mUserAdapter.setNewData(result);
     }
 
-    public class UserAdapter extends BaseQuickAdapter<User, BaseViewHolder>{
-        public UserAdapter(@Nullable List<User> data) {
+    public class UserAdapter extends BaseQuickAdapter<UserBean, BaseViewHolder>{
+        public UserAdapter(@Nullable List<UserBean> data) {
             super(R.layout.user_item, data);
         }
 
         @Override
-        protected void convert(BaseViewHolder helper, User item) {
+        protected void convert(BaseViewHolder helper, UserBean item) {
             helper.setText(R.id.user_name,item.getUserName())
                   .setText(R.id.user_sex,item.getUserSex());
         }
     }
 
-    private void setResult(User user) {
+    private void setResult(UserBean userBean) {
         Intent intent = getIntent();
-        intent.putExtra(RESULT_USER, user);
+        intent.putExtra(RESULT_USER, userBean);
         setResult(RESULT_OK, intent);
         finish();
     }

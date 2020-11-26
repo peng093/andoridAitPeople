@@ -9,12 +9,12 @@ import java.io.Serializable;
 /**
  * Create by peng on 2020/11/13
  */
-public class User implements Serializable, InsertData {
+public class UserBean implements Serializable, InsertData {
     private int userId;
     private String userName;
     private String userSex;
 
-    public User(int userId, String userName, String userSex) {
+    public UserBean(int userId, String userName, String userSex) {
         this.userId = userId;
         this.userName = userName;
         this.userSex = userSex;

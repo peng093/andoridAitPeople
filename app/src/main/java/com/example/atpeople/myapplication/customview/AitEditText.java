@@ -7,7 +7,7 @@ import android.view.inputmethod.InputConnection;
 
 import com.example.atpeople.myapplication.atPeople.MentionInputConnection;
 import com.example.atpeople.myapplication.atPeople.Range;
-import com.example.atpeople.myapplication.atPeople.interFace.FormatRange;
+import com.example.atpeople.myapplication.atPeople.model.FormatRange;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,7 +4,7 @@ import android.view.KeyEvent;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputConnectionWrapper;
 
-import com.example.atpeople.myapplication.atPeople.interFace.FormatRange;
+import com.example.atpeople.myapplication.atPeople.model.FormatRange;
 import com.example.atpeople.myapplication.customview.AitEditText;
 
 import java.util.List;
@@ -40,6 +40,7 @@ public class MentionInputConnection extends InputConnectionWrapper {
                 } else {
                     // select the mention string
                     mEditText.setSelected(true);
+                    // 如果光标所在位置是文字块，直接删除文字块
                     mEditText.getText().delete(closestRange.getFrom(),closestRange.getTo());
                 }
                 return true;

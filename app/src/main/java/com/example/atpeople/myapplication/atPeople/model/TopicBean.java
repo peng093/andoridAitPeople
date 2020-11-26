@@ -9,11 +9,11 @@ import java.io.Serializable;
 /**
  * Create by peng on 2020/11/26
  */
-public class Topic implements Serializable, InsertData {
+public class TopicBean implements Serializable, InsertData {
     private int topicId;
     private String topic;
 
-    public Topic(int topicId, String topic) {
+    public TopicBean(int topicId, String topic) {
         this.topicId = topicId;
         this.topic = topic;
     }

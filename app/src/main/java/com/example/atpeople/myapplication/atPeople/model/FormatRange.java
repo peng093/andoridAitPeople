@@ -1,4 +1,4 @@
-package com.example.atpeople.myapplication.atPeople.interFace;
+package com.example.atpeople.myapplication.atPeople.model;
 
 import com.example.atpeople.myapplication.atPeople.Range;
 

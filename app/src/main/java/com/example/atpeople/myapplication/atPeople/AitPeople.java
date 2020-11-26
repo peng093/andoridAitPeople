@@ -13,29 +13,21 @@ import android.text.TextUtils;
 import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.atpeople.myapplication.R;
-import com.example.atpeople.myapplication.atPeople.interFace.FormatRange;
+import com.example.atpeople.myapplication.atPeople.model.FormatRange;
 import com.example.atpeople.myapplication.atPeople.interFace.InsertData;
-import com.example.atpeople.myapplication.atPeople.model.AtBean;
-import com.example.atpeople.myapplication.atPeople.model.Topic;
-import com.example.atpeople.myapplication.atPeople.model.User;
+import com.example.atpeople.myapplication.atPeople.model.TopicBean;
+import com.example.atpeople.myapplication.atPeople.model.UserBean;
 import com.example.atpeople.myapplication.customview.AitEditText;
 import com.example.atpeople.myapplication.util.AitpeopleUtil;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -109,22 +101,6 @@ public class AitPeople extends AppCompatActivity {
         });
         // 监听删除按键，如果删除的是文字块，利用et_view.getText().delete进行删除文字块
 //        et_view.setOnKeyListener((v, keyCode, event) -> {
-//           if (event.getAction() == KeyEvent.ACTION_DOWN) {
-//                return false;
-//            }else if(event.getAction() == KeyEvent.ACTION_UP){
-//               if(keyCode==KeyEvent.KEYCODE_DEL){
-//                   int selectionStart = et_view.getSelectionStart();
-//                   int selectionEnd = et_view.getSelectionEnd();
-//                   Range closestRange = getRangeOfClosestMentionString(selectionStart, selectionEnd);
-//                   if(closestRange!=null){
-//                       int to=closestRange.getTo()>et_view.getText().length()?et_view.getText().length():closestRange.getTo();
-//                       et_view.getText().delete(closestRange.getFrom(),to);
-//                       return true; // 如果是文字块，删除事件消费掉，不再继续传递
-//                   }
-//                   return false;
-//               }
-//               return false;
-//           }
 //           return true;
 //        });
         // 监听光标发生改变，不能让光标插入到文字块中
@@ -179,13 +155,13 @@ public class AitPeople extends AppCompatActivity {
         if (resultCode == Activity.RESULT_OK && null != data) {
             switch (requestCode) {
                 case REQUEST_USER_APPEND:
-                    User user = (User) data.getSerializableExtra(UserList.RESULT_USER);
-                    insertText(user);
+                    UserBean userBean = (UserBean) data.getSerializableExtra(UserList.RESULT_USER);
+                    insertText(userBean);
 //                    et_view.getText().insert(0, "");
                     break;
                 case REQUEST_TAG_APPEND:
-                    Topic topic = (Topic) data.getSerializableExtra(TopicList.RESULT_TOPIC);
-                    insertText(topic);
+                    TopicBean topicBean = (TopicBean) data.getSerializableExtra(TopicList.RESULT_TOPIC);
+                    insertText(topicBean);
 //                    et_view.getText().insert(topic);
                     break;
             }
