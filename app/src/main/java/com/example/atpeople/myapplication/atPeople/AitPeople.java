@@ -61,10 +61,6 @@ public class AitPeople extends AppCompatActivity {
     public static final int REQUEST_TAG_APPEND = 1 << 3;    // 1 << 3=8
 
 
-    static List<AtBean> aitList = new ArrayList<>();
-
-
-
     @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -216,9 +212,8 @@ public class AitPeople extends AppCompatActivity {
         // 设置对应颜色
         editable.setSpan(new ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        // 保存文字块的起始位置+展示字符+发给后端的格式字符 end-1才是索引
+        // 保存文字块的起始位置+展示字符+发给后端的格式字符
         FormatRange range = new FormatRange(start, end);
-        range.setShowText(showText);
         range.setUploadFormatText(uploadFormatText);
         et_view.mRangeManager.add(range);
     }
@@ -250,42 +245,7 @@ public class AitPeople extends AppCompatActivity {
         String text=getUploadFormatText();
         // 激活点击事件
         show_tv.setMovementMethod(LinkMovementMethod.getInstance());
-        // {[@haha,99]}替换为@haha ,并保存id和name
-        String newString = getStr(text);
-        // 匹配@name 或者#name,并记录起始位置
-        List<AtBean> atBeanList = AitpeopleUtil.getAtBeanList(newString, aitList);
-        // 给集合对象增加点击事件
-        SpannableString spannableStr = AitpeopleUtil.getClickSpannableString(newString, atBeanList, this);
+        SpannableString spannableStr =AitpeopleUtil.getSpStr(text,this);
         show_tv.setText(spannableStr);
-    }
-
-    private static Pattern PATTERN = Pattern.compile("(?<=\\{\\[)(.+?)(?=\\]\\})");
-
-    /**
-     * @Author Peng
-     * @Date 2019/6/11 17:50
-     * @Describe 将符合格式{[@wawa,99]} 替换为文字@wawa ,并将名字和id存到集合对象中
-     */
-    public static String getStr(String content) {
-        aitList.clear();
-        String newStr = content;
-        Matcher matcher = PATTERN.matcher(content);
-        String text = "";
-        while (matcher.find()) {
-            String NEW = "{[" + matcher.group() + "]}";
-            String[] str = matcher.group().split(",");
-            Log.e(TAG, "str: "+str.toString());
-            // 拼接出一个@name ,带有空格格式
-            String name = str[0] + " ";
-            int id = Integer.valueOf(str[1].trim());
-            AtBean bean = new AtBean(id, name, 0, 0);
-            aitList.add(bean);
-            if (text == "") {
-                text = newStr.replace(NEW, name);
-            } else {
-                text = text.replace(NEW, name);
-            }
-        }
-        return text == "" ? content : text;
     }
 }
