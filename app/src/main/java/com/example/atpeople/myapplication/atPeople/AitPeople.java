@@ -1,55 +1,53 @@
 package com.example.atpeople.myapplication.atPeople;
 
 import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.accessibility.AccessibilityEvent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.alibaba.fastjson.JSONObject;
-import com.example.atpeople.myapplication.AppStart;
 import com.example.atpeople.myapplication.R;
+import com.example.atpeople.myapplication.atPeople.interFace.FormatRange;
+import com.example.atpeople.myapplication.atPeople.interFace.InsertData;
 import com.example.atpeople.myapplication.atPeople.model.AtBean;
-import com.example.atpeople.myapplication.ui.ActivityAlert;
-import com.example.atpeople.myapplication.ui.activityAlert.MainViewModel;
+import com.example.atpeople.myapplication.atPeople.model.Topic;
+import com.example.atpeople.myapplication.atPeople.model.User;
+import com.example.atpeople.myapplication.customview.AitEditText;
 import com.example.atpeople.myapplication.util.AitpeopleUtil;
-import com.example.atpeople.myapplication.util.UtilMoreText;
-import com.example.atpeople.myapplication.util.ViewSpan;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
-import java.util.Arrays;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Create by peng on 2019/7/24
  */
 public class AitPeople extends AppCompatActivity {
     private static final String TAG = "AitPeople";
-    /**
-     * 原理是这样,@的时候跳转到第二个页面,然后返回的时候拼接字符串格式如: [@test2,99]
-     * 拿到字符串之后呢,先把字符串处理,取出里面的id和name,分解来,并截取name和id转整形
-     * 然后生成Span,并设置点击事件,返回SpannableString
-     */
     @BindView(R.id.copy_wechat)
-    EditText mCopyWeChat;
+    AitEditText et_view;
     @BindView(R.id.bt_add)
     Button tv_text;
     @BindView(R.id.show_tv)
@@ -58,16 +56,14 @@ public class AitPeople extends AppCompatActivity {
     Button bt_haha;
     @BindView(R.id.tv_folding)
     TextView tv_folding;
+    // <<左移运算，>>右移bai运算 首先把1转为二进制数字,二进制数字向左移动2或3位，后面补0 最后将得到的二进制数字转回对应类型的十进制数
+    public static final int REQUEST_USER_APPEND = 1 << 2;   // 1 << 2=4
+    public static final int REQUEST_TAG_APPEND = 1 << 3;    // 1 << 3=8
 
-    private final String mMentionTextFormat = "{[%s, %s]}";
+
     static List<AtBean> aitList = new ArrayList<>();
 
 
-    private String msg ="在Android开发中，有许多信息展示需要通过TextView来展现有许多" +
-            "信息展示需要通过TextView来展现有许多信息展示需要通过TextView来展现有许多信" +
-            "息展示需要通过TextView来展现，如果只是普通的信息展现，使用TextView setText(CharSequence " +
-            "str)设置即可，但是当在TextView里的这段内容需要截取某一部分字段，可以被点击以及响应响应的操" +
-            "作，这时候就需要用到SpannableString了，下面通过一段简单的代码实现部分文字被点击响应，及富文本表情的实现";
 
     @SuppressLint("ResourceAsColor")
     @Override
@@ -76,93 +72,186 @@ public class AitPeople extends AppCompatActivity {
         setContentView(R.layout.ait_poeple);
         ButterKnife.bind(this);
         bt_haha.setBackgroundColor(R.color.material_red_900);
-        initData();
+        initView();
     }
 
-    private void initData() {
-        tv_text.setOnClickListener(new View.OnClickListener() {
+    private void initView() {
+        et_view.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onClick(View v) {
-                AddText();
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                // 第一个字符对应的start为0
+                Editable editable = et_view.getText();
+                // 只有删除文字 才会出现start < editable.length()
+                if (start < editable.length()) {
+                    int end = start + count;
+                    // 删除之前的数量count 删除后的数量after
+                    int offset = after - count;
+                    whenDelText(start,end,offset);
+                }
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (count == 1 && !TextUtils.isEmpty(s)) {
+                    char mentionChar = s.toString().charAt(start);
+                    int selectionStart = et_view.getSelectionStart();
+                    if (mentionChar == '@') {
+                        startActivityForResult(UserList.getUserListIntent(AitPeople.this), REQUEST_USER_APPEND);
+                        // 这里是把刚刚输入的@删除掉
+                        et_view.getText().delete(selectionStart - 1, selectionStart);
+                    } else if (mentionChar == '#') {
+                         startActivityForResult(TopicList.getTopicListIntent(AitPeople.this), REQUEST_TAG_APPEND);
+                        et_view.getText().delete(selectionStart - 1, selectionStart);
+                    }
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
             }
         });
-        new UtilMoreText(tv_folding,msg,"...More","Pick up",5,Color.BLUE);
-    }
-
-    private void AddText() {
-        String josnArray = "[1,2,3,4,5,6,7,888,666,999]";
-        List<Integer> list = JSONObject.parseArray(josnArray, Integer.class);
-        List<Integer> list2= GsonToList(josnArray, Integer.class);
-        Log.e(TAG, "gson: " + list2.toString());
-        Log.e(TAG, "json: " + list.toString());
-
-        // 从资源文件取数组
-        String[] testNum = getResources().getStringArray(R.array.testNum);
-        List<String> str=Arrays.asList(getResources().getStringArray(R.array.testString));
-        List<String> testList=Arrays.asList(testNum);
-        String test="";
-        for (String s : str) {
-            test+=s;
-        }
-
-
-        MainViewModel viewModel = new MainViewModel("mvvm测试标题",test,"取消","确定",this);
-        Intent intent=new Intent(this,ActivityAlert.class);
-        intent.putExtra("data",viewModel);
-        startActivity(intent);
-    }
-
-    public static <T> List<T> GsonToList(String gsonStr, Class<T> cls) {
-        Gson gson=new Gson();
-        List<T> list = null;
-        if (gson != null) {
-            list = gson.fromJson(gsonStr, new TypeToken<List<T>>() {}.getType());
-        }
-        return list;
-    }
-
-
-
-    public static SpannableString getSpan(String usrStr) {
-        String name = usrStr.split(":")[0];
-        name = name.substring(2, name.length());
-        final String phone = usrStr.split(":")[1];
-        final int id = Integer.valueOf(phone.substring(0, phone.length() - 2));
-
-        SpannableString spanText = new SpannableString(name);
-        // 把带有@的字符串,赋值到控件上
-        TextView textView = new TextView(AppStart.getContext());
-        textView.setText(name + " ");
-        textView.setTextColor(Color.RED);
-        // 再把带有@内容的控件创建一个ViewSpan(就是把文字转成整体图像)
-        ViewSpan span = new ViewSpan(textView, textView.getMaxWidth());
-        spanText.setSpan(span, 0, spanText.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-        //添加点击事件
-        ClickableSpan clickableSpan = new ClickableSpan() {
+        // 监听删除按键，如果删除的是文字块，利用et_view.getText().delete进行删除文字块
+//        et_view.setOnKeyListener((v, keyCode, event) -> {
+//           if (event.getAction() == KeyEvent.ACTION_DOWN) {
+//                return false;
+//            }else if(event.getAction() == KeyEvent.ACTION_UP){
+//               if(keyCode==KeyEvent.KEYCODE_DEL){
+//                   int selectionStart = et_view.getSelectionStart();
+//                   int selectionEnd = et_view.getSelectionEnd();
+//                   Range closestRange = getRangeOfClosestMentionString(selectionStart, selectionEnd);
+//                   if(closestRange!=null){
+//                       int to=closestRange.getTo()>et_view.getText().length()?et_view.getText().length():closestRange.getTo();
+//                       et_view.getText().delete(closestRange.getFrom(),to);
+//                       return true; // 如果是文字块，删除事件消费掉，不再继续传递
+//                   }
+//                   return false;
+//               }
+//               return false;
+//           }
+//           return true;
+//        });
+        // 监听光标发生改变，不能让光标插入到文字块中
+        et_view.setAccessibilityDelegate(new View.AccessibilityDelegate(){
             @Override
-            public void onClick(View widget) {
-                Toast.makeText(AppStart.getContext(), "id:" + id, Toast.LENGTH_SHORT).show();
+            public void sendAccessibilityEvent(View host, int eventType) {
+                super.sendAccessibilityEvent(host, eventType);
+                if (eventType == AccessibilityEvent.TYPE_VIEW_TEXT_SELECTION_CHANGED){
+
+                }
             }
-        };
-        spanText.setSpan(clickableSpan, 0, spanText.length(), Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-        return spanText;
+        });
+    }
+
+    /**
+     * 每删除一个字符，都要遍历缓存队列，判断是否是删除了队列中的数据
+     * 如果删除是文字块前面的文字，对于后面的文字块要往前移位
+     * 如果是删除文字块，则把文字块在缓存列表删除后，对于后面的文字块要往前移位
+     * @param start
+     * @param end
+     * @param offset
+     */
+    private void whenDelText(int start, int end,int offset){
+        Iterator iterator = et_view.mRangeManager.iterator();
+        while (iterator.hasNext()) {
+            Range range = (Range) iterator.next();
+            // 判断起始位置是否包裹了文字块，如果包裹了，则把文字块相关信息在内存列表删除
+            if (range.isWrapped(start, end)) {
+                iterator.remove();
+                continue;
+            }
+            // 将end之后的span，挪动offset个位置
+            if (range.getFrom() >= end) {
+                range.setOffset(offset);
+            }
+        }
+    }
+
+    @OnClick({R.id.bt_add})
+    public void onViewClicked(View view) {
+        switch (view.getId()) {
+            case R.id.bt_add:
+//                String formatStr = getUploadFormatText();
+//                Log.e(TAG, "formatStr: " + formatStr);
+//                et_view.getText().delete(3,9);
+                break;
+        }
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == 100) {
-            //mentionUser(99,"@QQ");
+        if (resultCode == Activity.RESULT_OK && null != data) {
+            switch (requestCode) {
+                case REQUEST_USER_APPEND:
+                    User user = (User) data.getSerializableExtra(UserList.RESULT_USER);
+                    insertText(user);
+//                    et_view.getText().insert(0, "");
+                    break;
+                case REQUEST_TAG_APPEND:
+                    Topic topic = (Topic) data.getSerializableExtra(TopicList.RESULT_TOPIC);
+                    insertText(topic);
+//                    et_view.getText().insert(topic);
+                    break;
+            }
         }
+        super.onActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * 把选中用户或话题 插入输入框
+     *
+     * @param insertData
+     */
+    private void insertText(InsertData insertData) {
+        if (insertData == null) return;
+        String showText = insertData.showText();
+        String uploadFormatText = insertData.uploadFormatText();
+        int color = insertData.color();
+
+        Editable editable = et_view.getText();
+        int start = et_view.getSelectionStart();
+        int end = start + showText.length();
+        // 插入到指定位置
+        editable.insert(start, showText);
+        // 设置对应颜色
+        editable.setSpan(new ForegroundColorSpan(color), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        // 保存文字块的起始位置+展示字符+发给后端的格式字符 end-1才是索引
+        FormatRange range = new FormatRange(start, end);
+        range.setShowText(showText);
+        range.setUploadFormatText(uploadFormatText);
+        et_view.mRangeManager.add(range);
+    }
+
+    /**
+     * 获取上传给服务端的格式化数据
+     * @return
+     */
+    private String getUploadFormatText() {
+        String text = et_view.getText().toString();
+        Collections.sort(et_view.mRangeManager);
+
+        int lastRangeTo = 0;
+        StringBuilder builder = new StringBuilder("");
+        String newChar;
+        for (FormatRange range : et_view.mRangeManager) {
+            builder.append(text.substring(lastRangeTo, range.getFrom()));
+            // 获取需要上传给后端的数据格式
+            newChar = range.getUploadFormatText();
+            builder.append(newChar);
+            lastRangeTo = range.getTo();
+        }
+        builder.append(text.substring(lastRangeTo));
+        return builder.toString();
+    }
+
+
     public void getString(View view) {
-        String test = "发给打个{[@haha,99]}梵蒂{[#haha,99]}冈地方{[@ppp,11]}妇{[@ASFFDdfdsfdsf4864864sdfsffsdfsf,55]}asdasdadadasdsda{[@萨达所大所多撒爱仕达大所多啊实打实大啊啊四大阿斯顿撒多,55]}";
-        String tt = "@haha 发给#tttt @美滋滋 打个@haha 梵蒂冈地方@pppp 个 ";
-        //激活点击事件
+        String text=getUploadFormatText();
+        // 激活点击事件
         show_tv.setMovementMethod(LinkMovementMethod.getInstance());
         // {[@haha,99]}替换为@haha ,并保存id和name
-        String newString = getStr(ToDBC(test));
+        String newString = getStr(text);
         // 匹配@name 或者#name,并记录起始位置
         List<AtBean> atBeanList = AitpeopleUtil.getAtBeanList(newString, aitList);
         // 给集合对象增加点击事件
@@ -185,9 +274,10 @@ public class AitPeople extends AppCompatActivity {
         while (matcher.find()) {
             String NEW = "{[" + matcher.group() + "]}";
             String[] str = matcher.group().split(",");
+            Log.e(TAG, "str: "+str.toString());
             // 拼接出一个@name ,带有空格格式
             String name = str[0] + " ";
-            int id = Integer.valueOf(str[1]);
+            int id = Integer.valueOf(str[1].trim());
             AtBean bean = new AtBean(id, name, 0, 0);
             aitList.add(bean);
             if (text == "") {
@@ -197,26 +287,5 @@ public class AitPeople extends AppCompatActivity {
             }
         }
         return text == "" ? content : text;
-    }
-
-    /**
-     * 半角转换为全角
-     *
-     * @param input
-     * @return
-     */
-    public static String ToDBC(String input) {
-        char[] c = input.toCharArray();
-        for (int i = 0; i < c.length; i++) {
-            if (c[i] == 12288) {
-                c[i] = (char) 32;
-                continue;
-            }
-            if (c[i] > 65280 && c[i] < 65375) {
-                c[i] = (char) (c[i] - 65248);
-            }
-
-        }
-        return new String(c);
     }
 }

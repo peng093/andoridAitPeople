@@ -8,6 +8,7 @@ import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.View;
 
 import com.example.atpeople.myapplication.atPeople.model.AtBean;
@@ -54,20 +55,13 @@ public class AitpeopleUtil {
     public static SpannableString getClickSpannableString(String str, List<AtBean> atBeanList, final Activity activity) {
         SpannableString spannableStr = new SpannableString(str);
         for (final AtBean atBean : atBeanList) {
-            Clickable clickableSpan=new Clickable(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Intent intent = new Intent(activity, CircularProgressView.class);
-                    intent.putExtra("id", atBean.getId());
-                    activity.startActivity(intent);
-                }
-            },Color.RED);
+            Clickable clickableSpan=new Clickable(v -> {
+                Intent intent = new Intent(activity, CircularProgressView.class);
+                intent.putExtra("id", atBean.getId());
+                activity.startActivity(intent);
+            },atBean.getName().startsWith("@")?Color.RED:Color.GREEN);
+            Log.e(TAG, "st: "+atBean.getStartPos()+",end:"+atBean.getEndPos() );
             spannableStr.setSpan(clickableSpan, atBean.getStartPos(), atBean.getEndPos(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-            // color
-            spannableStr.setSpan(new ForegroundColorSpan(atBean.getName().startsWith("@")?
-                            Color.parseColor("#508EF5"):Color.parseColor("#F46918")),
-                    atBean.getStartPos(), atBean.getEndPos(),
-                    Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         }
         return spannableStr;
     }

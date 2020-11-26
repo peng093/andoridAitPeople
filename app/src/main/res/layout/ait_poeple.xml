@@ -1,16 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:pv="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
-
-    <EditText
+    <com.example.atpeople.myapplication.customview.AitEditText
         android:id="@+id/copy_wechat"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
-
     <Button
         android:id="@+id/bt_add"
         android:layout_width="match_parent"
@@ -35,21 +31,5 @@
         android:id="@+id/tv_folding"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         />
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        >
-        <TextView
-            android:id="@+id/textview3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:text="This is FadeTextView风格的风格的"
-            android:textColor="#ff0000"
-            android:textSize="20sp"/>
-    </LinearLayout>
 </LinearLayout>

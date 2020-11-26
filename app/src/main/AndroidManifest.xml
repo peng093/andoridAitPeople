@@ -87,6 +87,8 @@
         <activity android:name=".ui.ImageSelectActivity"/>
         <activity android:name=".GestureLockActivity"/>
         <activity android:name=".ui.ListDrag"/>
+        <activity android:name=".atPeople.UserList"/>
+        <activity android:name=".atPeople.TopicList"/>
         <!--图片选择器star-->
         <activity
             android:name="cn.finalteam.rxgalleryfinal.ui.activity.MediaActivity"
