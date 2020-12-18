@@ -23,6 +23,7 @@ import com.example.atpeople.myapplication.ui.ImageSelectActivity;
 import com.example.atpeople.myapplication.ui.ListDrag;
 import com.example.atpeople.myapplication.ui.ScanQRCode;
 import com.example.atpeople.myapplication.ui.SendSmsActivity;
+import com.example.atpeople.myapplication.ui.annotation.AnnotationActivity;
 import com.example.atpeople.myapplication.ui.betterSpinner.Spinner;
 import com.example.atpeople.myapplication.ui.calendar.GoogleCalendarActivity;
 import com.example.atpeople.myapplication.ui.canvas.CanvasView;
@@ -116,6 +117,7 @@ public class UiFragment extends BaseFragment implements View.OnClickListener {
         addDemo("扫一扫", ScanQRCode.class);
         addDemo("图片选择器,压缩对比", ImageSelectActivity.class);
         addDemo("列表拖拽", ListDrag.class);
+        addDemo("自定义注解绑定类、属性、方法", AnnotationActivity.class);
         initFloatMenu();
     }
 
